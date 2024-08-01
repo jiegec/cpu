@@ -1,7 +1,11 @@
 site_name: CPU Microarchitecture Diagrams
 site_url: https://jia.je/cpu
+repo_url: https://github.com/jiegec/cpu
+edit_url: edit/main/docs/
 theme:
   name: material
+  icon:
+    repo: fontawesome/brands/github
 plugins:
   - git-revision-date-localized:
       enable_creation_date: true
@@ -9,9 +13,16 @@ plugins:
       layout: elk
       sketch: true
   - glightbox
+  - search
+  - offline
 markdown_extensions:
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+extra:
+  analytics:
+    provider: google
+    property: G-3109FRSVTT
+copyright: Copyright &copy; 2024 Jiajie Chen
