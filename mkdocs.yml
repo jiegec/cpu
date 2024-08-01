@@ -1,7 +1,7 @@
 site_name: CPU Microarchitecture Diagrams
 site_url: https://jia.je/cpu
 repo_url: https://github.com/jiegec/cpu
-edit_url: edit/main/docs/
+edit_uri: edit/main/docs/
 theme:
   name: material
   icon:
