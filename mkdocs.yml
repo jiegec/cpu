@@ -1,0 +1,15 @@
+site_name: CPU Microarchitecture Diagrams
+site_url: https://jia.je/cpu
+theme:
+  name: material
+plugins:
+  - d2:
+      layout: elk
+      sketch: true
+  - glightbox
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
