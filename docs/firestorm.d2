@@ -44,7 +44,7 @@ cpu : Qualcomm Oryon CPU {
       sched1: 24-entry Scheduler \#1
 
       # Source: Dougall Johnson
-      pipe1 {
+      pipe1: Pipe \#1 {
         ALU
         FLAGS
         B/BL/ADR
@@ -57,7 +57,7 @@ cpu : Qualcomm Oryon CPU {
       sched2: 26-entry Scheduler \#2
 
       # Source: Dougall Johnson
-      pipe2 {
+      pipe2: Pipe \#2 {
         ALU
         FLAGS
         B/Bl/ADR
@@ -71,7 +71,7 @@ cpu : Qualcomm Oryon CPU {
       sched3: 16-entry Scheduler \#3
 
       # Source: Dougall Johnson
-      pipe3 {
+      pipe3: Pipe \#3 {
         ALU
         FLAGS
         FROM FP
@@ -85,7 +85,7 @@ cpu : Qualcomm Oryon CPU {
       sched4: 12-entry Scheduler \#4
 
       # Source: Dougall Johnson
-      pipe4 {
+      pipe4: Pipe \#4 {
         ALU
         FROM FP
       }
@@ -95,7 +95,7 @@ cpu : Qualcomm Oryon CPU {
       sched5: 28-entry Scheduler \#5
 
       # Source: Dougall Johnson
-      pipe5 {
+      pipe5: Pipe \#5 {
         ALU
         MUL
         DIV
@@ -106,7 +106,7 @@ cpu : Qualcomm Oryon CPU {
       sched6: 28-entry Scheduler \#6
 
       # Source: Dougall Johnson
-      pipe6 {
+      pipe6: Pipe \#6 {
         ALU
         MUL
         MADD
@@ -128,14 +128,14 @@ cpu : Qualcomm Oryon CPU {
       dispatch3 -> sched7
 
       # Source: Dougall Johnson
-      pipe7 {
+      pipe7: Pipe \#7 {
         STORE
         AMX
       }
       sched7 -> pipe7
 
       # Source: Dougall Johnson
-      pipe8 {
+      pipe8: Pipe \#8 {
         LOAD
         STORE
         AMX
@@ -143,7 +143,7 @@ cpu : Qualcomm Oryon CPU {
       sched7 -> pipe8
 
       # Source: Dougall Johnson
-      pipe9 {
+      pipe9: Pipe \#9 {
         LOAD
       }
       sched7 -> pipe9
