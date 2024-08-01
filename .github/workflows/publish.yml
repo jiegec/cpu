@@ -19,5 +19,5 @@ jobs:
       - uses: Gr1N/setup-poetry@v9
       - run: curl -fsSL https://d2lang.com/install.sh | sh -s --
       - run: poetry install
-      - run: cd docs && ./build.sh
+      - run: cd docs && make
       - run: poetry run mkdocs gh-deploy --force
