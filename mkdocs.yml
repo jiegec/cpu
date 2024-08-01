@@ -3,6 +3,8 @@ site_url: https://jia.je/cpu
 theme:
   name: material
 plugins:
+  - git-revision-date-localized:
+      enable_creation_date: true
   - d2:
       layout: elk
       sketch: true
