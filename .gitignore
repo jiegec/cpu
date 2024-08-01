@@ -1,2 +1,3 @@
 .cache/
 site/
+*.svg

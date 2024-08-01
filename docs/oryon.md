@@ -1,6 +1,6 @@
 # Qualcomm Oryon
 
-![](./oryon.d2)
+![](./oryon.svg)
 
 References:
 

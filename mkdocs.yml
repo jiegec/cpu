@@ -9,10 +9,8 @@ theme:
 plugins:
   - git-revision-date-localized:
       enable_creation_date: true
-  - d2:
-      layout: elk
-      sketch: true
-  - glightbox
+  - glightbox:
+      width: 100vw
   - search
   - offline
 markdown_extensions:

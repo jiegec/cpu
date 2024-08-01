@@ -1,6 +1,6 @@
 # Apple Firestorm in Apple M1
 
-![](./firestorm.d2)
+![](./firestorm.svg)
 
 References:
 
