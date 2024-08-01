@@ -170,6 +170,7 @@ cpu : Qualcomm Oryon CPU {
       sched10 -> pipe10
 
       lsu: LSU {
+        # Source: Chips and Cheese, Anandtech
         192-entry Load Queue
         56-entry Store Queue
       }
@@ -246,8 +247,6 @@ cpu : Qualcomm Oryon CPU {
 
       # Source: Chips and Cheese, Anandtech
       l1dc: 96KB 6-way L1DC, 56-entry MSHR
-
-      l1dtlb -> l1dc
     }
 
     l2: L2 {

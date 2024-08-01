@@ -1,0 +1,250 @@
+cpu : Qualcomm Oryon CPU {
+  frontend: Frontend {
+    bp: Branch Predictor {
+      # Source: JamesAslan
+      l0btb: 2048-entry L0 BTB, 1 cycle latency
+
+      # Source: JamesAslan
+      l1btb: 192KB L1 IC as L1 BTB, 3 cycle latency
+
+      # Source: jiegec
+      ras: 50-entry RAS
+    }
+
+    # Coupled Frontend
+    l1ic: L1 IC {
+      # Source: Dougall Johnson
+      l1ic: 192KB L1 IC
+    }
+
+    bp -> l1ic
+
+    # Source: Dougall Johnson
+    decode: 8-way Decode
+    l1ic -> decode
+    decode -> bp
+
+    # Source: Dougall Johnson
+    rename: 8-way Rename
+    decode -> rename
+  }
+
+  backend: Backend {
+    # Source: Dougall Johnson
+    rob: Coalesced ROB
+
+    int: Integer {
+      # Source: Dougall Johnson
+      irf: Integer Register File
+
+      # Source: Dougall Johnson
+      dispatch1: 12-entry Dispatch Queue \#1
+
+      # Source: Dougall Johnson
+      sched1: 24-entry Scheduler \#1
+
+      # Source: Dougall Johnson
+      pipe1 {
+        ALU
+        FLAGS
+        B/BL/ADR
+        MOV NZCV
+        MRS
+      }
+      dispatch1 -> sched1 -> irf -> pipe1
+
+      # Source: Dougall Johnson
+      sched2: 26-entry Scheduler \#2
+
+      # Source: Dougall Johnson
+      pipe2 {
+        ALU
+        FLAGS
+        B/Bl/ADR
+        MOV NZCV
+        PTRAUTH
+        BR/BLR
+      }
+      dispatch1 -> sched2 -> irf -> pipe2
+
+      # Source: Dougall Johnson
+      sched3: 16-entry Scheduler \#3
+
+      # Source: Dougall Johnson
+      pipe3 {
+        ALU
+        FLAGS
+        FROM FP
+      }
+      dispatch1 -> sched3 -> irf -> pipe3
+
+      # Source: Dougall Johnson
+      dispatch2: 12-entry Dispatch Queue \#2
+
+      # Source: Dougall Johnson
+      sched4: 12-entry Scheduler \#4
+
+      # Source: Dougall Johnson
+      pipe4 {
+        ALU
+        FROM FP
+      }
+      dispatch2 -> sched4 -> irf -> pipe4
+
+      # Source: Dougall Johnson
+      sched5: 28-entry Scheduler \#5
+
+      # Source: Dougall Johnson
+      pipe5 {
+        ALU
+        MUL
+        DIV
+      }
+      dispatch2 -> sched5 -> irf -> pipe5
+
+      # Source: Dougall Johnson
+      sched6: 28-entry Scheduler \#6
+
+      # Source: Dougall Johnson
+      pipe6 {
+        ALU
+        MUL
+        MADD
+        BFM
+        CRC
+      }
+      dispatch2 -> sched6 -> irf -> pipe6
+    }
+
+    rob -> int.dispatch1
+    rob -> int.dispatch2
+
+    mem: Memory {
+      # Source: Dougall Johnson
+      dispatch3: 10-entry Dispatch Queue \#3
+
+      # Source: Dougall Johnson
+      sched7: 48-entry Scheduler \#7
+      dispatch3 -> sched7
+
+      # Source: Dougall Johnson
+      pipe7 {
+        STORE
+        AMX
+      }
+      sched7 -> pipe7
+
+      # Source: Dougall Johnson
+      pipe8 {
+        LOAD
+        STORE
+        AMX
+      }
+      sched7 -> pipe8
+
+      # Source: Dougall Johnson
+      pipe9 {
+        LOAD
+      }
+      sched7 -> pipe9
+
+      # Source: Dougall Johnson
+      pipe10 {
+        LOAD
+      }
+      sched7 -> pipe10
+
+      lsu: LSU {
+        # Source: Dougall Johnson
+        130-entry Load Queue
+        60-entry Store Queue
+      }
+
+      pipe7 -> lsu
+      pipe8 -> lsu
+      pipe9 -> lsu
+      pipe10 -> lsu
+    }
+    rob -> mem.dispatch3
+
+    vector: Vector and FP {
+      # Source: Dougall Johnson
+      vrf: 128b Vector Register File
+
+      # Source: Dougall Johnson
+      dispatch4: 12-entry Dispatch Queue \#4
+
+      # Source: Dougall Johnson
+      sched8: 36-entry Scheduler \#8
+
+      # Source: Dougall Johnson
+      pipe11 {
+        FP/SIMD
+      }
+      dispatch4 -> sched8 -> vrf -> pipe11
+
+      # Source: Dougall Johnson
+      sched9: 36-entry Scheduler \#9
+
+      # Source: Dougall Johnson
+      pipe12 {
+        FP/SIMD
+      }
+      dispatch4 -> sched9 -> vrf -> pipe12
+
+      # Source: Dougall Johnson
+      sched10: 36-entry Scheduler \#10
+
+      # Source: Dougall Johnson
+      pipe13 {
+        FP/SIMD
+        FCSEL
+        TO INT
+      }
+      dispatch4 -> sched10 -> vrf -> pipe13
+
+      # Source: Dougall Johnson
+      sched11: 36-entry Scheduler \#11
+
+      # Source: Dougall Johnson
+      pipe14 {
+        FP/SIMD
+        FCSEL
+        TO INT
+        DIV?RECP
+        SQRT/SHA
+        JCVTZS
+      }
+      dispatch4 -> sched11 -> vrf -> pipe14
+    }
+    rob -> vector.dispatch4
+  }
+  frontend.rename -> backend.rob
+
+  mem: Memory {
+    l1: L1 DC {
+      # Source: Anandtech
+      l1dtlb: 256-entry L1 DTLB
+      
+      # Source: Dougall Johnson
+      l1dc: 128KB 8-way L1DC
+    }
+
+    l2: L2 {
+      # Source: Anandtech
+      l2tlb: 3072-entry L2 TLB
+
+      # Source: Dougall Johnson
+      l2dc: 12MB L2 Cache per 4-Core cluster
+    }
+    l1 -> l2
+  }
+  frontend.l1ic -> mem.l2
+  backend.mem.lsu -> mem.l1
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from Dougall Johnson, JamesAslan
+  |
+}
