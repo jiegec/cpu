@@ -1,10 +1,10 @@
 cpu : AMD Zen4 CPU {
   frontend: Frontend {
     bp: Branch Predictor {
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, AMD
       l1btb: 1536-entry L1 BTB
 
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, AMD
       l2btb: 7168-entry L2 BTB
 
       # Source: Chips and Cheese
@@ -36,8 +36,8 @@ cpu : AMD Zen4 CPU {
     decode: 4-way Decode
     iq -> decode
 
-    # Source: Chips and Cheese
-    uopc: 6.75k-entry UOP Cache
+    # Source: Chips and Cheese, AMD
+    uopc: 6912-entry UOP Cache
     decode -> uopc
     bp -> uopc
 
@@ -59,7 +59,7 @@ cpu : AMD Zen4 CPU {
     rob: 320-entry ROB
 
     rf: Integer/Flags Register File {
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, AMD
       irf: 224-entry Integer Register File
 
       # Source: Chips and Cheese
@@ -128,8 +128,8 @@ cpu : AMD Zen4 CPU {
     sched4 -> rf -> pipe8
 
     lsu: LSU {
-      # Source: Chips and Cheese
-      136-entry Load Queue
+      # Source: Chips and Cheese, AMD
+      88-entry Load Queue
       64-entry Store Queue
     }
 
@@ -146,7 +146,7 @@ cpu : AMD Zen4 CPU {
     nsq: 64-entry Non-Scheduling Queue
     rob -> nsq
 
-    # Source: Chips and Cheese
+    # Source: Chips and Cheese, AMD
     vrf: FP/Vector Register File {
       68-entry Vector Mask Register File
       192-entry 512b Vector Register File
@@ -213,15 +213,15 @@ cpu : AMD Zen4 CPU {
 
     l2: L2 {
       # Source: Chips and Cheese, AMD
-      l2dc: 1MB 8-way L2 Cache
+      l2dc: 1MB 8-way L2 Cache, 14 cycle latency
     }
 
     # Source: Chips and Cheese
     l1 -> l2
 
     l3: L3 {
-      # Source: Chips and Cheese
-      l3dc: 32MB 16-way L3 Cache
+      # Source: Chips and Cheese, AMD
+      l3dc: 32MB (4MB/core) 16-way L3 Cache, 50 cycle latency
     }
     l2 -> l3
   }
