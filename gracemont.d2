@@ -56,7 +56,7 @@ cpu : Intel Alder Lake Gracement CPU {
     # Source: Chips and Cheese, Intel
     rob: 256-entry ROB
 
-    int: Integer {
+    int: Integer/Memory {
       # Source: Chips and Cheese
       irf: 214-entry Integer Register File
 
@@ -65,6 +65,7 @@ cpu : Intel Alder Lake Gracement CPU {
 
       # Source: Chips and Cheese, Intel
       pipe1: Port 0 {
+        grid-columns: 1
         ALU
         SHIFT
       }
@@ -75,6 +76,7 @@ cpu : Intel Alder Lake Gracement CPU {
 
       # Source: Chips and Cheese
       pipe2: Port 1 {
+        grid-columns: 1
         ALU
         SHIFT
         INT MUL
@@ -87,6 +89,7 @@ cpu : Intel Alder Lake Gracement CPU {
 
       # Source: Chips and Cheese, Intel
       pipe3: Port 2 {
+        grid-columns: 1
         ALU
         SHIFT
         INT MUL
@@ -100,6 +103,7 @@ cpu : Intel Alder Lake Gracement CPU {
 
       # Source: Chips and Cheese, Intel
       pipe4: Port 3 {
+        grid-columns: 1
         ALU
         SHIFT
       }
@@ -119,57 +123,54 @@ cpu : Intel Alder Lake Gracement CPU {
         JMP/Branch
       }
       sched5 -> irf -> pipe6
-    }
 
-    rob -> int.sched1
-    rob -> int.sched2
-    rob -> int.sched3
-    rob -> int.sched4
-    rob -> int.sched5
-
-    mem: Memory {
       # Source: Chips and Cheese
       nsq: 22-entry Non-Scheduling Queue
 
       # Source: Chips and Cheese
-      sched2: 22-entry Scheduler
-      nsq -> sched2
+      sched6: 22-entry Scheduler
+      nsq -> sched6
+      nsq -> sched6
+      nsq -> sched6
+      nsq -> sched6
+      nsq -> sched6
+      nsq -> sched6
 
       # Source: Chips and Cheese, Intel
       pipe7: Port 10 {
         Load AGU
       }
-      sched2 -> pipe7
+      sched6 -> irf -> pipe7
 
       # Source: Chips and Cheese, Intel
       pipe8: Port 11 {
         Load AGU
       }
-      sched2 -> pipe8
+      sched6 -> irf -> pipe8
 
       # Source: Chips and Cheese, Intel
       pipe9: Port 12 {
         Store AGU
       }
-      sched2 -> pipe9
+      sched6 -> irf -> pipe9
 
       # Source: Chips and Cheese, Intel
       pipe10: Port 13 {
         Store AGU
       }
-      sched2 -> pipe10
+      sched6 -> irf -> pipe10
 
       # Source: Chips and Cheese, Intel
       pipe11: Port 8 {
         Store Data
       }
-      sched2 -> pipe11
+      sched6 -> irf -> pipe11
 
       # Source: Chips and Cheese, Intel
       pipe12: Port 9 {
         Store Data
       }
-      sched2 -> pipe12
+      sched6 -> irf -> pipe12
 
       lsu: LSU {
         # Source: Chips and Cheese
@@ -184,7 +185,13 @@ cpu : Intel Alder Lake Gracement CPU {
       pipe11 -> lsu
       pipe12 -> lsu
     }
-    rob -> mem.nsq
+
+    rob -> int.sched1
+    rob -> int.sched2
+    rob -> int.sched3
+    rob -> int.sched4
+    rob -> int.sched5
+    rob -> int.nsq
 
     vec: Vector/FP {
       # Source: Chips and Cheese
@@ -195,6 +202,7 @@ cpu : Intel Alder Lake Gracement CPU {
 
       # Source: Chips and Cheese
       sched3: 18-entry Scheduler
+      nsq -> sched3
       nsq -> sched3
 
       # Source: Chips and Cheese, Intel
@@ -212,9 +220,12 @@ cpu : Intel Alder Lake Gracement CPU {
       # Source: Chips and Cheese
       sched4: 35-entry Scheduler
       nsq -> sched4
+      nsq -> sched4
+      nsq -> sched4
 
       # Source: Chips and Cheese, Intel
       pipe15: Port 20 {
+        grid-columns: 1
         INT Vec ALU
         INT Vec MUL
         FMA
@@ -228,6 +239,7 @@ cpu : Intel Alder Lake Gracement CPU {
 
       # Source: Chips and Cheese, Intel
       pipe16: Port 21 {
+        grid-columns: 1
         INT Vec ALU
         FMA
         FADD
@@ -274,7 +286,7 @@ cpu : Intel Alder Lake Gracement CPU {
     l2 -> l3
   }
   frontend.l1ic -> mem.l2
-  backend.mem.lsu -> mem.l1
+  backend.int.lsu -> mem.l1
 
   info: |md
     Drawn by Jiajie Chen @jiegec
