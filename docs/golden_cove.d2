@@ -65,12 +65,13 @@ cpu : Intel Alder Lake Golden Cove CPU {
     }
     rob -> rf
 
-    int: Integer {
+    int: Integer/Vector {
       # Source: Chips and Cheese
       sched1: 97-entry Unified Math Scheduler
 
       # Source: Chips and Cheese, Intel
       pipe1: Port 0 {
+        grid-columns: 1
         ALU
         LEA
         Shift
@@ -84,6 +85,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
 
       # Source: Chips and Cheese, Intel
       pipe2: Port 1 {
+        grid-columns: 1
         ALU
         LEA
         INT MUL
@@ -98,6 +100,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
 
       # Source: Chips and Cheese, Intel
       pipe3: Port 5 {
+        grid-columns: 1
         ALU
         LEA
         MulHi
@@ -111,6 +114,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
 
       # Source: Chips and Cheese, Intel
       pipe4: Port 6 {
+        grid-columns: 1
         ALU
         LEA
         Shift
@@ -120,6 +124,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
 
       # Source: Chips and Cheese, Intel
       pipe5: Port 10 {
+        grid-columns: 1
         ALU
         LEA
       }
