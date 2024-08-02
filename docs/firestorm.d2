@@ -114,25 +114,19 @@ cpu : Apple M1 Firestorm CPU {
         CRC
       }
       dispatch2 -> sched6 -> irf -> pipe6
-    }
 
-    rob -> int.dispatch1
-    rob -> int.dispatch2
-
-    mem: Memory {
       # Source: Dougall Johnson
       dispatch3: 10-entry Dispatch Queue \#3
 
       # Source: Dougall Johnson
       sched7: 48-entry Scheduler \#7
-      dispatch3 -> sched7
 
       # Source: Dougall Johnson
       pipe7: Pipe \#7 {
         STORE
         AMX
       }
-      sched7 -> pipe7
+      dispatch3 -> sched7 -> irf -> pipe7
 
       # Source: Dougall Johnson
       pipe8: Pipe \#8 {
@@ -140,19 +134,19 @@ cpu : Apple M1 Firestorm CPU {
         STORE
         AMX
       }
-      sched7 -> pipe8
+      dispatch3 -> sched7 -> irf -> pipe8
 
       # Source: Dougall Johnson
       pipe9: Pipe \#9 {
         LOAD
       }
-      sched7 -> pipe9
+      dispatch3 -> sched7 -> irf -> pipe9
 
       # Source: Dougall Johnson
       pipe10 {
         LOAD
       }
-      sched7 -> pipe10
+      dispatch3 -> sched7 -> irf -> pipe10
 
       lsu: LSU {
         # Source: Dougall Johnson
@@ -165,7 +159,10 @@ cpu : Apple M1 Firestorm CPU {
       pipe9 -> lsu
       pipe10 -> lsu
     }
-    rob -> mem.dispatch3
+
+    rob -> int.dispatch1
+    rob -> int.dispatch2
+    rob -> int.dispatch3
 
     vector: Vector and FP {
       # Source: Dougall Johnson
@@ -240,7 +237,7 @@ cpu : Apple M1 Firestorm CPU {
     l1 -> l2
   }
   frontend.l1ic -> mem.l2
-  backend.mem.lsu -> mem.l1
+  backend.int.lsu -> mem.l1
 
   info: |md
     Drawn by Jiajie Chen @jiegec
