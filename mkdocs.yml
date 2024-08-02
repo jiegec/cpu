@@ -29,6 +29,8 @@ plugins:
       height: 100vh
   - search
   - offline
+  - social:
+      cards_font: Noto Sans SC
 markdown_extensions:
   - pymdownx.superfences:
       custom_fences:
