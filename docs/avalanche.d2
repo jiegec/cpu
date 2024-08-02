@@ -1,0 +1,228 @@
+cpu : Apple M2 Avalanche CPU {
+  frontend: Frontend {
+    bp: Branch Predictor {
+      # Source: JamesAslan
+      l0btb: 1024-entry L0 BTB, 1 cycle latency
+
+      # Source: JamesAslan
+      l1btb: 3072-entry L1 BTB, 2 cycle latency
+
+      # Source: JamesAslan
+      l2btb: 192KB L1 IC as L1 BTB, 3 cycle latency
+    }
+
+    # Coupled Frontend
+    l1ic: L1 IC {
+      # Source: Geekerwan
+      l1ic: 192KB L1 IC
+    }
+
+    bp -> l1ic
+
+    # Source: Geekerwan
+    decode: 8-way Decode
+    l1ic -> decode
+    decode -> bp
+
+    # Source: Geekerwan
+    rename: 8-way Rename
+    decode -> rename
+  }
+
+  backend: Backend {
+    # Source: Geekerwan
+    rob: 274-entry Coalesced ROB
+
+    int: Integer {
+      # Source: Geekerwan
+      irf: ~350-entry Integer Register File
+
+      # Source: Geekerwan
+      dispatch1: 12-entry Dispatch Queue \#1
+
+      # Source: Geekerwan
+      sched1: 24-entry Scheduler \#1
+
+      # Source: Geekerwan
+      pipe1: Pipe \#1 {
+        ALU
+        BR
+        FLAGS
+        ADR
+      }
+      dispatch1 -> sched1 -> irf -> pipe1
+
+      # Source: Geekerwan
+      sched2: 26-entry Scheduler \#2
+
+      # Source: Geekerwan
+      pipe2: Pipe \#2 {
+        ALU
+        BR
+        FLAGS
+        ADR
+      }
+      dispatch1 -> sched2 -> irf -> pipe2
+
+      # Source: Geekerwan
+      sched3: 16-entry Scheduler \#3
+
+      # Source: Geekerwan
+      pipe3: Pipe \#3 {
+        ALU
+        FLAGS
+      }
+      dispatch1 -> sched3 -> irf -> pipe3
+
+      # Source: Geekerwan
+      dispatch2: 12-entry Dispatch Queue \#2
+
+      # Source: Geekerwan
+      sched4: 12-entry Scheduler \#4
+
+      # Source: Geekerwan
+      pipe4: Pipe \#4 {
+        ALU
+      }
+      dispatch2 -> sched4 -> irf -> pipe4
+
+      # Source: Geekerwan
+      sched5: 28-entry Scheduler \#5
+
+      # Source: Geekerwan
+      pipe5: Pipe \#5 {
+        ALU
+        MUL
+        DIV
+      }
+      dispatch2 -> sched5 -> irf -> pipe5
+
+      # Source: Geekerwan
+      sched6: 28-entry Scheduler \#6
+
+      # Source: Geekerwan
+      pipe6: Pipe \#6 {
+        ALU
+        MUL
+        BFM
+        MADD
+      }
+      dispatch2 -> sched6 -> irf -> pipe6
+
+      # Source: Geekerwan
+      dispatch3: 10-entry Dispatch Queue \#3
+
+      # Source: Geekerwan
+      sched7: 52-entry Scheduler \#7
+
+      # Source: Geekerwan
+      pipe7: Pipe \#7 {
+        STORE
+      }
+      dispatch3 -> sched7 -> irf -> pipe7
+
+      # Source: Geekerwan
+      pipe8: Pipe \#8 {
+        LOAD
+        STORE
+      }
+      dispatch3 -> sched7 -> irf -> pipe8
+
+      # Source: Geekerwan
+      pipe9: Pipe \#9 {
+        LOAD
+      }
+      dispatch3 -> sched7 -> irf -> pipe9
+
+      # Source: Geekerwan
+      pipe10 {
+        LOAD
+      }
+      dispatch3 -> sched7 -> irf -> pipe10
+
+      lsu: LSU {
+        # Source: Geekerwan
+        128-entry Load Queue
+        60-entry Store Queue
+      }
+
+      pipe7 -> lsu
+      pipe8 -> lsu
+      pipe9 -> lsu
+      pipe10 -> lsu
+    }
+
+    rob -> int.dispatch1
+    rob -> int.dispatch2
+    rob -> int.dispatch3
+
+    vector: Vector and FP {
+      # Source: Geekerwan
+      vrf: ~380-entry 128b Vector Register File
+
+      # Source: Geekerwan
+      dispatch4: 12-entry Dispatch Queue \#4
+
+      # Source: Geekerwan
+      sched8: 36-entry Scheduler \#8
+
+      # Source: Geekerwan
+      pipe11 {
+        FP
+        SIMD
+      }
+      dispatch4 -> sched8 -> vrf -> pipe11
+
+      # Source: Geekerwan
+      sched9: 36-entry Scheduler \#9
+
+      # Source: Geekerwan
+      pipe12 {
+        FP
+        SIMD
+      }
+      dispatch4 -> sched9 -> vrf -> pipe12
+
+      # Source: Geekerwan
+      sched10: 36-entry Scheduler \#10
+
+      # Source: Geekerwan
+      pipe13 {
+        FP
+        SIMD
+        TO INT
+      }
+      dispatch4 -> sched10 -> vrf -> pipe13
+
+      # Source: Geekerwan
+      sched11: 36-entry Scheduler \#11
+
+      # Source: Geekerwan
+      pipe14 {
+        FP
+        SIMD
+        FSQRT
+        FCSEL
+        TO INT
+      }
+      dispatch4 -> sched11 -> vrf -> pipe14
+    }
+    rob -> vector.dispatch4
+  }
+  frontend.rename -> backend.rob
+
+  mem: Memory {
+    l1: L1 DC {
+      # Source: Geekerwan
+      l1dc: 128KB L1DC
+    }
+  }
+  frontend.l1ic -> mem.l2
+  backend.int.lsu -> mem.l1
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from Geekerwan
+  |
+}
