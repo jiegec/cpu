@@ -1,4 +1,4 @@
-# Apple Firestorm as Apple M1 P-core
+# Apple M1 P-core aka Firestorm
 
 ![](./firestorm.svg)
 

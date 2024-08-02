@@ -1,4 +1,4 @@
-# Intel Gracemont as Alder Lake E-core
+# Intel Alder Lake E-core aka Gracemont
 
 ![](./gracemont.svg)
 

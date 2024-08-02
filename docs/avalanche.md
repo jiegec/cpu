@@ -1,4 +1,4 @@
-# Apple Avalanche as Apple M2 P-core
+# Apple M2 P-core aka Avalanche
 
 ![](./avalanche.svg)
 

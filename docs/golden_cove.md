@@ -1,4 +1,4 @@
-# Intel Golden Cove as Alder Lake P-core
+# Intel Alder Lake P-core aka Golden Cove
 
 ![](./golden_cove.svg)
 
