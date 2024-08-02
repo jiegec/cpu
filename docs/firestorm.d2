@@ -143,7 +143,7 @@ cpu : Apple M1 Firestorm CPU {
       dispatch3 -> sched7 -> irf -> pipe9
 
       # Source: Dougall Johnson
-      pipe10 {
+      pipe10: Pipe \#10 {
         LOAD
       }
       dispatch3 -> sched7 -> irf -> pipe10
@@ -175,7 +175,7 @@ cpu : Apple M1 Firestorm CPU {
       sched8: 36-entry Scheduler \#8
 
       # Source: Dougall Johnson
-      pipe11 {
+      pipe11: Pipe \#11 {
         FP/SIMD
       }
       dispatch4 -> sched8 -> vrf -> pipe11
@@ -184,7 +184,7 @@ cpu : Apple M1 Firestorm CPU {
       sched9: 36-entry Scheduler \#9
 
       # Source: Dougall Johnson
-      pipe12 {
+      pipe12: Pipe \#12 {
         FP/SIMD
       }
       dispatch4 -> sched9 -> vrf -> pipe12
@@ -193,7 +193,7 @@ cpu : Apple M1 Firestorm CPU {
       sched10: 36-entry Scheduler \#10
 
       # Source: Dougall Johnson
-      pipe13 {
+      pipe13: Pipe \#13 {
         FP/SIMD
         FCSEL
         TO INT
@@ -204,7 +204,7 @@ cpu : Apple M1 Firestorm CPU {
       sched11: 36-entry Scheduler \#11
 
       # Source: Dougall Johnson
-      pipe14 {
+      pipe14: Pipe \#14 {
         FP/SIMD
         FCSEL
         TO INT
