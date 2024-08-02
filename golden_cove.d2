@@ -1,0 +1,233 @@
+cpu : Intel Alder Lake Golden Cove CPU {
+  frontend: Frontend {
+    bp: Branch Predictor {
+      # Source: Chips and Cheese
+      l0btb: 128-entry L0 BTB
+
+      # Source: Chips and Cheese
+      l1btb: 6k-entry L1 BTB
+
+      # Source: Chips and Cheese
+      l2btb: 12k-way L2 BTB
+    }
+
+    l1ic: L1 IC {
+      # Source: Chips and Cheese, Intel
+      itlb: 256-entry 8-way ITLB
+
+      # Source: Chips and Cheese
+      l1ic: 32KB 8-way L1 IC
+    }
+
+    bp -> l1ic
+
+    iq: Instruction Queue
+    l1ic -> iq
+
+    # Source: Chips and Cheese
+    decode: 6-way Decode
+    iq -> decode
+
+    # Source: Chips and Cheese, Intel
+    uopc: 4096-entry UOP Cache
+    decode -> uopc
+    bp -> uopc
+
+    # Source: Chips and Cheese
+    uop: 2x 72-entry UOP Queue
+    uopc -> uop
+    decode -> uop
+
+    # Source: Chips and Cheese, Intel
+    rename: 6-way Rename {
+      Move Elimination
+      Zero Idiom
+    }
+    uop -> rename
+  }
+
+  backend: Backend {
+    # Source: Chips and Cheese, Intel
+    rob: 512-entry ROB
+
+    rf: "" {
+      # Source: Chips and Cheese
+      irf: 280-entry Integer Register File
+
+      # Source: Chips and Cheese
+      vrf: 332-entry FP/Vector Register File
+
+      # Source: Chips and Cheese
+      mxscrrf: 8-entry MXCSR Register File
+
+      # Source: Chips and Cheese
+      maskrf: Mask Register File
+    }
+    rob -> rf
+
+    int: Integer {
+      # Source: Chips and Cheese
+      sched1: 97-entry Unified Math Scheduler
+
+      # Source: Chips and Cheese, Intel
+      pipe1: Port 0 {
+        ALU
+        LEA
+        Shift
+        JMP/Branch
+        256b FMA
+        256b ALU
+        256b Shift
+        256b FDIV
+      }
+      sched1 -> pipe1
+
+      # Source: Chips and Cheese, Intel
+      pipe2: Port 1 {
+        ALU
+        LEA
+        INT MUL
+        INT DIV
+        256b FMA
+        256b ALU
+        256b Shift
+        256b Shuffle
+        256b FADD
+      }
+      sched1 -> pipe2
+
+      # Source: Chips and Cheese, Intel
+      pipe3: Port 5 {
+        ALU
+        LEA
+        MulHi
+        512b FMA
+        256b ALU
+        AMX
+        256b Shuffle
+        256b FADD
+      }
+      sched1 -> pipe3
+
+      # Source: Chips and Cheese, Intel
+      pipe4: Port 6 {
+        ALU
+        LEA
+        Shift
+        JMP/Branch
+      }
+      sched1 -> pipe4
+
+      # Source: Chips and Cheese, Intel
+      pipe5: Port 10 {
+        ALU
+        LEA
+      }
+      sched1 -> pipe5
+    }
+
+    rf -> int.sched1
+
+    mem: Memory {
+      # Source: Chips and Cheese
+      sched2: 70-entry Load Scheduler
+
+      # Source: Chips and Cheese, Intel
+      pipe6: Port 2 {
+        Load AGU
+      }
+      sched2 -> pipe6
+
+      # Source: Chips and Cheese, Intel
+      pipe7: Port 3 {
+        Load AGU
+      }
+      sched2 -> pipe7
+
+      # Source: Chips and Cheese, Intel
+      pipe8: Port 11 {
+        Load AGU
+      }
+      sched2 -> pipe8
+
+      # Source: Chips and Cheese
+      sched3: 38-entry Store Scheduler
+
+      # Source: Chips and Cheese, Intel
+      pipe9: Port 7 {
+        Store AGU
+      }
+      sched3 -> pipe9
+
+      # Source: Chips and Cheese, Intel
+      pipe10: Port 8 {
+        Store AGU
+      }
+      sched3 -> pipe10
+
+      # Source: Chips and Cheese, Intel
+      pipe11: Port 4 {
+        Store Data
+      }
+      sched3 -> pipe11
+
+      # Source: Chips and Cheese, Intel
+      pipe12: Port 9 {
+        Store Data
+      }
+      sched3 -> pipe12
+
+      lsu: LSU {
+        # Source: Chips and Cheese
+        192-entry Load Queue
+        114-entry Store Queue
+      }
+
+      pipe6 -> lsu
+      pipe7 -> lsu
+      pipe8 -> lsu
+      pipe9 -> lsu
+      pipe10 -> lsu
+      pipe11 -> lsu
+      pipe12 -> lsu
+    }
+    rf -> mem.sched2
+    rf -> mem.sched3
+  }
+  frontend.rename -> backend.rob
+
+  mem: Memory {
+    l1: L1 DC {
+      # Source: Chips and Cheese, Intel
+      l1dtlb: 96-entry 6-way L1 DTLB
+
+      # Source: Chips and Cheese
+      l1dc: 48KB 12-way L1DC
+    }
+
+    l2: L2 {
+      # Source: Chips and Cheese, Intel
+      l2tlb: 2048-entry L2 TLB
+
+      # Source: Chips and Cheese, Intel
+      l2dc: 1280KB L2 Cache, 15 cycle latency
+    }
+
+    # Source: Chips and Cheese, Intel
+    l1 -> l2: 64B/cycle
+
+    l3: L3 {
+      # Source: Chips and Cheese
+      l3dc: 30MB L3 Cache
+    }
+    l2 -> l3
+  }
+  frontend.l1ic -> mem.l2
+  backend.mem.lsu -> mem.l1
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from Chips and Cheese, Intel
+  |
+}
