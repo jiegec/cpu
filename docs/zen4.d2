@@ -15,10 +15,10 @@ cpu : AMD Zen4 CPU {
     }
 
     l1ic: L1 IC {
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, AMD
       l1itlb: 64-entry L1 ITLB
 
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, AMD
       l2itlb: 512-entry L2 ITLB
 
       # Source: Chips and Cheese, AMD
@@ -37,7 +37,7 @@ cpu : AMD Zen4 CPU {
     iq -> decode
 
     # Source: Chips and Cheese, AMD
-    uopc: 6912-entry UOP Cache
+    uopc: 6912-entry 12-way UOP Cache
     decode -> uopc
     bp -> uopc
 
@@ -55,18 +55,18 @@ cpu : AMD Zen4 CPU {
   }
 
   backend: Backend {
-    # Source: Chips and Cheese
+    # Source: Chips and Cheese, AMD
     rob: 320-entry ROB
 
     rf: Integer/Flags Register File {
       # Source: Chips and Cheese, AMD
       irf: 224-entry Integer Register File
 
-      # Source: Chips and Cheese
-      flagsrf: 238-entry Flags Register File
+      # Source: Chips and Cheese, AMD
+      flagsrf: 126-entry Flags Register File
     }
 
-    # Source: Chips and Cheese
+    # Source: Chips and Cheese, AMD
     sched1: 24-entry Scheduler \#1
 
     # Source: Chips and Cheese
@@ -81,7 +81,7 @@ cpu : AMD Zen4 CPU {
     }
     sched1 -> rf -> pipe2
 
-    # Source: Chips and Cheese
+    # Source: Chips and Cheese, AMD
     sched2: 24-entry Scheduler \#2
 
     # Source: Chips and Cheese
@@ -96,7 +96,7 @@ cpu : AMD Zen4 CPU {
     }
     sched2 -> rf -> pipe4
 
-    # Source: Chips and Cheese
+    # Source: Chips and Cheese, AMD
     sched3: 24-entry Scheduler \#3
 
     # Source: Chips and Cheese
@@ -111,7 +111,7 @@ cpu : AMD Zen4 CPU {
     }
     sched3 -> rf -> pipe6
 
-    # Source: Chips and Cheese
+    # Source: Chips and Cheese, AMD
     sched4: 24-entry Scheduler \#4
 
     # Source: Chips and Cheese
@@ -131,6 +131,10 @@ cpu : AMD Zen4 CPU {
       # Source: Chips and Cheese, AMD
       88-entry Load Queue
       64-entry Store Queue
+      Load Pipe
+      Load Pipe
+      Load Pipe
+      Store Pipe
     }
 
     pipe4 -> lsu
@@ -142,8 +146,8 @@ cpu : AMD Zen4 CPU {
     rob -> sched3
     rob -> sched4
 
-    # Source: Chips and Cheese
-    nsq: 64-entry Non-Scheduling Queue
+    # Source: Chips and Cheese, AMD
+    nsq: 64-entry Non/Pre-Scheduling Queue
     rob -> nsq
 
     # Source: Chips and Cheese, AMD
@@ -152,7 +156,7 @@ cpu : AMD Zen4 CPU {
       192-entry 512b Vector Register File
     }
 
-    # Source: Chips and Cheese
+    # Source: Chips and Cheese, AMD
     sched5: 32-entry Scheduler \#5
     nsq -> sched5
 
@@ -175,7 +179,7 @@ cpu : AMD Zen4 CPU {
     }
     sched5 -> vrf -> pipe11 -> lsu
 
-    # Source: Chips and Cheese
+    # Source: Chips and Cheese, AMD
     sched6: 32-entry Scheduler \#6
     nsq -> sched6
 
@@ -201,10 +205,10 @@ cpu : AMD Zen4 CPU {
 
   mem: Memory {
     l1: L1 DC {
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, AMD
       l1dtlb: 72-entry L1 DTLB
 
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, AMD
       l2dtlb: 3072-entry L2 DTLB
 
       # Source: Chips and Cheese, AMD
@@ -216,8 +220,8 @@ cpu : AMD Zen4 CPU {
       l2dc: 1MB 8-way L2 Cache, 14 cycle latency
     }
 
-    # Source: Chips and Cheese
-    l1 -> l2
+    # Source: Chips and Cheese, AMD
+    l1 -> l2: 32B/cycle
 
     l3: L3 {
       # Source: Chips and Cheese, AMD
