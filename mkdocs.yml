@@ -12,6 +12,7 @@ nav:
     - Qualcomm Oryon: oryon.md
   - AMD64:
     - AMD Zen4: zen4.md
+    - AMD Zen5: zen5.md
     - Intel Alder Lake P-core (Golden Cove): golden_cove.md
     - Intel Alder Lake E-core (Gracemont): gracemont.md
 theme:
