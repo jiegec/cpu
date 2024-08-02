@@ -10,7 +10,7 @@ plugins:
   - git-revision-date-localized:
       enable_creation_date: true
   - glightbox:
-      width: 80vw
+      height: 100vh
   - search
   - offline
 markdown_extensions:
