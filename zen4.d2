@@ -63,6 +63,8 @@ cpu : AMD Zen4 CPU {
       irf: 224-entry Integer Register File
 
       # Source: Chips and Cheese, AMD
+      # 238 reported by Chips and Cheese
+      # 126 reported by AMD
       flagsrf: 126-entry Flags Register File
     }
 
@@ -129,7 +131,10 @@ cpu : AMD Zen4 CPU {
 
     lsu: LSU {
       # Source: Chips and Cheese, AMD
-      88-entry Load Queue
+      # 136 (Load Validation Queue) & 88 (Load Execution Queue) reported by Chips and Cheese
+      # 88 reported by AMD
+      136-entry Load Validation Queue
+      88-entry Load (Execution) Queue
       64-entry Store Queue
       3x Load Pipe
       Store Pipe
