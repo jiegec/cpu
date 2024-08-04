@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://jia.je/cpu/zen4.html">
+        <link rel="canonical" href="https://jia.je/cpu/comparison.html">
       
       
-        <link rel="prev" href="zen3.html">
+        <link rel="prev" href="index.html">
       
       
-        <link rel="next" href="zen5.html">
+        <link rel="next" href="firestorm.html">
       
       
       <link rel="icon" href="assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>AMD Zen4 - CPU Microarchitecture Diagrams</title>
+        <title>Comparisons across microarchitectures - CPU Microarchitecture Diagrams</title>
       
     
     
@@ -66,11 +66,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="AMD Zen4 - CPU Microarchitecture Diagrams" >
+        <meta  property="og:title"  content="Comparisons across microarchitectures - CPU Microarchitecture Diagrams" >
       
         <meta  property="og:description"  content="None" >
       
-        <meta  property="og:image"  content="https://jia.je/cpu/assets/images/social/zen4.png" >
+        <meta  property="og:image"  content="https://jia.je/cpu/assets/images/social/comparison.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -78,15 +78,15 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://jia.je/cpu/zen4.html" >
+        <meta  property="og:url"  content="https://jia.je/cpu/comparison.html" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="AMD Zen4 - CPU Microarchitecture Diagrams" >
+        <meta  name="twitter:title"  content="Comparisons across microarchitectures - CPU Microarchitecture Diagrams" >
       
         <meta  name="twitter:description"  content="None" >
       
-        <meta  name="twitter:image"  content="https://jia.je/cpu/assets/images/social/zen4.png" >
+        <meta  name="twitter:image"  content="https://jia.je/cpu/assets/images/social/comparison.png" >
       
     
     
@@ -111,7 +111,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#amd-zen4" class="md-skip">
+        <a href="#comparisons-across-microarchitectures" class="md-skip">
           Skip to content
         </a>
       
@@ -147,7 +147,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              AMD Zen4
+              Comparisons across microarchitectures
             
           </span>
         </div>
@@ -281,10 +281,30 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="comparison.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Comparisons across microarchitectures
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="comparison.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -293,6 +313,59 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frontend
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Frontend">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#branch-prediction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Branch Prediction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l1-icache-itlb" class="md-nav__link">
+    <span class="md-ellipsis">
+      L1 ICache + ITLB
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -450,19 +523,19 @@
       
   
   
-    
   
   
-  
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -476,7 +549,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             AMD64
@@ -508,19 +581,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="zen4.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="zen4.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -529,7 +593,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -625,6 +688,47 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      Frontend
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Frontend">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#branch-prediction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Branch Prediction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#l1-icache-itlb" class="md-nav__link">
+    <span class="md-ellipsis">
+      L1 ICache + ITLB
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -638,7 +742,7 @@
                   
 
   
-    <a href="https://github.com/jiegec/cpu/edit/master/docs/zen4.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/jiegec/cpu/edit/master/docs/comparison.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
     </a>
@@ -646,17 +750,143 @@
   
 
 
-<h1 id="amd-zen4">AMD Zen4</h1>
-<p><a class="glightbox" href="zen4.svg" data-type="image" data-width="auto" data-height="100vh" data-desc-position="bottom"><img alt="" src="zen4.svg" /></a></p>
-<p>References:</p>
-<ul>
-<li><a href="https://www.anandtech.com/show/17585/amd-zen-4-ryzen-9-7950x-and-ryzen-5-7600x-review-retaking-the-high-end/8">AMD Zen 4 Ryzen 9 7950X and Ryzen 5 7600X Review: Retaking The High-End</a></li>
-<li><a href="https://chipsandcheese.com/2022/11/05/amds-zen-4-part-1-frontend-and-execution-engine/">AMD’s Zen 4 Part 1: Frontend and Execution Engine</a></li>
-<li><a href="https://chipsandcheese.com/2022/11/08/amds-zen-4-part-2-memory-subsystem-and-conclusion/">AMD’s Zen 4, Part 2: Memory Subsystem and Conclusion</a></li>
-<li><a href="https://www.custompc.com/inside-amd-zen-4-ryzen-cpu-architecture">Inside the AMD Zen 4 CPU architecture</a></li>
-<li><a href="https://www.phoronix.com/review/amd-zen-5-core">AMD Reveals More Zen 5 CPU Core Details</a></li>
-<li><a href="https://hc2023.hotchips.org/assets/program/conference/day1/CPU1/HC_Zen4_Epyc_Final_20230825%20-%20Embargoed%20until%20Aug%2029%202023.pdf">AMD Next Generation "Zen 4" Core and 4th Gen AMD EPYC(TM) 9004 Server CPU</a></li>
-</ul>
+<h1 id="comparisons-across-microarchitectures">Comparisons across microarchitectures</h1>
+<h2 id="frontend">Frontend</h2>
+<h3 id="branch-prediction">Branch Prediction</h3>
+<table>
+<thead>
+<tr>
+<th>uArch</th>
+<th>BTB</th>
+<th>Indirect</th>
+<th>RAS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AMD Zen3</td>
+<td>1024 L1 + 6656 L2</td>
+<td>1536</td>
+<td>32</td>
+</tr>
+<tr>
+<td>AMD Zen4</td>
+<td>1536 L1 + 7168 L2</td>
+<td>3072</td>
+<td>32</td>
+</tr>
+<tr>
+<td>AMD Zen5</td>
+<td>16384 L1 + 8192 L2</td>
+<td></td>
+<td>52</td>
+</tr>
+<tr>
+<td>Intel Golden Cove</td>
+<td>128 L1 + 6144 L2 + 12288 L3</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Intel Gracemont</td>
+<td>1024 L1 + 5120 L2</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Apple M1 P-core (Firestorm)</td>
+<td>1024 L1 + ICache as L2</td>
+<td></td>
+<td>50</td>
+</tr>
+<tr>
+<td>Apple M2 P-core (Avalanche)</td>
+<td>1024 L1 + 3072 L2 + ICache as L3</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Apple M3 P-core</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Apple M4 P-core</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Qualcomm Oryon</td>
+<td>2048 L1 + ICache as L2</td>
+<td>2048</td>
+<td>48</td>
+</tr>
+</tbody>
+</table>
+<h3 id="l1-icache-itlb">L1 ICache + ITLB</h3>
+<table>
+<thead>
+<tr>
+<th>uArch</th>
+<th>ICache</th>
+<th>ITLB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AMD Zen3</td>
+<td>32KB 8-way</td>
+<td>64 L1 + 512 L2</td>
+</tr>
+<tr>
+<td>AMD Zen4</td>
+<td>32KB 8-way</td>
+<td>64 L1 + 512 L2</td>
+</tr>
+<tr>
+<td>AMD Zen5</td>
+<td>32KB 8-way</td>
+<td>64 L1 + 2048 L2</td>
+</tr>
+<tr>
+<td>Intel Golden Cove</td>
+<td>32KB 8-way</td>
+<td>256</td>
+</tr>
+<tr>
+<td>Intel Gracemont</td>
+<td>64KB 8-way</td>
+<td>64</td>
+</tr>
+<tr>
+<td>Apple M1 P-core (Firestorm)</td>
+<td>192KB</td>
+<td></td>
+</tr>
+<tr>
+<td>Apple M2 P-core (Avalanche)</td>
+<td>192KB</td>
+<td></td>
+</tr>
+<tr>
+<td>Apple M3 P-core</td>
+<td>192KB</td>
+<td></td>
+</tr>
+<tr>
+<td>Apple M4 P-core</td>
+<td>192KB</td>
+<td></td>
+</tr>
+<tr>
+<td>Qualcomm Oryon</td>
+<td>192KB 6-way</td>
+<td>256 8-way ITLB</td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -689,7 +919,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3h-2Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 2, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 4, 2024</span>
   </span>
 
     

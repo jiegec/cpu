@@ -1,11 +1,11 @@
 cpu : Apple M1 Firestorm CPU {
   frontend: Frontend {
     bp: Branch Predictor {
-      # Source: JamesAslan
-      l0btb: 2048-entry L0 BTB, 1 cycle latency
+      # Source: JamesAslan, Chips and Cheese
+      l1btb: 1024-entry L1 BTB, 1 cycle latency
 
       # Source: JamesAslan
-      l1btb: 192KB L1 IC as L1 BTB, 3 cycle latency
+      l2btb: 192KB L1 IC as L2 BTB, 3 cycle latency
 
       # Source: jiegec
       ras: 50-entry RAS
@@ -242,6 +242,6 @@ cpu : Apple M1 Firestorm CPU {
   info: |md
     Drawn by Jiajie Chen @jiegec
 
-    Based on data from Dougall Johnson, JamesAslan, Anandtech
+    Based on data from Chips and Cheese, Dougall Johnson, JamesAslan and Anandtech
   |
 }

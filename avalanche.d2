@@ -2,13 +2,13 @@ cpu : Apple M2 Avalanche CPU {
   frontend: Frontend {
     bp: Branch Predictor {
       # Source: JamesAslan
-      l0btb: 1024-entry L0 BTB, 1 cycle latency
+      l1btb: 1024-entry L1 BTB, 1 cycle latency
 
       # Source: JamesAslan
-      l1btb: 3072-entry L1 BTB, 2 cycle latency
+      l2btb: 3072-entry L2 BTB, 2 cycle latency
 
       # Source: JamesAslan
-      l2btb: 192KB L1 IC as L1 BTB, 3 cycle latency
+      l3btb: 192KB L1 IC as L3 BTB, 3 cycle latency
     }
 
     # Coupled Frontend
