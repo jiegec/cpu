@@ -12,6 +12,9 @@ cpu : AMD Zen4 CPU {
 
       # Source: Chips and Cheese
       ras: 32-entry Return Address Stack
+
+      # Source: AMD
+      2 taken predictions per cycle
     }
 
     l1ic: L1 IC {
@@ -37,7 +40,7 @@ cpu : AMD Zen4 CPU {
     iq -> decode
 
     # Source: Chips and Cheese, AMD
-    uopc: 6912-entry 12-way UOP Cache
+    uopc: 6912-entry 12-way UOP Cache, max 9 ops per entry
     decode -> uopc
     bp -> uopc
 
@@ -200,6 +203,8 @@ cpu : AMD Zen4 CPU {
 
     # Source: Chips and Cheese, AMD
     pipe14: Pipe \#14 {
+      # FStore + F2I reported by Chips and Cheese
+      # FStore reported by AMD
       FStore
     }
     sched6 -> vrf -> pipe14 -> lsu
