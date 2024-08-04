@@ -136,7 +136,9 @@ cpu : AMD Zen3 CPU {
 
     lsu: LSU {
       # Source: Chips and Cheese, AMD
-      116-entry Load Queue
+      # 116-entry Load Queue reported by Chips and Cheese
+      # 72-entry Load Queue reported by AMD
+      72-entry Load Queue
       64-entry Store Queue
     }
 
@@ -241,7 +243,7 @@ cpu : AMD Zen3 CPU {
 
     l2: L2 {
       # Source: Chips and Cheese, AMD
-      l2dc: 512KB 8-way L2 Cache
+      l2dc: 512KB 8-way L2 Cache, 12 cycle latency
     }
 
     # Source: Chips and Cheese, AMD
@@ -249,7 +251,7 @@ cpu : AMD Zen3 CPU {
 
     l3: L3 {
       # Source: Chips and Cheese, AMD
-      l3dc: 32MB (4MB/core) 16-way L3 Cache
+      l3dc: 32MB (4MB/core) 16-way L3 Cache, 46 cycle latency
     }
     l2 -> l3
   }

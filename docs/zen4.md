@@ -10,4 +10,5 @@ References:
 - [Inside the AMD Zen 4 CPU architecture](https://www.custompc.com/inside-amd-zen-4-ryzen-cpu-architecture)
 - [AMD Reveals More Zen 5 CPU Core Details](https://www.phoronix.com/review/amd-zen-5-core)
 - [AMD Next Generation "Zen 4" Core and 4th Gen AMD EPYC(TM) 9004 Server CPU](https://hc2023.hotchips.org/assets/program/conference/day1/CPU1/HC_Zen4_Epyc_Final_20230825%20-%20Embargoed%20until%20Aug%2029%202023.pdf)
+- [AMD Next-Generation “Zen 4” Core and 4th Gen AMD EPYC Server CPUs](https://ieeexplore.ieee.org/document/10466769)
 
