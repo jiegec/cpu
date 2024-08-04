@@ -1,0 +1,264 @@
+cpu : AMD Zen3 CPU {
+  frontend: Frontend {
+    bp: Branch Predictor {
+      # Source: Chips and Cheese, AMD
+      l1btb: 1024-entry L1 BTB
+
+      # Source: Chips and Cheese, AMD
+      l2btb: 6656-entry L2 BTB
+
+      # Source: Chips and Cheese, AMD
+      indir: 1536-entry Indirect Target Array
+
+      # Source: Chips and Cheese
+      ras: 32-entry Return Address Stack
+    }
+
+    l1ic: L1 IC {
+      # Source: Chips and Cheese, AMD
+      l1itlb: 64-entry L1 ITLB
+
+      # Source: Chips and Cheese, AMD
+      l2itlb: 512-entry L2 ITLB
+
+      # Source: Chips and Cheese, AMD
+      l1ic: 32KB 8-way L1 IC
+    }
+
+    # Source: Chips and Cheese
+    fq: 64-entry Fetch Queue
+    bp -> fq
+    fq -> l1ic
+
+    iq: 24-entry x 16B Instruction Queue
+    l1ic -> iq
+
+    # Source: Chips and Cheese, AMD
+    decode: 4-way Decode
+    iq -> decode
+
+    # Source: Chips and Cheese, AMD
+    uopc: 4096-entry UOP Cache
+    decode -> uopc
+    bp -> uopc
+
+    # Source: Chips and Cheese
+    uop: UOP Queue
+    uopc -> uop
+    decode -> uop
+
+    # Source: Chips and Cheese
+    rename: 6-way Rename {
+      Move Elimination
+      Zero Idiom
+    }
+    uop -> rename
+  }
+
+  backend: Backend {
+    # Source: Chips and Cheese, AMD
+    rob: 256-entry ROB
+
+    rf: Integer/Flags Register File {
+      # Source: Chips and Cheese, AMD
+      irf: 192-entry Integer Register File
+
+      # Source: Chips and Cheese
+      flagsrf: 122-entry Flags Register File
+    }
+
+    # Source: Chips and Cheese, AMD
+    sched1: 24-entry Scheduler \#1
+
+    # Source: Chips and Cheese
+    pipe1: Pipe \#1 {
+      ALU
+      CMOV
+    }
+    sched1 -> rf -> pipe1
+
+    # Source: Chips and Cheese
+    pipe2: Pipe \#2 {
+      Branch
+    }
+    sched1 -> rf -> pipe2
+
+    # Source: Chips and Cheese, AMD
+    sched2: 24-entry Scheduler \#2
+
+    # Source: Chips and Cheese
+    pipe3: Pipe \#3 {
+      ALU
+    }
+    sched2 -> rf -> pipe3
+
+    # Source: Chips and Cheese
+    pipe4: Pipe \#4 {
+      AGU
+    }
+    sched2 -> rf -> pipe4
+
+    # Source: Chips and Cheese, AMD
+    sched3: 24-entry Scheduler \#3
+
+    # Source: Chips and Cheese
+    pipe5: Pipe \#5 {
+      ALU
+      INT MUL
+      PDEP
+      CRC
+    }
+    sched3 -> rf -> pipe5
+
+    # Source: Chips and Cheese
+    pipe6: Pipe \#6 {
+      AGU
+    }
+    sched3 -> rf -> pipe6
+
+    # Source: Chips and Cheese, AMD
+    sched4: 24-entry Scheduler \#4
+
+    # Source: Chips and Cheese
+    pipe7: Pipe \#7 {
+      ALU
+      INT DIV
+      CMOV
+      Branch
+    }
+    sched4 -> rf -> pipe7
+
+    # Source: Chips and Cheese
+    pipe8: Pipe \#8 {
+      AGU
+    }
+    sched4 -> rf -> pipe8
+
+    lsu: LSU {
+      # Source: Chips and Cheese, AMD
+      116-entry Load Queue
+      64-entry Store Queue
+    }
+
+    pipe4 -> lsu
+    pipe6 -> lsu
+    pipe8 -> lsu
+
+    rob -> sched1
+    rob -> sched2
+    rob -> sched3
+    rob -> sched4
+
+    # Source: Chips and Cheese, AMD
+    nsq: 64-entry Non/Pre-Scheduling Queue
+    rob -> nsq
+
+    # Source: Chips and Cheese, AMD
+    vrf: FP/Vector Register File {
+      160-entry Vector Register File
+    }
+
+    # Source: Chips and Cheese, AMD
+    sched5: 32-entry Scheduler \#5
+    nsq -> sched5
+
+    # Source: Chips and Cheese
+    pipe9: Pipe \#9 {
+      FMA
+      FMisc
+      INT Vec ALU
+      INT Vec MUL
+      AES
+    }
+    sched5 -> vrf -> pipe9
+
+    # Source: Chips and Cheese
+    pipe10: Pipe \#10 {
+      FADD
+      FMisc
+      INT Vec ALU
+      Shuffle
+      Convert
+    }
+    sched5 -> vrf -> pipe10
+
+    # Source: Chips and Cheese
+    pipe11: Pipe \#11 {
+      FStore
+      F2I
+    }
+    sched5 -> vrf -> pipe11 -> lsu
+
+    # Source: Chips and Cheese, AMD
+    sched6: 32-entry Scheduler \#6
+    nsq -> sched6
+
+    # Source: Chips and Cheese
+    pipe12: Pipe \#12 {
+      FMA
+      FMisc
+      INT Vec ALU
+      Shuffle
+      AES
+      Vec Shift
+      FDIV
+    }
+    sched6 -> vrf -> pipe12
+
+    # Source: Chips and Cheese
+    pipe13: Pipe \#13 {
+      FADD
+      FMisc
+      INT Vec ALU
+      INT Vec MUL
+    }
+    sched6 -> vrf -> pipe13
+
+    # Source: Chips and Cheese, AMD
+    pipe14: Pipe \#14 {
+      # FStore + F2I reported by Chips and Cheese
+      # FStore reported by AMD
+      FStore
+    }
+    sched6 -> vrf -> pipe14 -> lsu
+  }
+  frontend.rename -> backend.rob
+
+  mem: Memory {
+    l1: L1 DC {
+      # Source: Chips and Cheese, AMD
+      l1dtlb: 64-entry L1 DTLB
+
+      # Source: Chips and Cheese, AMD
+      l2dtlb: 2048-entry L2 DTLB
+
+      # Source: Chips and Cheese, AMD
+      l1dc: 32KB 8-way L1DC
+
+      # Source: AMD
+      ptw: 6 Page Table Walkers
+    }
+
+    l2: L2 {
+      # Source: Chips and Cheese, AMD
+      l2dc: 512KB 8-way L2 Cache
+    }
+
+    # Source: Chips and Cheese, AMD
+    l1 -> l2: 32B/cycle
+
+    l3: L3 {
+      # Source: Chips and Cheese, AMD
+      l3dc: 32MB (4MB/core) 16-way L3 Cache
+    }
+    l2 -> l3
+  }
+  frontend.l1ic -> mem.l2
+  backend.lsu -> mem.l1
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from Chips and Cheese, AMD
+  |
+}
