@@ -24,6 +24,11 @@ theme:
   features:
     - content.action.edit
     - navigation.expand
+    - navigation.tracking
+    - navigation.sections
+    - search.suggest
+    - search.highlight
+    - search.share
 plugins:
   - git-revision-date-localized:
       enable_creation_date: true
@@ -32,7 +37,8 @@ plugins:
   - search
   - offline
   - social:
-      cards_font: Noto Sans SC
+      cards_layout_options:
+        font_family: Noto Sans SC
 markdown_extensions:
   - pymdownx.superfences:
       custom_fences:
