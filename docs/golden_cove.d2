@@ -130,7 +130,8 @@ cpu : Intel Alder Lake Golden Cove CPU {
     rob -> sched1 -> rf -> pipe4
 
     # Source: Chips and Cheese, Intel
-    pipe5: Port 10 {
+    # Figure 1 in Intel paper was wrong, should be Port 11 instead of Port 10
+    pipe5: Port 11 {
       grid-columns: 1
       ALU
       LEA
@@ -153,7 +154,8 @@ cpu : Intel Alder Lake Golden Cove CPU {
     rob -> sched2 -> rf -> pipe7
 
     # Source: Chips and Cheese, Intel
-    pipe8: Port 11 {
+    # Figure 1 in Intel paper was wrong, should be Port 10 instead of Port 11
+    pipe8: Port 10 {
       Load AGU
     }
     rob -> sched2 -> rf -> pipe8
