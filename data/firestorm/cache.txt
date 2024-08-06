@@ -1,0 +1,12 @@
+hw.perflevel0.l1icachesize: 196608
+hw.perflevel0.l1dcachesize: 131072
+hw.perflevel0.l2cachesize: 12582912
+hw.perflevel1.l1icachesize: 131072
+hw.perflevel1.l1dcachesize: 65536
+hw.perflevel1.l2cachesize: 4194304
+hw.cacheconfig: 8 1 4 0 0 0 0 0 0 0
+hw.cachesize: 3708731392 65536 4194304 0 0 0 0 0 0 0
+hw.cachelinesize: 128
+hw.l1icachesize: 131072
+hw.l1dcachesize: 65536
+hw.l2cachesize: 4194304
