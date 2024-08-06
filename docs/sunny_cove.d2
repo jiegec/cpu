@@ -68,43 +68,83 @@ cpu : Intel Ice Lake Sunny Cove CPU {
       maskrf: 152-entry Mask Register File
     }
 
+    # Source: uops.info
+    # 10 ports in total: Port 0 to Port 9
+    # Integer/Memory:
+    # Port 2 = Port 3: Load AGU
+    # Port 4 = Port 9: Store Data
+    # Port 7 = Port 8: Store AGU
+    # ALU(add): Port 0, 1, 5, 6
+    # LEA(lea): Port 0, 1, 5, 6
+    # Shift(shl): Port 0, 6
+    # INT MUL(imul): Port 1
+    # INT MUL(imul 64b*64b=128b): Port 1(LO) + Port 5(HI)
+    # INT DIV(idiv): (Port 0, 1, 5, 6) + Port 1
+    # JMP/Branch(jmp/jnz): Port 0, 6
+    # Load(mov): Port 2, 3
+    # Store(mov): Data(Port 4, 9) + AGU(Port 7, 8)
+    # 256-bit ALU(VPADDD YMM): Port 0, 1, 5
+    # 512-bit ALU(VPADDD ZMM): Port 0, 5
+    # 256-bit FMA(VFMADD132PD YMM): Port 0, 1
+    # 512-bit FMA(VFMADD132PD ZMM): Port 0
+    # 256-bit FADD(VADDPS YMM): Port 0, 1
+    # 512-bit FADD(VADDPS ZMM): Port 0
+    # 256-bit FDIV(VDIVPS YMM): Port 0
+    # 256-bit Shuffle(VPSHUFD YMM): Port 1, 5
+    # 512-bit Shuffle(VPSHUFD ZMM): Port 5
+    # 256-bit Shift(VPSLLD YMM): Port 0, 1
+    # 512-bit Shift(VPSLLD YMM): Port 0
+
     # Source: Chips and Cheese
     sched1: 80-entry Unified Math Scheduler
 
     # Source: Chips and Cheese
-    pipe1: Pipe \#1 {
+    pipe1: Port 0 {
       grid-columns: 1
       ALU
-      Branch
-      512b FMA
+      LEA
+      Shift
+      Jump/Branch
       512b ALU
+      512b FADD
+      512b FMA
+      512b Shift
     }
     rob -> sched1 -> rf -> pipe1
 
     # Source: Chips and Cheese
-    pipe2: Pipe \#2 {
+    pipe2: Port 1 {
       grid-columns: 1
       ALU
+      LEA
       INT MUL
       INT DIV
-      256b FMA
       256b ALU
+      256b FADD
+      256b FMA
+      256b Shift
+      256b Shuffle
     }
     rob -> sched1 -> rf -> pipe2
 
     # Source: Chips and Cheese
-    pipe3: Pipe \#3 {
+    pipe3: Port 5 {
       grid-columns: 1
       ALU
+      LEA
+      INT MUL HI
       512b ALU
+      512b Shuffle
     }
     rob -> sched1 -> rf -> pipe3
 
     # Source: Chips and Cheese
-    pipe4: Pipe \#4 {
+    pipe4: Port 6 {
       grid-columns: 1
       ALU
-      Branch
+      LEA
+      Shift
+      Jump/Branch
     }
     rob -> sched1 -> rf -> pipe4
 
@@ -112,13 +152,13 @@ cpu : Intel Ice Lake Sunny Cove CPU {
     sched2: 34-entry Store Data Scheduler
 
     # Source: Chips and Cheese
-    pipe5: Pipe \#5 {
+    pipe5: Port 4 {
       Store Data
     }
     rob -> sched2 -> rf -> pipe5
 
     # Source: Chips and Cheese
-    pipe6: Pipe \#6 {
+    pipe6: Port 9 {
       Store Data
     }
     rob -> sched2 -> rf -> pipe6
@@ -127,13 +167,13 @@ cpu : Intel Ice Lake Sunny Cove CPU {
     sched3: 23-entry AGU Scheduler \#1
 
     # Source: Chips and Cheese
-    pipe7: Pipe \#7 {
+    pipe7: Port 2 {
       Load AGU
     }
     rob -> sched3 -> rf -> pipe7
 
     # Source: Chips and Cheese
-    pipe8: Pipe \#8 {
+    pipe8: Port 7 {
       Store AGU
     }
     rob -> sched3 -> rf -> pipe8
@@ -142,13 +182,13 @@ cpu : Intel Ice Lake Sunny Cove CPU {
     sched4: 23-entry AGU Scheduler \#2
 
     # Source: Chips and Cheese
-    pipe9: Pipe \#9 {
+    pipe9: Port 3 {
       Load AGU
     }
     rob -> sched4 -> rf -> pipe9
 
     # Source: Chips and Cheese
-    pipe10: Pipe \#10 {
+    pipe10: Port 8 {
       Store AGU
     }
     rob -> sched4 -> rf -> pipe10
