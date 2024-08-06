@@ -2,13 +2,13 @@ cpu : Intel Alder Lake Golden Cove CPU {
   frontend: Frontend {
     bp: Branch Predictor {
       # Source: Chips and Cheese
-      l0btb: 128-entry L0 BTB
+      l1btb: 128-entry L1 BTB
 
       # Source: Chips and Cheese
-      l1btb: 6144-entry L1 BTB
+      l2btb: 6144-entry L2 BTB
 
       # Source: Chips and Cheese
-      l2btb: 12288-way L2 BTB
+      l3btb: 12288-way L3 BTB
 
       # Source: jiegec, see /data/golden_cove/ras.csv
       ras: 20-entry RAS

@@ -2,13 +2,13 @@ cpu : Qualcomm Oryon CPU {
   frontend: Frontend {
     bp: Branch Predictor {
       # Source: Chips and Cheese
-      l0btb: 2048-entry L0 BTB, 1 cycle latency
+      l1btb: 2048-entry L1 BTB, 1 cycle latency
 
       # Source: Chips and Cheese
-      l1btb: 192KB 6-way L1 IC as L1 BTB, 3 cycle latency
+      l2btb: 192KB 6-way L1 IC as L2 BTB, 3 cycle latency
 
       # Source: Chips and Cheese
-      l0ind: 2048-entry Indirect Target Buffer
+      ind: 2048-entry Indirect Target Buffer
 
       # Source: Chips and Cheese
       ras: 48-entry RAS
