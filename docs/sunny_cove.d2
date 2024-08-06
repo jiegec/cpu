@@ -53,7 +53,6 @@ cpu : Intel Ice Lake Sunny Cove CPU {
 
     # Source: Chips and Cheese
     bob: 96-entry Branch Order Buffer
-    rob -> bob
 
     rf: "" {
       # Source: Chips and Cheese
@@ -168,6 +167,7 @@ cpu : Intel Ice Lake Sunny Cove CPU {
     pipe10 -> lsu
   }
   frontend.rename -> backend.rob
+  frontend.rename -> backend.bob
 
   mem: Memory {
     l1: L1 DC {

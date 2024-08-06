@@ -58,7 +58,6 @@ cpu : Intel Alder Lake Gracement CPU {
 
     # Source: Chips and Cheese
     bob: 116-taken-entry 126-not-taken-entry Branch Order Buffer
-    rob -> bob
 
     rf: Register File {
       # Source: Chips and Cheese
@@ -260,6 +259,7 @@ cpu : Intel Alder Lake Gracement CPU {
   }
 
   frontend.rename -> backend.rob
+  frontend.rename -> backend.bob
 
   mem: Memory {
     l1: L1 DC {

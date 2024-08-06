@@ -55,7 +55,6 @@ cpu : Intel Alder Lake Golden Cove CPU {
 
     # Source: Chips and Cheese
     bob: 128-entry Branch Order Buffer
-    rob -> bob
 
     rf: "" {
       # Source: Chips and Cheese
@@ -201,6 +200,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
     pipe12 -> lsu
   }
   frontend.rename -> backend.rob
+  frontend.rename -> backend.bob
 
   mem: Memory {
     l1: L1 DC {
