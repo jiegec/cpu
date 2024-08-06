@@ -50,9 +50,16 @@ cpu : Intel Alder Lake Golden Cove CPU {
     # Source: Chips and Cheese, Intel
     rob: 512-entry ROB
 
+    # Source: Chips and Cheese
+    bob: 128-entry Branch Order Buffer
+    rob -> bob
+
     rf: "" {
       # Source: Chips and Cheese
       irf: 280-entry Integer Register File
+
+      # Source: Chips and Cheese
+      flagsrf: 248-entry Flags Register File
 
       # Source: Chips and Cheese
       vrf: 332-entry FP/Vector Register File
@@ -208,6 +215,9 @@ cpu : Intel Alder Lake Golden Cove CPU {
 
       # Source: Chips and Cheese
       l1dc: 48KB 12-way L1DC
+
+      # Source: Chips and Cheese
+      mshr: 16-entry MSHR
     }
 
     l2: L2 {
@@ -216,6 +226,9 @@ cpu : Intel Alder Lake Golden Cove CPU {
 
       # Source: Chips and Cheese, Intel
       l2dc: 1280KB L2 Cache, 15 cycle latency
+
+      # Source: Chips and Cheese
+      mshr: 48-entry MSHR
     }
 
     # Source: Chips and Cheese, Intel
