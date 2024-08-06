@@ -76,17 +76,39 @@ cpu : Intel Alder Lake Golden Cove CPU {
     # Source: Chips and Cheese
     sched1: 97-entry Unified Math Scheduler
 
+    # Source: uops.info, perfmon.intel.com, Intel
+    # 12 ports in total: Port 0 to Port 11
+    # FP: Port 0, Port 1, Port 5
+    # Integer/Memory:
+    # Port 2 = Port 3 = Port 10: Load AGU
+    # Port 4 = Port 9: Store Data
+    # Port 7 = Port 8: Store AGU
+    # ALU(add): Port 0, 1, 5, 6, 11
+    # LEA(lea): Port 0, 1, 5, 6, 11
+    # Shift(shl): Port 0, 6
+    # INT MUL(imul): Port 1
+    # INT MUL(imul 64b*64b=128b): Port 1(LO) + Port 5(HI)
+    # JMP/Branch(jmp/jnz): Port 0, 6
+    # Load(mov): Port 2, 3, 10
+    # Store(mov): Data(Port 4, 9) + AGU(Port 7, 8)
+    # 256-bit ALU(VPADDD YMM): Port 0, 1, 5
+    # 256-bit FMA(VFMADD132PD YMM): Port 0, 1
+    # 256-bit FADD(VADDPS YMM): Port 1, 5
+    # 256-bit FDIV(VDIVPS YMM): Port 0
+    # 256-bit Shuffle(VPSHUFD YMM): Port 1, 5
+    # 256-bit Shift(VPSLLD YMM): Port 0, 1
+    
     # Source: Chips and Cheese, Intel
     pipe1: Port 0 {
       grid-columns: 1
       ALU
       LEA
       Shift
-      JMP/Branch
-      256b FMA
+      Jump/Branch
       256b ALU
-      256b Shift
       256b FDIV
+      256b FMA
+      256b Shift
     }
     rob -> sched1 -> rf -> pipe1
 
@@ -97,11 +119,11 @@ cpu : Intel Alder Lake Golden Cove CPU {
       LEA
       INT MUL
       INT DIV
-      256b FMA
       256b ALU
+      256b FADD
+      256b FMA
       256b Shift
       256b Shuffle
-      256b FADD
     }
     rob -> sched1 -> rf -> pipe2
 
@@ -110,12 +132,13 @@ cpu : Intel Alder Lake Golden Cove CPU {
       grid-columns: 1
       ALU
       LEA
-      MulHi
-      512b FMA
+      INT MUL HI
+      # Found in Intel paper, but AVX512/AMX was disabled to maintain the same ISA as E-core:
+      # 512b FMA
+      # AMX
       256b ALU
-      AMX
-      256b Shuffle
       256b FADD
+      256b Shuffle
     }
     rob -> sched1 -> rf -> pipe3
 
@@ -125,7 +148,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
       ALU
       LEA
       Shift
-      JMP/Branch
+      Jump/Branch
     }
     rob -> sched1 -> rf -> pipe4
 
