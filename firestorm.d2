@@ -33,188 +33,186 @@ cpu : Apple M1 Firestorm CPU {
     # Source: Dougall Johnson
     rob: Coalesced ROB
 
-    int: Integer {
+    rf: Register File {
       # Source: Dougall Johnson
       irf: Integer Register File
 
       # Source: Dougall Johnson
-      dispatch1: 12-entry Dispatch Queue \#1
-
-      # Source: Dougall Johnson
-      sched1: 24-entry Scheduler \#1
-
-      # Source: Dougall Johnson
-      pipe1: Pipe \#1 {
-        ALU
-        FLAGS
-        B/BL/ADR
-        MOV NZCV
-        MRS
-      }
-      dispatch1 -> sched1 -> irf -> pipe1
-
-      # Source: Dougall Johnson
-      sched2: 26-entry Scheduler \#2
-
-      # Source: Dougall Johnson
-      pipe2: Pipe \#2 {
-        ALU
-        FLAGS
-        B/Bl/ADR
-        MOV NZCV
-        PTRAUTH
-        BR/BLR
-      }
-      dispatch1 -> sched2 -> irf -> pipe2
-
-      # Source: Dougall Johnson
-      sched3: 16-entry Scheduler \#3
-
-      # Source: Dougall Johnson
-      pipe3: Pipe \#3 {
-        ALU
-        FLAGS
-        FROM FP
-      }
-      dispatch1 -> sched3 -> irf -> pipe3
-
-      # Source: Dougall Johnson
-      dispatch2: 12-entry Dispatch Queue \#2
-
-      # Source: Dougall Johnson
-      sched4: 12-entry Scheduler \#4
-
-      # Source: Dougall Johnson
-      pipe4: Pipe \#4 {
-        ALU
-        FROM FP
-      }
-      dispatch2 -> sched4 -> irf -> pipe4
-
-      # Source: Dougall Johnson
-      sched5: 28-entry Scheduler \#5
-
-      # Source: Dougall Johnson
-      pipe5: Pipe \#5 {
-        ALU
-        MUL
-        DIV
-      }
-      dispatch2 -> sched5 -> irf -> pipe5
-
-      # Source: Dougall Johnson
-      sched6: 28-entry Scheduler \#6
-
-      # Source: Dougall Johnson
-      pipe6: Pipe \#6 {
-        ALU
-        MUL
-        MADD
-        BFM
-        CRC
-      }
-      dispatch2 -> sched6 -> irf -> pipe6
-
-      # Source: Dougall Johnson
-      dispatch3: 10-entry Dispatch Queue \#3
-
-      # Source: Dougall Johnson
-      sched7: 48-entry Scheduler \#7
-
-      # Source: Dougall Johnson
-      pipe7: Pipe \#7 {
-        STORE
-        AMX
-      }
-      dispatch3 -> sched7 -> irf -> pipe7
-
-      # Source: Dougall Johnson
-      pipe8: Pipe \#8 {
-        LOAD
-        STORE
-        AMX
-      }
-      dispatch3 -> sched7 -> irf -> pipe8
-
-      # Source: Dougall Johnson
-      pipe9: Pipe \#9 {
-        LOAD
-      }
-      dispatch3 -> sched7 -> irf -> pipe9
-
-      # Source: Dougall Johnson
-      pipe10: Pipe \#10 {
-        LOAD
-      }
-      dispatch3 -> sched7 -> irf -> pipe10
-
-      lsu: LSU {
-        # Source: Dougall Johnson
-        130-entry Load Queue
-        60-entry Store Queue
-      }
-
-      pipe7 -> lsu
-      pipe8 -> lsu
-      pipe9 -> lsu
-      pipe10 -> lsu
-    }
-
-    rob -> int.dispatch1
-    rob -> int.dispatch2
-    rob -> int.dispatch3
-
-    vector: Vector and FP {
-      # Source: Dougall Johnson
       vrf: 128b Vector Register File
-
-      # Source: Dougall Johnson
-      dispatch4: 12-entry Dispatch Queue \#4
-
-      # Source: Dougall Johnson
-      sched8: 36-entry Scheduler \#8
-
-      # Source: Dougall Johnson
-      pipe11: Pipe \#11 {
-        FP/SIMD
-      }
-      dispatch4 -> sched8 -> vrf -> pipe11
-
-      # Source: Dougall Johnson
-      sched9: 36-entry Scheduler \#9
-
-      # Source: Dougall Johnson
-      pipe12: Pipe \#12 {
-        FP/SIMD
-      }
-      dispatch4 -> sched9 -> vrf -> pipe12
-
-      # Source: Dougall Johnson
-      sched10: 36-entry Scheduler \#10
-
-      # Source: Dougall Johnson
-      pipe13: Pipe \#13 {
-        FP/SIMD
-        FCSEL
-        TO INT
-      }
-      dispatch4 -> sched10 -> vrf -> pipe13
-
-      # Source: Dougall Johnson
-      sched11: 36-entry Scheduler \#11
-
-      # Source: Dougall Johnson
-      pipe14: Pipe \#14 {
-        FP/SIMD
-        FCSEL
-        TO INT
-        DIV/RECP
-        SQRT/SHA
-        JCVTZS
-      }
-      dispatch4 -> sched11 -> vrf -> pipe14
     }
-    rob -> vector.dispatch4
+
+    # Source: Dougall Johnson
+    dispatch1: 12-entry Dispatch Queue \#1
+
+    # Source: Dougall Johnson
+    sched1: 24-entry Scheduler \#1
+
+    # Source: Dougall Johnson
+    pipe1: Pipe \#1 {
+      ALU
+      FLAGS
+      B/BL/ADR
+      MOV NZCV
+      MRS
+    }
+    dispatch1 -> sched1 -> rf.irf -> pipe1
+
+    # Source: Dougall Johnson
+    sched2: 26-entry Scheduler \#2
+
+    # Source: Dougall Johnson
+    pipe2: Pipe \#2 {
+      ALU
+      FLAGS
+      B/Bl/ADR
+      MOV NZCV
+      PTRAUTH
+      BR/BLR
+    }
+    dispatch1 -> sched2 -> rf.irf -> pipe2
+
+    # Source: Dougall Johnson
+    sched3: 16-entry Scheduler \#3
+
+    # Source: Dougall Johnson
+    pipe3: Pipe \#3 {
+      ALU
+      FLAGS
+      FROM FP
+    }
+    dispatch1 -> sched3 -> rf.irf -> pipe3
+
+    # Source: Dougall Johnson
+    dispatch2: 12-entry Dispatch Queue \#2
+
+    # Source: Dougall Johnson
+    sched4: 12-entry Scheduler \#4
+
+    # Source: Dougall Johnson
+    pipe4: Pipe \#4 {
+      ALU
+      FROM FP
+    }
+    dispatch2 -> sched4 -> rf.irf -> pipe4
+
+    # Source: Dougall Johnson
+    sched5: 28-entry Scheduler \#5
+
+    # Source: Dougall Johnson
+    pipe5: Pipe \#5 {
+      ALU
+      MUL
+      DIV
+    }
+    dispatch2 -> sched5 -> rf.irf -> pipe5
+
+    # Source: Dougall Johnson
+    sched6: 28-entry Scheduler \#6
+
+    # Source: Dougall Johnson
+    pipe6: Pipe \#6 {
+      ALU
+      MUL
+      MADD
+      BFM
+      CRC
+    }
+    dispatch2 -> sched6 -> rf.irf -> pipe6
+
+    # Source: Dougall Johnson
+    dispatch3: 10-entry Dispatch Queue \#3
+
+    # Source: Dougall Johnson
+    sched7: 48-entry Scheduler \#7
+
+    # Source: Dougall Johnson
+    pipe7: Pipe \#7 {
+      STORE
+      AMX
+    }
+    dispatch3 -> sched7 -> rf.irf -> pipe7
+
+    # Source: Dougall Johnson
+    pipe8: Pipe \#8 {
+      LOAD
+      STORE
+      AMX
+    }
+    dispatch3 -> sched7 -> rf.irf -> pipe8
+
+    # Source: Dougall Johnson
+    pipe9: Pipe \#9 {
+      LOAD
+    }
+    dispatch3 -> sched7 -> rf.irf -> pipe9
+
+    # Source: Dougall Johnson
+    pipe10: Pipe \#10 {
+      LOAD
+    }
+    dispatch3 -> sched7 -> rf.irf -> pipe10
+
+    lsu: LSU {
+      # Source: Dougall Johnson
+      130-entry Load Queue
+      60-entry Store Queue
+    }
+
+    pipe7 -> lsu
+    pipe8 -> lsu
+    pipe9 -> lsu
+    pipe10 -> lsu
+
+    rob -> dispatch1
+    rob -> dispatch2
+    rob -> dispatch3
+
+    # Source: Dougall Johnson
+    dispatch4: 12-entry Dispatch Queue \#4
+
+    # Source: Dougall Johnson
+    sched8: 36-entry Scheduler \#8
+
+    # Source: Dougall Johnson
+    pipe11: Pipe \#11 {
+      FP/SIMD
+    }
+    dispatch4 -> sched8 -> rf.vrf -> pipe11
+
+    # Source: Dougall Johnson
+    sched9: 36-entry Scheduler \#9
+
+    # Source: Dougall Johnson
+    pipe12: Pipe \#12 {
+      FP/SIMD
+    }
+    dispatch4 -> sched9 -> rf.vrf -> pipe12
+
+    # Source: Dougall Johnson
+    sched10: 36-entry Scheduler \#10
+
+    # Source: Dougall Johnson
+    pipe13: Pipe \#13 {
+      FP/SIMD
+      FCSEL
+      TO INT
+    }
+    dispatch4 -> sched10 -> rf.vrf -> pipe13
+
+    # Source: Dougall Johnson
+    sched11: 36-entry Scheduler \#11
+
+    # Source: Dougall Johnson
+    pipe14: Pipe \#14 {
+      FP/SIMD
+      FCSEL
+      TO INT
+      DIV/RECP
+      SQRT/SHA
+      JCVTZS
+    }
+    dispatch4 -> sched11 -> rf.vrf -> pipe14
+    rob -> dispatch4
   }
   frontend.rename -> backend.rob
 
@@ -237,7 +235,7 @@ cpu : Apple M1 Firestorm CPU {
     l1 -> l2
   }
   frontend.l1ic -> mem.l2
-  backend.int.lsu -> mem.l1
+  backend.lsu -> mem.l1
 
   info: |md
     Drawn by Jiajie Chen @jiegec

@@ -48,193 +48,192 @@ cpu : Qualcomm Oryon CPU {
     # Source: Chips and Cheese
     rob: 680-entry ROB
 
-    int: Integer/Memory {
+    rf: Register File {
       # Source: Chips and Cheese
       irf: 384 + 32-entry Integer Register File
 
-      # Source: Chips and Cheese, Anandtech
-      sched1: 20-entry Scheduler \#1
-
-      # Source: Chips and Cheese
-      pipe1: Pipe \#1 {
-        ALU
-        Direct Branch
-        Indirect Branch
-      }
-      sched1 -> irf -> pipe1
-
-      # Source: Chips and Cheese
-      sched2: 20-entry Scheduler \#2
-
-      # Source: Chips and Cheese
-      pipe2: Pipe \#2 {
-        ALU
-        Direct Branch
-      }
-      sched2 -> irf -> pipe2
-
-      # Source: Chips and Cheese
-      sched3: 20-entry Scheduler \#3
-
-      # Source: Chips and Cheese
-      pipe3: Pipe \#3 {
-        ALU
-        Crypto
-        CRC
-      }
-      sched3 -> irf -> pipe3
-
-      # Source: Chips and Cheese
-      sched4: 20-entry Scheduler \#4
-
-      # Source: Chips and Cheese
-      pipe4: Pipe \#4 {
-        ALU
-      }
-      sched4 -> irf -> pipe4
-
-      # Source: Chips and Cheese
-      sched5: 20-entry Scheduler \#5
-
-      # Source: Chips and Cheese
-      pipe5: Pipe \#5 {
-        ALU
-        INT MUL
-        I2V
-      }
-      sched5 -> irf -> pipe5
-
-      # Source: Chips and Cheese
-      sched6: 20-entry Scheduler \#6
-
-      # Source: Chips and Cheese
-      pipe6: Pipe \#6 {
-        ALU
-        INT MUL
-        INT DIV
-        I2V
-      }
-      sched6 -> irf -> pipe6
-
-      # Source: Chips and Cheese, Anandtech
-      sched7: 16-entry Scheduler \#7
-
-      # Source: Chips and Cheese
-      pipe7: Pipe \#7 {
-        AGU
-        Load
-        Store
-      }
-      sched7 -> irf -> pipe7
-
-      # Source: Chips and Cheese
-      sched8: 16-entry Scheduler \#8
-
-      # Source: Chips and Cheese
-      pipe8: Pipe \#8 {
-        AGU
-        Load
-        Store
-      }
-      sched8 -> irf -> pipe8
-
-      # Source: Chips and Cheese
-      sched9: 16-entry Scheduler \#9
-
-      # Source: Chips and Cheese
-      pipe9: Pipe \#9 {
-        AGU
-        Load
-        Store
-      }
-      sched9 -> irf -> pipe9
-
-      # Source: Chips and Cheese
-      sched10: 16-entry Scheduler \#10
-
-      # Source: Chips and Cheese
-      pipe10: Pipe \#10 {
-        AGU
-        Load
-        Store
-      }
-      sched10 -> irf -> pipe10
-
-      lsu: LSU {
-        # Source: Chips and Cheese, Anandtech
-        192-entry Load Queue
-        56-entry Store Queue
-      }
-
-      pipe7 -> lsu
-      pipe8 -> lsu
-      pipe9 -> lsu
-      pipe10 -> lsu
-    }
-
-    rob -> int.sched1
-    rob -> int.sched2
-    rob -> int.sched3
-    rob -> int.sched4
-    rob -> int.sched5
-    rob -> int.sched6
-    rob -> int.sched7
-    rob -> int.sched8
-    rob -> int.sched9
-    rob -> int.sched10
-
-    vector: Vector and FP {
       # Source: Chips and Cheese
       vrf: 384 + 32-entry 128b Vector Register File
 
-      # Source: Chips and Cheese, Anandtech
-      sched11: 48-entry Scheduler \#11
-
-      # Source: Chips and Cheese
-      pipe11: Pipe \#11 {
-        128b ALU
-        NEON
-        V2I
-      }
-      sched11 -> vrf -> pipe11
-
-      # Source: Chips and Cheese
-      sched12: 48-entry Scheduler \#12
-
-      # Source: Chips and Cheese
-      pipe12: Pipe \#12 {
-        128b ALU
-        NEON
-        V2I
-      }
-      sched12 -> vrf -> pipe12
-
-      # Source: Chips and Cheese
-      sched13: 48-entry Scheduler \#13
-
-      # Source: Chips and Cheese
-      pipe13: Pipe \#13 {
-        128b ALU
-        NEON
-      }
-      sched13 -> vrf -> pipe13
-
-      # Source: Chips and Cheese
-      sched14: 48-entry Scheduler \#14
-
-      # Source: Chips and Cheese
-      pipe14: Pipe \#14 {
-        128b ALU
-        NEON
-        FDIV
-        FSQRT
-      }
-      sched14 -> vrf -> pipe14
     }
-    rob -> vector.sched11
-    rob -> vector.sched12
-    rob -> vector.sched13
-    rob -> vector.sched14
+
+    # Source: Chips and Cheese, Anandtech
+    sched1: 20-entry Scheduler \#1
+
+    # Source: Chips and Cheese
+    pipe1: Pipe \#1 {
+      ALU
+      Direct Branch
+      Indirect Branch
+    }
+    sched1 -> rf.irf -> pipe1
+
+    # Source: Chips and Cheese
+    sched2: 20-entry Scheduler \#2
+
+    # Source: Chips and Cheese
+    pipe2: Pipe \#2 {
+      ALU
+      Direct Branch
+    }
+    sched2 -> rf.irf -> pipe2
+
+    # Source: Chips and Cheese
+    sched3: 20-entry Scheduler \#3
+
+    # Source: Chips and Cheese
+    pipe3: Pipe \#3 {
+      ALU
+      Crypto
+      CRC
+    }
+    sched3 -> rf.irf -> pipe3
+
+    # Source: Chips and Cheese
+    sched4: 20-entry Scheduler \#4
+
+    # Source: Chips and Cheese
+    pipe4: Pipe \#4 {
+      ALU
+    }
+    sched4 -> rf.irf -> pipe4
+
+    # Source: Chips and Cheese
+    sched5: 20-entry Scheduler \#5
+
+    # Source: Chips and Cheese
+    pipe5: Pipe \#5 {
+      ALU
+      INT MUL
+      I2V
+    }
+    sched5 -> rf.irf -> pipe5
+
+    # Source: Chips and Cheese
+    sched6: 20-entry Scheduler \#6
+
+    # Source: Chips and Cheese
+    pipe6: Pipe \#6 {
+      ALU
+      INT MUL
+      INT DIV
+      I2V
+    }
+    sched6 -> rf.irf -> pipe6
+
+    # Source: Chips and Cheese, Anandtech
+    sched7: 16-entry Scheduler \#7
+
+    # Source: Chips and Cheese
+    pipe7: Pipe \#7 {
+      AGU
+      Load
+      Store
+    }
+    sched7 -> rf.irf -> pipe7
+
+    # Source: Chips and Cheese
+    sched8: 16-entry Scheduler \#8
+
+    # Source: Chips and Cheese
+    pipe8: Pipe \#8 {
+      AGU
+      Load
+      Store
+    }
+    sched8 -> rf.irf -> pipe8
+
+    # Source: Chips and Cheese
+    sched9: 16-entry Scheduler \#9
+
+    # Source: Chips and Cheese
+    pipe9: Pipe \#9 {
+      AGU
+      Load
+      Store
+    }
+    sched9 -> rf.irf -> pipe9
+
+    # Source: Chips and Cheese
+    sched10: 16-entry Scheduler \#10
+
+    # Source: Chips and Cheese
+    pipe10: Pipe \#10 {
+      AGU
+      Load
+      Store
+    }
+    sched10 -> rf.irf -> pipe10
+
+    lsu: LSU {
+      # Source: Chips and Cheese, Anandtech
+      192-entry Load Queue
+      56-entry Store Queue
+    }
+
+    pipe7 -> lsu
+    pipe8 -> lsu
+    pipe9 -> lsu
+    pipe10 -> lsu
+
+    rob -> sched1
+    rob -> sched2
+    rob -> sched3
+    rob -> sched4
+    rob -> sched5
+    rob -> sched6
+    rob -> sched7
+    rob -> sched8
+    rob -> sched9
+    rob -> sched10
+
+    # Source: Chips and Cheese, Anandtech
+    sched11: 48-entry Scheduler \#11
+
+    # Source: Chips and Cheese
+    pipe11: Pipe \#11 {
+      128b ALU
+      NEON
+      V2I
+    }
+    sched11 -> rf.vrf -> pipe11
+
+    # Source: Chips and Cheese
+    sched12: 48-entry Scheduler \#12
+
+    # Source: Chips and Cheese
+    pipe12: Pipe \#12 {
+      128b ALU
+      NEON
+      V2I
+    }
+    sched12 -> rf.vrf -> pipe12
+
+    # Source: Chips and Cheese
+    sched13: 48-entry Scheduler \#13
+
+    # Source: Chips and Cheese
+    pipe13: Pipe \#13 {
+      128b ALU
+      NEON
+    }
+    sched13 -> rf.vrf -> pipe13
+
+    # Source: Chips and Cheese
+    sched14: 48-entry Scheduler \#14
+
+    # Source: Chips and Cheese
+    pipe14: Pipe \#14 {
+      128b ALU
+      NEON
+      FDIV
+      FSQRT
+    }
+    sched14 -> rf.vrf -> pipe14
+    rob -> sched11
+    rob -> sched12
+    rob -> sched13
+    rob -> sched14
   }
   frontend.rename -> backend.rob
 
@@ -265,7 +264,7 @@ cpu : Qualcomm Oryon CPU {
     slc -> dram
   }
   frontend.l1ic -> mem.l2
-  backend.int.lsu -> mem.l1
+  backend.lsu -> mem.l1
 
   info: |md
     Drawn by Jiajie Chen @jiegec
