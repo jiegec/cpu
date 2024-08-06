@@ -1,30 +1,36 @@
 cpu : AMD Zen2 CPU {
   frontend: Frontend {
     bp: Branch Predictor {
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, AMD
       l1btb: 16-entry L1 BTB
 
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, AMD
       l2btb: 512-entry L2 BTB
 
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, AMD
       l3btb: 7168-entry L3 BTB
 
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, AMD
       indir: 1024-entry Indirect Target Array
 
       # Source: Chips and Cheese
       ras: 31-entry Return Address Stack
+
+      # Source: AMD
+      hp: hashed perceptron L1 branch predictor
+
+      # Source: AMD
+      tage: TAGE L2 branch predictor
     }
 
     l1ic: L1 IC {
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, AMD
       l1itlb: 64-entry L1 ITLB
 
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, AMD
       l2itlb: 512-entry L2 ITLB
 
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, AMD
       l1ic: 32KB 8-way L1 IC
     }
 
@@ -40,7 +46,7 @@ cpu : AMD Zen2 CPU {
     decode: 4-way Decode
     iq -> decode
 
-    # Source: Chips and Cheese
+    # Source: Chips and Cheese, AMD
     uopc: 4096-entry 8-way UOP Cache
     decode -> uopc
     bp -> uopc
@@ -59,21 +65,21 @@ cpu : AMD Zen2 CPU {
   }
 
   backend: Backend {
-    # Source: Chips and Cheese
+    # Source: Chips and Cheese, AMD
     rob: 224-entry ROB
 
     # Source: Chips and Cheese
     bob: 32-taken-entry 128-entry Branch Order Buffer
 
     rf: Register File {
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, AMD
       irf: 180-entry Integer Register File
 
       # Source: Chips and Cheese
       vrf: 160-entry FP/Vector Register File
     }
 
-    # Source: Chips and Cheese
+    # Source: Chips and Cheese, AMD
     sched1: 16-entry Scheduler \#1
 
     # Source: Chips and Cheese
@@ -83,7 +89,7 @@ cpu : AMD Zen2 CPU {
     }
     sched1 -> rf -> pipe1
 
-    # Source: Chips and Cheese
+    # Source: Chips and Cheese, AMD
     sched2: 16-entry Scheduler \#2
 
     # Source: Chips and Cheese
@@ -93,7 +99,7 @@ cpu : AMD Zen2 CPU {
     }
     sched2 -> rf -> pipe2
 
-    # Source: Chips and Cheese
+    # Source: Chips and Cheese, AMD
     sched3: 16-entry Scheduler \#3
 
     # Source: Chips and Cheese
@@ -104,7 +110,7 @@ cpu : AMD Zen2 CPU {
     }
     sched3 -> rf -> pipe3
 
-    # Source: Chips and Cheese
+    # Source: Chips and Cheese, AMD
     sched4: 16-entry Scheduler \#4
 
     # Source: Chips and Cheese
@@ -114,7 +120,7 @@ cpu : AMD Zen2 CPU {
     }
     sched4 -> rf -> pipe4
 
-    # Source: Chips and Cheese
+    # Source: Chips and Cheese, AMD
     sched5: 28-entry Scheduler \#5
 
     # Source: Chips and Cheese
@@ -141,6 +147,7 @@ cpu : AMD Zen2 CPU {
       # Source: Chips and Cheese
       44-entry Pre-L1D Access Load Queue
       116-entry Load Queue
+      # Source: Chips and Cheese, AMD
       48-entry Store Queue
     }
 
@@ -202,13 +209,13 @@ cpu : AMD Zen2 CPU {
 
   mem: Memory {
     l1: L1 DC {
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, AMD
       l1dtlb: 64-entry L1 DTLB
 
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, AMD
       l2dtlb: 2048-entry L2 DTLB
 
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, AMD
       l1dc: 32KB 8-way L1DC
 
       # Source: Chips and Cheese
@@ -216,7 +223,7 @@ cpu : AMD Zen2 CPU {
     }
 
     l2: L2 {
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, AMD
       l2dc: 512KB 8-way L2 Cache
     }
 
@@ -235,6 +242,6 @@ cpu : AMD Zen2 CPU {
   info: |md
     Drawn by Jiajie Chen @jiegec
 
-    Based on data from Chips and Cheese
+    Based on data from Chips and Cheese, Anandtech and AMD
   |
 }
