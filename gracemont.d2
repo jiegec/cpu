@@ -56,6 +56,10 @@ cpu : Intel Alder Lake Gracement CPU {
     # Source: Chips and Cheese, Intel
     rob: 256-entry ROB
 
+    # Source: Chips and Cheese
+    bob: 116-taken-entry 126-not-taken-entry Branch Order Buffer
+    rob -> bob
+
     rf: Register File {
       # Source: Chips and Cheese
       irf: 214-entry Integer Register File
