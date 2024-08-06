@@ -63,12 +63,15 @@ cpu : AMD Zen3 CPU {
     bob: 48-taken-entry 117-not-taken-entry Branch Order Buffer
     rob -> bob
 
-    rf: Integer/Flags Register File {
+    rf: Register File {
       # Source: Chips and Cheese, AMD
       irf: 192-entry Integer Register File
 
       # Source: Chips and Cheese
       flagsrf: 122-entry Flags Register File
+
+      # Source: Chips and Cheese, AMD
+      vrf: 160-entry Vector Register File
     }
 
     # Source: Chips and Cheese, AMD
@@ -160,11 +163,6 @@ cpu : AMD Zen3 CPU {
     rob -> nsq
 
     # Source: Chips and Cheese, AMD
-    vrf: FP/Vector Register File {
-      160-entry Vector Register File
-    }
-
-    # Source: Chips and Cheese, AMD
     sched5: 32-entry Scheduler \#5
     nsq -> sched5
 
@@ -176,7 +174,7 @@ cpu : AMD Zen3 CPU {
       INT Vec MUL
       AES
     }
-    sched5 -> vrf -> pipe9
+    sched5 -> rf -> pipe9
 
     # Source: Chips and Cheese
     pipe10: Pipe \#10 {
@@ -186,14 +184,14 @@ cpu : AMD Zen3 CPU {
       Shuffle
       Convert
     }
-    sched5 -> vrf -> pipe10
+    sched5 -> rf -> pipe10
 
     # Source: Chips and Cheese
     pipe11: Pipe \#11 {
       FStore
       F2I
     }
-    sched5 -> vrf -> pipe11 -> lsu
+    sched5 -> rf -> pipe11 -> lsu
 
     # Source: Chips and Cheese, AMD
     sched6: 32-entry Scheduler \#6
@@ -209,7 +207,7 @@ cpu : AMD Zen3 CPU {
       Vec Shift
       FDIV
     }
-    sched6 -> vrf -> pipe12
+    sched6 -> rf -> pipe12
 
     # Source: Chips and Cheese
     pipe13: Pipe \#13 {
@@ -218,7 +216,7 @@ cpu : AMD Zen3 CPU {
       INT Vec ALU
       INT Vec MUL
     }
-    sched6 -> vrf -> pipe13
+    sched6 -> rf -> pipe13
 
     # Source: Chips and Cheese, AMD
     pipe14: Pipe \#14 {
@@ -226,7 +224,7 @@ cpu : AMD Zen3 CPU {
       # FStore reported by AMD
       FStore
     }
-    sched6 -> vrf -> pipe14 -> lsu
+    sched6 -> rf -> pipe14 -> lsu
   }
   frontend.rename -> backend.rob
 

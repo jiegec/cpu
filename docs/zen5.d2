@@ -73,12 +73,16 @@ cpu : AMD Zen5 CPU {
     # Source: Chips and Cheese, AMD
     rob: 448-entry ROB
 
-    rf: Integer/Flags Register File {
+    rf: Register File {
       # Source: Chips and Cheese, AMD
       irf: 240-entry Integer Register File
 
       # Source: Chips and Cheese, AMD
       flagsrf: 192-entry Flags Register File
+
+      # Source: Chips and Cheese, AMD
+      vmaskrf: ?-entry Vector Mask Register File
+      vrf: 384-entry 512b Vector Register File
     }
 
     # Source: Chips and Cheese, AMD
@@ -174,12 +178,6 @@ cpu : AMD Zen5 CPU {
     rob -> nsq
 
     # Source: Chips and Cheese, AMD
-    vrf: FP/Vector Register File {
-      ?-entry Vector Mask Register File
-      384-entry 512b Vector Register File
-    }
-
-    # Source: Chips and Cheese, AMD
     sched3: 38-entry Scheduler \#3
 
     # Source: Chips and Cheese
@@ -187,13 +185,13 @@ cpu : AMD Zen5 CPU {
       FMUL
       FMA
     }
-    nsq -> sched3 -> vrf -> pipe11
+    nsq -> sched3 -> rf -> pipe11
 
     # Source: Chips and Cheese
     pipe12: Pipe \#12 {
       FADD
     }
-    nsq -> sched3 -> vrf -> pipe12
+    nsq -> sched3 -> rf -> pipe12
 
     # Source: Chips and Cheese, AMD
     sched4: 38-entry Scheduler \#4
@@ -203,13 +201,13 @@ cpu : AMD Zen5 CPU {
       FMUL
       FMA
     }
-    nsq -> sched4 -> vrf -> pipe13
+    nsq -> sched4 -> rf -> pipe13
 
     # Source: Chips and Cheese
     pipe14: Pipe \#14 {
       FMA
     }
-    nsq -> sched4 -> vrf -> pipe14
+    nsq -> sched4 -> rf -> pipe14
 
     # Source: Chips and Cheese, AMD
     sched5: 38-entry Scheduler \#5
@@ -219,14 +217,14 @@ cpu : AMD Zen5 CPU {
       Store Data
       Integer Data
     }
-    nsq -> sched5 -> vrf -> pipe15 -> lsu
+    nsq -> sched5 -> rf -> pipe15 -> lsu
 
     # Source: Chips and Cheese, AMD
     pipe16: Pipe \#16 {
       Store Data
       Integer Data
     }
-    nsq -> sched5 -> vrf -> pipe16 -> lsu
+    nsq -> sched5 -> rf -> pipe16 -> lsu
   }
   frontend.rename -> backend.rob
 

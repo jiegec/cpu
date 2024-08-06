@@ -25,191 +25,189 @@ cpu : Apple M3 P-core CPU {
     # Source: Geekerwan
     rob: 321-entry Coalesced ROB
 
-    int: Integer {
+    rf: Register File {
       # Source: Geekerwan
       irf: ~368-entry Integer Register File
 
       # Source: Geekerwan
-      dispatch1: 12-entry Dispatch Queue \#1
-
-      # Source: Geekerwan
-      sched1: 78-entry Scheduler \#1
-
-      # Source: Geekerwan
-      pipe1: Pipe \#1 {
-        ALU
-        BR
-        FLAGS
-        ADR
-      }
-      dispatch1 -> sched1 -> irf -> pipe1
-
-      # Source: Geekerwan
-      pipe2: Pipe \#2 {
-        ALU
-        BR
-        FLAGS
-        ADR
-      }
-      dispatch1 -> sched1 -> irf -> pipe2
-
-      # Source: Geekerwan
-      pipe3: Pipe \#3 {
-        ALU
-        FLAGS
-        ADR
-      }
-      dispatch1 -> sched1 -> irf -> pipe3
-
-      # Source: Geekerwan
-      pipe4: Pipe \#4 {
-        ALU
-        FLAGS
-        ADR
-      }
-      dispatch1 -> sched1 -> irf -> pipe4
-
-      # Source: Geekerwan
-      dispatch2: 12-entry Dispatch Queue \#2
-
-      # Source: Geekerwan
-      sched2: 36-entry Scheduler \#2
-
-      # Source: Geekerwan
-      pipe5: Pipe \#5 {
-        ALU
-        ADR
-      }
-      dispatch2 -> sched2 -> irf -> pipe5
-
-      # Source: Geekerwan
-      pipe6: Pipe \#6 {
-        ALU
-      }
-      dispatch2 -> sched2 -> irf -> pipe6
-
-      # Source: Geekerwan
-      sched3: 26-entry Scheduler \#3
-
-      # Source: Geekerwan
-      pipe7: Pipe \#7 {
-        ALU
-        MUL
-        DIV
-      }
-      dispatch2 -> sched3 -> irf -> pipe7
-
-      # Source: Geekerwan
-      sched4: 26-entry Scheduler \#4
-
-      # Source: Geekerwan
-      pipe8: Pipe \#8 {
-        ALU
-        MUL
-        BFM
-        MADD
-      }
-      dispatch2 -> sched4 -> irf -> pipe8
-
-      # Source: Geekerwan
-      dispatch3: 10-entry Dispatch Queue \#3
-
-      # Source: Geekerwan
-      sched5: 60-entry Scheduler \#5
-
-      # Source: Geekerwan
-      pipe9: Pipe \#9 {
-        STORE
-      }
-      dispatch3 -> sched5 -> irf -> pipe9
-
-      # Source: Geekerwan
-      pipe10: Pipe \#10 {
-        LOAD
-        STORE
-      }
-      dispatch3 -> sched5 -> irf -> pipe10
-
-      # Source: Geekerwan
-      pipe11: Pipe \#11 {
-        LOAD
-      }
-      dispatch3 -> sched5 -> irf -> pipe11
-
-      # Source: Geekerwan
-      pipe12: Pipe \#12 {
-        LOAD
-      }
-      dispatch3 -> sched5 -> irf -> pipe12
-
-      lsu: LSU {
-        # Source: Geekerwan
-        142-entry Load Queue
-        63-entry Store Queue
-      }
-
-      pipe9 -> lsu
-      pipe10 -> lsu
-      pipe11 -> lsu
-      pipe12 -> lsu
-    }
-
-    rob -> int.dispatch1
-    rob -> int.dispatch2
-    rob -> int.dispatch3
-
-    vector: Vector and FP {
-      # Source: Geekerwan
       vrf: ~423-entry 128b Vector Register File
-
-      # Source: Geekerwan
-      dispatch4: 12-entry Dispatch Queue \#4
-
-      # Source: Geekerwan
-      sched6: 41-entry Scheduler \#6
-
-      # Source: Geekerwan
-      pipe13: Pipe \#13 {
-        FP
-        SIMD
-      }
-      dispatch4 -> sched6 -> vrf -> pipe13
-
-      # Source: Geekerwan
-      sched7: 41-entry Scheduler \#7
-
-      # Source: Geekerwan
-      pipe14: Pipe \#14 {
-        FP
-        SIMD
-      }
-      dispatch4 -> sched7 -> vrf -> pipe14
-
-      # Source: Geekerwan
-      sched8: 41-entry Scheduler \#8
-
-      # Source: Geekerwan
-      pipe15: Pipe \#15 {
-        FP
-        SIMD
-        TO INT
-      }
-      dispatch4 -> sched8 -> vrf -> pipe15
-
-      # Source: Geekerwan
-      sched9: 41-entry Scheduler \#9
-
-      # Source: Geekerwan
-      pipe16: Pipe \#16 {
-        FP
-        SIMD
-        FSQRT
-        FCSEL
-        TO INT
-      }
-      dispatch4 -> sched9 -> vrf -> pipe16
     }
-    rob -> vector.dispatch4
+
+    # Source: Geekerwan
+    dispatch1: 12-entry Dispatch Queue \#1
+
+    # Source: Geekerwan
+    sched1: 78-entry Scheduler \#1
+
+    # Source: Geekerwan
+    pipe1: Pipe \#1 {
+      ALU
+      BR
+      FLAGS
+      ADR
+    }
+    dispatch1 -> sched1 -> rf.irf -> pipe1
+
+    # Source: Geekerwan
+    pipe2: Pipe \#2 {
+      ALU
+      BR
+      FLAGS
+      ADR
+    }
+    dispatch1 -> sched1 -> rf.irf -> pipe2
+
+    # Source: Geekerwan
+    pipe3: Pipe \#3 {
+      ALU
+      FLAGS
+      ADR
+    }
+    dispatch1 -> sched1 -> rf.irf -> pipe3
+
+    # Source: Geekerwan
+    pipe4: Pipe \#4 {
+      ALU
+      FLAGS
+      ADR
+    }
+    dispatch1 -> sched1 -> rf.irf -> pipe4
+
+    # Source: Geekerwan
+    dispatch2: 12-entry Dispatch Queue \#2
+
+    # Source: Geekerwan
+    sched2: 36-entry Scheduler \#2
+
+    # Source: Geekerwan
+    pipe5: Pipe \#5 {
+      ALU
+      ADR
+    }
+    dispatch2 -> sched2 -> rf.irf -> pipe5
+
+    # Source: Geekerwan
+    pipe6: Pipe \#6 {
+      ALU
+    }
+    dispatch2 -> sched2 -> rf.irf -> pipe6
+
+    # Source: Geekerwan
+    sched3: 26-entry Scheduler \#3
+
+    # Source: Geekerwan
+    pipe7: Pipe \#7 {
+      ALU
+      MUL
+      DIV
+    }
+    dispatch2 -> sched3 -> rf.irf -> pipe7
+
+    # Source: Geekerwan
+    sched4: 26-entry Scheduler \#4
+
+    # Source: Geekerwan
+    pipe8: Pipe \#8 {
+      ALU
+      MUL
+      BFM
+      MADD
+    }
+    dispatch2 -> sched4 -> rf.irf -> pipe8
+
+    # Source: Geekerwan
+    dispatch3: 10-entry Dispatch Queue \#3
+
+    # Source: Geekerwan
+    sched5: 60-entry Scheduler \#5
+
+    # Source: Geekerwan
+    pipe9: Pipe \#9 {
+      STORE
+    }
+    dispatch3 -> sched5 -> rf.irf -> pipe9
+
+    # Source: Geekerwan
+    pipe10: Pipe \#10 {
+      LOAD
+      STORE
+    }
+    dispatch3 -> sched5 -> rf.irf -> pipe10
+
+    # Source: Geekerwan
+    pipe11: Pipe \#11 {
+      LOAD
+    }
+    dispatch3 -> sched5 -> rf.irf -> pipe11
+
+    # Source: Geekerwan
+    pipe12: Pipe \#12 {
+      LOAD
+    }
+    dispatch3 -> sched5 -> rf.irf -> pipe12
+
+    lsu: LSU {
+      # Source: Geekerwan
+      142-entry Load Queue
+      63-entry Store Queue
+    }
+
+    pipe9 -> lsu
+    pipe10 -> lsu
+    pipe11 -> lsu
+    pipe12 -> lsu
+
+    rob -> dispatch1
+    rob -> dispatch2
+    rob -> dispatch3
+
+    # Source: Geekerwan
+    dispatch4: 12-entry Dispatch Queue \#4
+
+    # Source: Geekerwan
+    sched6: 41-entry Scheduler \#6
+
+    # Source: Geekerwan
+    pipe13: Pipe \#13 {
+      FP
+      SIMD
+    }
+    dispatch4 -> sched6 -> rf.vrf -> pipe13
+
+    # Source: Geekerwan
+    sched7: 41-entry Scheduler \#7
+
+    # Source: Geekerwan
+    pipe14: Pipe \#14 {
+      FP
+      SIMD
+    }
+    dispatch4 -> sched7 -> rf.vrf -> pipe14
+
+    # Source: Geekerwan
+    sched8: 41-entry Scheduler \#8
+
+    # Source: Geekerwan
+    pipe15: Pipe \#15 {
+      FP
+      SIMD
+      TO INT
+    }
+    dispatch4 -> sched8 -> rf.vrf -> pipe15
+
+    # Source: Geekerwan
+    sched9: 41-entry Scheduler \#9
+
+    # Source: Geekerwan
+    pipe16: Pipe \#16 {
+      FP
+      SIMD
+      FSQRT
+      FCSEL
+      TO INT
+    }
+    dispatch4 -> sched9 -> rf.vrf -> pipe16
+    rob -> dispatch4
   }
   frontend.rename -> backend.rob
 
@@ -219,7 +217,7 @@ cpu : Apple M3 P-core CPU {
       l1dc: 128KB L1DC
     }
   }
-  backend.int.lsu -> mem.l1
+  backend.lsu -> mem.l1
 
   info: |md
     Drawn by Jiajie Chen @jiegec
