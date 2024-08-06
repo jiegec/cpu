@@ -51,6 +51,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://jia.je/cpu/zen2.html</loc>
+         <lastmod>2024-08-06</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://jia.je/cpu/zen3.html</loc>
          <lastmod>2024-08-06</lastmod>
          <changefreq>daily</changefreq>
