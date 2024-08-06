@@ -2,9 +2,11 @@ cpu : Apple M1 Firestorm CPU {
   frontend: Frontend {
     bp: Branch Predictor {
       # Source: JamesAslan, Chips and Cheese
+      # Source: jiegec, see /data/firestorm/ras.csv
       l1btb: 1024-entry L1 BTB, 1 cycle latency
 
       # Source: JamesAslan
+      # Source: jiegec, see /data/firestorm/ras.csv
       l2btb: 192KB L1 IC as L2 BTB, 3 cycle latency
 
       # Source: jiegec, see /data/firestorm/ras.csv
@@ -14,6 +16,7 @@ cpu : Apple M1 Firestorm CPU {
     # Coupled Frontend
     l1ic: L1 IC {
       # Source: Dougall Johnson
+      # Source: jiegec, see hw.perflevel0.l1icachesize in /data/firestorm/cache.txt
       l1ic: 192KB L1 IC
     }
 
@@ -222,6 +225,7 @@ cpu : Apple M1 Firestorm CPU {
       l1dtlb: 256-entry L1 DTLB
 
       # Source: Dougall Johnson
+      # Source: jiegec, see hw.perflevel0.l1dcachesize in /data/firestorm/cache.txt
       l1dc: 128KB 8-way L1DC
     }
 
