@@ -61,6 +61,10 @@ cpu : AMD Zen4 CPU {
     # Source: Chips and Cheese, AMD
     rob: 320-entry ROB
 
+    # Source: Chips and Cheese
+    bob: 66-taken-entry 118-not-taken-entry Branch Order Buffer
+    rob -> bob
+
     rf: Integer/Flags Register File {
       # Source: Chips and Cheese, AMD
       irf: 224-entry Integer Register File
@@ -158,7 +162,7 @@ cpu : AMD Zen4 CPU {
 
     # Source: Chips and Cheese, AMD
     vrf: FP/Vector Register File {
-      68-entry Vector Mask Register File
+      (52+16)-entry Vector Mask Register File
       192-entry 512b Vector Register File
     }
 

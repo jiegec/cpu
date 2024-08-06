@@ -59,6 +59,10 @@ cpu : AMD Zen3 CPU {
     # Source: Chips and Cheese, AMD
     rob: 256-entry ROB
 
+    # Source: Chips and Cheese
+    bob: 48-taken-entry 117-not-taken-entry Branch Order Buffer
+    rob -> bob
+
     rf: Integer/Flags Register File {
       # Source: Chips and Cheese, AMD
       irf: 192-entry Integer Register File
