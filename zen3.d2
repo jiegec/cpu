@@ -61,7 +61,6 @@ cpu : AMD Zen3 CPU {
 
     # Source: Chips and Cheese
     bob: 48-taken-entry 117-not-taken-entry Branch Order Buffer
-    rob -> bob
 
     rf: Register File {
       # Source: Chips and Cheese, AMD
@@ -227,6 +226,7 @@ cpu : AMD Zen3 CPU {
     sched6 -> rf -> pipe14 -> lsu
   }
   frontend.rename -> backend.rob
+  frontend.rename -> backend.bob
 
   mem: Memory {
     l1: L1 DC {
