@@ -1,0 +1,212 @@
+cpu : Intel Ice Lake Sunny Cove CPU {
+  frontend: Frontend {
+    bp: Branch Predictor {
+      # Source: Chips and Cheese
+      l0btb: 256-entry L0 BTB
+
+      # Source: Chips and Cheese
+      l1btb: 5120-entry L1 BTB
+
+      # Source: Chips and Cheese
+      ras: 22-entry RAS
+    }
+
+    l1ic: L1 IC {
+      # Source: Chips and Cheese
+      itlb: 128-entry 8-way ITLB
+
+      # Source: Chips and Cheese
+      l1ic: 32KB 8-way L1 IC
+    }
+
+    bp -> l1ic
+
+    # Source: Chips and Cheese
+    iq: 2x 25-entry Instruction Queue
+    l1ic -> iq
+
+    # Source: Chips and Cheese
+    decode: 4-way Decode
+    iq -> decode
+
+    # Source: Chips and Cheese
+    uopc: 2304-entry UOP Cache
+    decode -> uopc
+    bp -> uopc
+
+    # Source: Chips and Cheese
+    uop: 2x 70-entry UOP Queue
+    uopc -> uop
+    decode -> uop
+
+    # Source: Chips and Cheese
+    rename: 5-way Rename {
+      Move Elimination
+      Zero Idiom
+    }
+    uop -> rename
+  }
+
+  backend: Backend {
+    # Source: Chips and Cheese
+    rob: 352-entry ROB
+
+    # Source: Chips and Cheese
+    bob: 96-entry Branch Order Buffer
+    rob -> bob
+
+    rf: "" {
+      # Source: Chips and Cheese
+      irf: 280-entry Integer Register File
+
+      # Source: Chips and Cheese
+      vrf: 224-entry FP/Vector Register File
+
+      # Source: Chips and Cheese
+      mxscrrf: 8-entry MXCSR Register File
+
+      # Source: Chips and Cheese
+      maskrf: 152-entry Mask Register File
+    }
+
+    # Source: Chips and Cheese
+    sched1: 80-entry Unified Math Scheduler
+
+    # Source: Chips and Cheese
+    pipe1: Pipe \#1 {
+      grid-columns: 1
+      ALU
+      Branch
+      512b FMA
+      512b ALU
+    }
+    rob -> sched1 -> rf -> pipe1
+
+    # Source: Chips and Cheese
+    pipe2: Pipe \#2 {
+      grid-columns: 1
+      ALU
+      INT MUL
+      INT DIV
+      256b FMA
+      256b ALU
+    }
+    rob -> sched1 -> rf -> pipe2
+
+    # Source: Chips and Cheese
+    pipe3: Pipe \#3 {
+      grid-columns: 1
+      ALU
+      512b ALU
+    }
+    rob -> sched1 -> rf -> pipe3
+
+    # Source: Chips and Cheese
+    pipe4: Pipe \#4 {
+      grid-columns: 1
+      ALU
+      Branch
+    }
+    rob -> sched1 -> rf -> pipe4
+
+    # Source: Chips and Cheese
+    sched2: 34-entry Store Data Scheduler
+
+    # Source: Chips and Cheese
+    pipe5: Pipe \#5 {
+      Store Data
+    }
+    rob -> sched2 -> rf -> pipe5
+
+    # Source: Chips and Cheese
+    pipe6: Pipe \#6 {
+      Store Data
+    }
+    rob -> sched2 -> rf -> pipe6
+
+    # Source: Chips and Cheese
+    sched3: 23-entry AGU Scheduler \#1
+
+    # Source: Chips and Cheese
+    pipe7: Pipe \#7 {
+      Load AGU
+    }
+    rob -> sched3 -> rf -> pipe7
+
+    # Source: Chips and Cheese
+    pipe8: Pipe \#8 {
+      Store AGU
+    }
+    rob -> sched3 -> rf -> pipe8
+
+    # Source: Chips and Cheese
+    sched4: 23-entry AGU Scheduler \#2
+
+    # Source: Chips and Cheese
+    pipe9: Pipe \#9 {
+      Load AGU
+    }
+    rob -> sched4 -> rf -> pipe9
+
+    # Source: Chips and Cheese
+    pipe10: Pipe \#10 {
+      Store AGU
+    }
+    rob -> sched4 -> rf -> pipe10
+
+    lsu: LSU {
+      # Source: Chips and Cheese
+      128-entry Load Queue
+      72-entry Store Queue
+    }
+
+    pipe5 -> lsu
+    pipe6 -> lsu
+    pipe7 -> lsu
+    pipe8 -> lsu
+    pipe9 -> lsu
+    pipe10 -> lsu
+  }
+  frontend.rename -> backend.rob
+
+  mem: Memory {
+    l1: L1 DC {
+      # Source: Chips and Cheese
+      l1dtlb: 64-entry load, 16-entry store L1 DTLB
+
+      # Source: Chips and Cheese
+      l1dc: 48KB 12-way L1DC
+
+      # Source: Chips and Cheese
+      mshr: 12-entry MSHR
+    }
+
+    l2: L2 {
+      # Source: Chips and Cheese
+      l2tlb: 2048-entry L2 TLB
+
+      # Source: Chips and Cheese
+      l2dc: 512 KB 8-way/1280 KB 20-way L2 DC
+
+      # Source: Chips and Cheese
+      mshr: 32-entry MSHR
+    }
+
+    # Source: Chips and Cheese
+    l1 -> l2: 64B/cycle
+
+    l3: L3 {
+      # Source: Chips and Cheese
+      l3dc: L3 Cache
+    }
+    l2 -> l3
+  }
+  frontend.l1ic -> mem.l2
+  backend.lsu -> mem.l1
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from Chips and Cheese
+  |
+}
