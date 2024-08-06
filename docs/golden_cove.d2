@@ -73,141 +73,132 @@ cpu : Intel Alder Lake Golden Cove CPU {
       # Source: Chips and Cheese
       maskrf: Mask Register File
     }
-    rob -> rf
 
-    int: Integer/Vector {
+    # Source: Chips and Cheese
+    sched1: 97-entry Unified Math Scheduler
+
+    # Source: Chips and Cheese, Intel
+    pipe1: Port 0 {
+      grid-columns: 1
+      ALU
+      LEA
+      Shift
+      JMP/Branch
+      256b FMA
+      256b ALU
+      256b Shift
+      256b FDIV
+    }
+    rob -> sched1 -> rf -> pipe1
+
+    # Source: Chips and Cheese, Intel
+    pipe2: Port 1 {
+      grid-columns: 1
+      ALU
+      LEA
+      INT MUL
+      INT DIV
+      256b FMA
+      256b ALU
+      256b Shift
+      256b Shuffle
+      256b FADD
+    }
+    rob -> sched1 -> rf -> pipe2
+
+    # Source: Chips and Cheese, Intel
+    pipe3: Port 5 {
+      grid-columns: 1
+      ALU
+      LEA
+      MulHi
+      512b FMA
+      256b ALU
+      AMX
+      256b Shuffle
+      256b FADD
+    }
+    rob -> sched1 -> rf -> pipe3
+
+    # Source: Chips and Cheese, Intel
+    pipe4: Port 6 {
+      grid-columns: 1
+      ALU
+      LEA
+      Shift
+      JMP/Branch
+    }
+    rob -> sched1 -> rf -> pipe4
+
+    # Source: Chips and Cheese, Intel
+    pipe5: Port 10 {
+      grid-columns: 1
+      ALU
+      LEA
+    }
+    rob -> sched1 -> rf -> pipe5
+
+    # Source: Chips and Cheese
+    sched2: 70-entry Load Scheduler
+
+    # Source: Chips and Cheese, Intel
+    pipe6: Port 2 {
+      Load AGU
+    }
+    rob -> sched2 -> rf -> pipe6
+
+    # Source: Chips and Cheese, Intel
+    pipe7: Port 3 {
+      Load AGU
+    }
+    rob -> sched2 -> rf -> pipe7
+
+    # Source: Chips and Cheese, Intel
+    pipe8: Port 11 {
+      Load AGU
+    }
+    rob -> sched2 -> rf -> pipe8
+
+    # Source: Chips and Cheese
+    sched3: 38-entry Store Scheduler
+
+    # Source: Chips and Cheese, Intel
+    pipe9: Port 7 {
+      Store AGU
+    }
+    rob -> sched3 -> rf -> pipe9
+
+    # Source: Chips and Cheese, Intel
+    pipe10: Port 8 {
+      Store AGU
+    }
+    rob -> sched3 -> rf -> pipe10
+
+    # Source: Chips and Cheese, Intel
+    pipe11: Port 4 {
+      Store Data
+    }
+    rob -> sched3 -> rf -> pipe11
+
+    # Source: Chips and Cheese, Intel
+    pipe12: Port 9 {
+      Store Data
+    }
+    rob -> sched3 -> rf -> pipe12
+
+    lsu: LSU {
       # Source: Chips and Cheese
-      sched1: 97-entry Unified Math Scheduler
-
-      # Source: Chips and Cheese, Intel
-      pipe1: Port 0 {
-        grid-columns: 1
-        ALU
-        LEA
-        Shift
-        JMP/Branch
-        256b FMA
-        256b ALU
-        256b Shift
-        256b FDIV
-      }
-      sched1 -> pipe1
-
-      # Source: Chips and Cheese, Intel
-      pipe2: Port 1 {
-        grid-columns: 1
-        ALU
-        LEA
-        INT MUL
-        INT DIV
-        256b FMA
-        256b ALU
-        256b Shift
-        256b Shuffle
-        256b FADD
-      }
-      sched1 -> pipe2
-
-      # Source: Chips and Cheese, Intel
-      pipe3: Port 5 {
-        grid-columns: 1
-        ALU
-        LEA
-        MulHi
-        512b FMA
-        256b ALU
-        AMX
-        256b Shuffle
-        256b FADD
-      }
-      sched1 -> pipe3
-
-      # Source: Chips and Cheese, Intel
-      pipe4: Port 6 {
-        grid-columns: 1
-        ALU
-        LEA
-        Shift
-        JMP/Branch
-      }
-      sched1 -> pipe4
-
-      # Source: Chips and Cheese, Intel
-      pipe5: Port 10 {
-        grid-columns: 1
-        ALU
-        LEA
-      }
-      sched1 -> pipe5
+      192-entry Load Queue
+      114-entry Store Queue
     }
 
-    rf -> int.sched1
-
-    mem: Memory {
-      # Source: Chips and Cheese
-      sched2: 70-entry Load Scheduler
-
-      # Source: Chips and Cheese, Intel
-      pipe6: Port 2 {
-        Load AGU
-      }
-      sched2 -> pipe6
-
-      # Source: Chips and Cheese, Intel
-      pipe7: Port 3 {
-        Load AGU
-      }
-      sched2 -> pipe7
-
-      # Source: Chips and Cheese, Intel
-      pipe8: Port 11 {
-        Load AGU
-      }
-      sched2 -> pipe8
-
-      # Source: Chips and Cheese
-      sched3: 38-entry Store Scheduler
-
-      # Source: Chips and Cheese, Intel
-      pipe9: Port 7 {
-        Store AGU
-      }
-      sched3 -> pipe9
-
-      # Source: Chips and Cheese, Intel
-      pipe10: Port 8 {
-        Store AGU
-      }
-      sched3 -> pipe10
-
-      # Source: Chips and Cheese, Intel
-      pipe11: Port 4 {
-        Store Data
-      }
-      sched3 -> pipe11
-
-      # Source: Chips and Cheese, Intel
-      pipe12: Port 9 {
-        Store Data
-      }
-      sched3 -> pipe12
-
-      lsu: LSU {
-        # Source: Chips and Cheese
-        192-entry Load Queue
-        114-entry Store Queue
-      }
-
-      pipe6 -> lsu
-      pipe7 -> lsu
-      pipe8 -> lsu
-      pipe9 -> lsu
-      pipe10 -> lsu
-      pipe11 -> lsu
-      pipe12 -> lsu
-    }
-    rf -> mem.sched2
-    rf -> mem.sched3
+    pipe6 -> lsu
+    pipe7 -> lsu
+    pipe8 -> lsu
+    pipe9 -> lsu
+    pipe10 -> lsu
+    pipe11 -> lsu
+    pipe12 -> lsu
   }
   frontend.rename -> backend.rob
 
