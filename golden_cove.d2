@@ -19,6 +19,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
       itlb: 256-entry 8-way ITLB
 
       # Source: Chips and Cheese
+      # Source: lscpu -C
       l1ic: 32KB 8-way L1 IC
     }
 
@@ -56,7 +57,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
     # Source: Chips and Cheese
     bob: 128-entry Branch Order Buffer
 
-    rf: "" {
+    rf: Register File {
       # Source: Chips and Cheese
       irf: 280-entry Integer Register File
 
@@ -233,6 +234,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
       l1dtlb: 96-entry 6-way L1 DTLB
 
       # Source: Chips and Cheese
+      # Source: lscpu -C
       l1dc: 48KB 12-way L1DC
 
       # Source: Chips and Cheese
@@ -244,6 +246,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
       l2tlb: 2048-entry L2 TLB
 
       # Source: Chips and Cheese, Intel
+      # Source: lscpu -C
       l2dc: 1280KB L2 Cache, 15 cycle latency
 
       # Source: Chips and Cheese
@@ -255,6 +258,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
 
     l3: L3 {
       # Source: Chips and Cheese
+      # Source: lscpu -C
       l3dc: 30MB L3 Cache
     }
     l2 -> l3
