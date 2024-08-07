@@ -75,7 +75,7 @@ cpu : AMD Zen2 CPU {
       # Source: Chips and Cheese, AMD
       irf: 180-entry Integer Register File
 
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, AMD
       vrf: 160-entry FP/Vector Register File
     }
 
@@ -145,8 +145,10 @@ cpu : AMD Zen2 CPU {
 
     lsu: LSU {
       # Source: Chips and Cheese
-      44-entry Pre-L1D Access Load Queue
-      116-entry Load Queue
+      # 44-entry Pre-L1D Access Load Queue
+      # 116-entry Load Queue
+      # Source: AMD
+      72-entry Load Queue
       # Source: Chips and Cheese, AMD
       48-entry Store Queue
     }
