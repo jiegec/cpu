@@ -45,6 +45,9 @@ cpu : Apple M1 Firestorm CPU {
     }
 
     # Source: Dougall Johnson
+    # Source: jiegec, 156(~=158=12+12+24+26+16+12+28+28) sched size for alu
+    # Source: jiegec, 130(~=134=24+26+16+12+28+28) sched w/o nsq size for alu
+    # Source: jiegec, 68(12+28+28) sched size for imul
     dispatch1: 12-entry Dispatch Queue \#1
 
     # Source: Dougall Johnson
@@ -123,6 +126,8 @@ cpu : Apple M1 Firestorm CPU {
     dispatch2 -> sched6 -> rf.irf -> pipe6
 
     # Source: Dougall Johnson
+    # Source: jiegec, 58(10+48) sched size for load & store
+    # Source: jiegec, 48 sched size for load & store
     dispatch3: 10-entry Dispatch Queue \#3
 
     # Source: Dougall Johnson
