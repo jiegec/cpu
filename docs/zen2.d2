@@ -80,7 +80,8 @@ cpu : AMD Zen2 CPU {
     }
 
     # Source: Chips and Cheese, AMD
-    sched1: 16-entry Scheduler \#1
+    # Source: jiegec, 64(=16*4) sched size for alu
+    sched1: 16-entry ALU Scheduler \#1
 
     # Source: Chips and Cheese
     pipe1: Pipe \#1 {
@@ -90,7 +91,7 @@ cpu : AMD Zen2 CPU {
     sched1 -> rf -> pipe1
 
     # Source: Chips and Cheese, AMD
-    sched2: 16-entry Scheduler \#2
+    sched2: 16-entry ALU Scheduler \#2
 
     # Source: Chips and Cheese
     pipe2: Pipe \#2 {
@@ -100,7 +101,7 @@ cpu : AMD Zen2 CPU {
     sched2 -> rf -> pipe2
 
     # Source: Chips and Cheese, AMD
-    sched3: 16-entry Scheduler \#3
+    sched3: 16-entry ALU Scheduler \#3
 
     # Source: Chips and Cheese
     pipe3: Pipe \#3 {
@@ -111,7 +112,7 @@ cpu : AMD Zen2 CPU {
     sched3 -> rf -> pipe3
 
     # Source: Chips and Cheese, AMD
-    sched4: 16-entry Scheduler \#4
+    sched4: 16-entry ALU Scheduler \#4
 
     # Source: Chips and Cheese
     pipe4: Pipe \#4 {
@@ -121,7 +122,8 @@ cpu : AMD Zen2 CPU {
     sched4 -> rf -> pipe4
 
     # Source: Chips and Cheese, AMD
-    sched5: 28-entry Scheduler \#5
+    # Source: jiegec, 28 sched size for load & store
+    sched5: 28-entry AGU Scheduler \#5
 
     # Source: Chips and Cheese
     pipe5: Pipe \#5 {
@@ -171,7 +173,7 @@ cpu : AMD Zen2 CPU {
     rob -> nsq
 
     # Source: Chips and Cheese
-    sched6: 36-entry Scheduler \#6
+    sched6: 36-entry Vector/FP Scheduler \#6
     nsq -> sched6
 
     # Source: Chips and Cheese

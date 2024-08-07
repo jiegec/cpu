@@ -75,6 +75,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
     }
 
     # Source: Chips and Cheese
+    # Source: jiegec, 97 sched size for alu
     sched1: 97-entry Unified Math Scheduler
 
     # Source: uops.info, perfmon.intel.com, Intel
@@ -163,6 +164,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
     rob -> sched1 -> rf -> pipe5
 
     # Source: Chips and Cheese
+    # Source: jiegec, 69 sched size for load
     sched2: 70-entry Load Scheduler
 
     # Source: Chips and Cheese, Intel
@@ -185,6 +187,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
     rob -> sched2 -> rf -> pipe8
 
     # Source: Chips and Cheese
+    # Source: jiegec, 40 sched size for store
     sched3: 38-entry Store Scheduler
 
     # Source: Chips and Cheese, Intel
