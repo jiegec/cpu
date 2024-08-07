@@ -146,10 +146,13 @@ cpu : AMD Zen2 CPU {
     lsu: LSU {
       # Source: Chips and Cheese
       # 44-entry Pre-L1D Access Load Queue
-      # 116-entry Load Queue
+      # (44+72)-entry Load Queue
       # Source: AMD
+      # Source: jiegec, see /data/zen2/lsu.csv:
+      # pattern 0: spike at 116, equals to 44+72
       72-entry Load Queue
       # Source: Chips and Cheese, AMD
+      # Source: jiegec, see /data/zen2/lsu.csv, pattern 2 & 3, spike at 48
       48-entry Store Queue
     }
 

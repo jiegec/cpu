@@ -157,7 +157,10 @@ cpu : Apple M1 Firestorm CPU {
 
     lsu: LSU {
       # Source: Dougall Johnson
+      # Source: jiegec, see /data/firestorm/lsu.csv:
+      # pattern 0: spike at 130
       130-entry Load Queue
+      # pattern 2: spike at 107
       60-entry Store Queue
     }
 
