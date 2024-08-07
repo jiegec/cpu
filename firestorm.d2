@@ -157,7 +157,12 @@ cpu : Apple M1 Firestorm CPU {
 
     lsu: LSU {
       # Source: Dougall Johnson
+      # See https://dougallj.wordpress.com/2021/04/08/apple-m1-load-and-store-queue-measurements/
+      # Source: jiegec, see /data/firestorm/lsu.csv:
+      # load: spike at 130 and 188(130+48(scheduler)+10(dispatch queue))
       130-entry Load Queue
+      # store: spike at 107(60+48(scheduler)-1) and 118(60+48(scheduler)+10(dispatch queue))
+      # 60 was computed by 118 - 48(scheduler) - 10(dispatch queue)
       60-entry Store Queue
     }
 
