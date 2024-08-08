@@ -2,25 +2,28 @@ cpu : AMD Zen2 CPU {
   frontend: Frontend {
     bp: Branch Predictor {
       # Source: Chips and Cheese, AMD
-      l1btb: 16-entry L1 BTB
+      l1btb: 16-entry(8 forward, 8 backward) L1 BTB
 
       # Source: Chips and Cheese, AMD
-      l2btb: 512-entry L2 BTB
+      l2btb: 512-entry L2 BTB, one bubble
 
       # Source: Chips and Cheese, AMD
-      l3btb: 7168-entry L3 BTB
+      l3btb: 7168-entry L3 BTB, four bubble
 
       # Source: Chips and Cheese, AMD
       indir: 1024-entry Indirect Target Array
 
-      # Source: Chips and Cheese
-      ras: 31-entry Return Address Stack
+      # Source: Chips and Cheese, AMD
+      ras: 32-entry Return Address Stack
 
       # Source: AMD
       hp: hashed perceptron L1 branch predictor
 
       # Source: AMD
       tage: TAGE L2 branch predictor
+
+      # Source: AMD
+      penalty: 12-18 cycle branch misprediction latency, 16 typical
     }
 
     l1ic: L1 IC {
@@ -169,6 +172,7 @@ cpu : AMD Zen2 CPU {
     rob -> sched5
 
     # Source: Chips and Cheese
+    # Source: jiegec, 100(64+36) sched size for fp
     nsq: 64-entry Non/Pre-Scheduling Queue
     rob -> nsq
 
