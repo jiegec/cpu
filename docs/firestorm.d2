@@ -34,14 +34,17 @@ cpu : Apple M1 Firestorm CPU {
 
   backend: Backend {
     # Source: Dougall Johnson
-    rob: Coalesced ROB
+    rob: ~330-entry Coalesced ROB
 
     rf: Register File {
       # Source: Dougall Johnson
-      irf: Integer Register File
+      irf: ~380-entry Integer Register File
 
       # Source: Dougall Johnson
-      vrf: 128b Vector Register File
+      vrf: ~432-entry 128b Vector Register File
+
+      # Source: Dougall Johnson
+      flagsrf: ~128-entry Flags Register File
     }
 
     # Source: Dougall Johnson
@@ -71,7 +74,7 @@ cpu : Apple M1 Firestorm CPU {
     pipe2: Pipe \#2 {
       ALU
       FLAGS
-      B/Bl/ADR
+      B/BL/ADR
       MOV NZCV
       PTRAUTH
       BR/BLR
