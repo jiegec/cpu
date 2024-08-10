@@ -7,7 +7,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
       # Source: Chips and Cheese
       l2btb: 6144-entry L2 BTB
 
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, Intel
       l3btb: 12288-entry L3 BTB
 
       # Source: jiegec, see /data/golden_cove/ras.csv
@@ -38,6 +38,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
     bp -> uopc
 
     # Source: Chips and Cheese
+    # Source: Intel, called allocation queue
     uop: 2x 72-entry UOP Queue
     uopc -> uop
     decode -> uop
@@ -58,15 +59,17 @@ cpu : Intel Alder Lake Golden Cove CPU {
     bob: 128-entry Branch Order Buffer
 
     rf: Register File {
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese: 280
+      # Source: Intel, 288
       # Source: jiegec, 247 speculative
-      irf: 280-entry Integer Register File
+      irf: 288-entry Integer Register File
 
       # Source: Chips and Cheese
       # Source: jiegec, 247 speculative
       flagsrf: 248-entry Flags Register File
 
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, 332
+      # Source: Intel, 220 (512b), 320 (256b)
       # Source: jiegec, 296 speculative
       vrf: 332-entry FP/Vector Register File
 
@@ -79,6 +82,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
 
     # Source: Chips and Cheese
     # Source: jiegec, 97 sched size for alu
+    # Source: Intel, 248 scheduler entries in total (248>205=97+70+38)
     sched1: 97-entry Unified Math Scheduler
 
     # Source: uops.info, perfmon.intel.com, Intel
@@ -218,9 +222,10 @@ cpu : Intel Alder Lake Golden Cove CPU {
     rob -> sched3 -> rf -> pipe12
 
     lsu: LSU {
-      # Source: Chips and Cheese
-      192-entry Load Queue
-      114-entry Store Queue
+      # Source: Chips and Cheese, 192 Load + 114 store
+      # Source: Intel, 240 Load + 112 Store
+      240-entry Load Queue
+      112-entry Store Queue
     }
 
     pipe6 -> lsu
@@ -239,12 +244,15 @@ cpu : Intel Alder Lake Golden Cove CPU {
       # Source: Chips and Cheese, Intel
       l1dtlb: 96-entry 6-way L1 DTLB
 
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, Intel
       # Source: lscpu -C
       l1dc: 48KB 12-way L1DC
 
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, Intel
       mshr: 16-entry MSHR
+
+      # Source: Chips and Cheese, Intel
+      ptw: 4 page table walkers
     }
 
     l2: L2 {
@@ -253,7 +261,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
 
       # Source: Chips and Cheese, Intel
       # Source: lscpu -C
-      l2dc: 1280KB L2 Cache, 15 cycle latency
+      l2dc: 1280KB(client), 2048KB(server) L2 Cache, 15 cycle latency
 
       # Source: Chips and Cheese
       mshr: 48-entry MSHR

@@ -35,6 +35,7 @@ cpu : Intel Ice Lake Sunny Cove CPU {
     bp -> uopc
 
     # Source: Chips and Cheese
+    # Source: Intel, called allocation queue
     uop: 2x 70-entry UOP Queue
     uopc -> uop
     decode -> uop
@@ -48,17 +49,17 @@ cpu : Intel Ice Lake Sunny Cove CPU {
   }
 
   backend: Backend {
-    # Source: Chips and Cheese
+    # Source: Chips and Cheese, Intel
     rob: 352-entry ROB
 
     # Source: Chips and Cheese
     bob: 96-entry Branch Order Buffer
 
     rf: "" {
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, Intel
       irf: 280-entry Integer Register File
 
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, Intel
       vrf: 224-entry FP/Vector Register File
 
       # Source: Chips and Cheese
@@ -96,6 +97,7 @@ cpu : Intel Ice Lake Sunny Cove CPU {
     # 512-bit Shift(VPSLLD YMM): Port 0
 
     # Source: Chips and Cheese
+    # Source: Intel, 160 scheduler entries in total(160=80+34+23+23)
     sched1: 80-entry Unified Math Scheduler
 
     # Source: Chips and Cheese
@@ -194,7 +196,7 @@ cpu : Intel Ice Lake Sunny Cove CPU {
     rob -> sched4 -> rf -> pipe10
 
     lsu: LSU {
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, Intel
       128-entry Load Queue
       72-entry Store Queue
     }
@@ -214,7 +216,7 @@ cpu : Intel Ice Lake Sunny Cove CPU {
       # Source: Chips and Cheese
       l1dtlb: 64-entry load, 16-entry store L1 DTLB
 
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, Intel
       l1dc: 48KB 12-way L1DC
 
       # Source: Chips and Cheese
@@ -222,7 +224,7 @@ cpu : Intel Ice Lake Sunny Cove CPU {
     }
 
     l2: L2 {
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, Intel
       l2tlb: 2048-entry L2 TLB
 
       # Source: Chips and Cheese
@@ -247,6 +249,6 @@ cpu : Intel Ice Lake Sunny Cove CPU {
   info: |md
     Drawn by Jiajie Chen @jiegec
 
-    Based on data from Chips and Cheese
+    Based on data from Chips and Cheese, Intel
   |
 }
