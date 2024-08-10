@@ -46,6 +46,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://jia.je/cpu/skylake.html</loc>
+         <lastmod>2024-08-10</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://jia.je/cpu/sunny_cove.html</loc>
          <lastmod>2024-08-10</lastmod>
          <changefreq>daily</changefreq>

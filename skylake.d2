@@ -1,0 +1,174 @@
+cpu : Intel Skylake CPU {
+  frontend: Frontend {
+    bp: Branch Predictor {
+    }
+
+    l1ic: L1 IC {
+      # Source: Wikichip
+      l1ic: 32KB 8-way L1 IC
+    }
+
+    bp -> l1ic
+
+    # Source: Wikichip
+    iq: 2x 25-entry Instruction Queue
+    l1ic -> iq
+
+    # Source: Wikichip
+    decode: 4-way Decode
+    iq -> decode
+
+    # Source: Wikichip
+    uopc: 1536-entry 8-way UOP Cache
+    decode -> uopc
+    bp -> uopc
+
+    # Source: Wikichip
+    uop: 2x 64-entry UOP Queue
+    uopc -> uop
+    decode -> uop
+
+    # Source: Wikichip
+    rename: Rename {
+      Move Elimination
+      Zero Idiom
+    }
+    uop -> rename
+  }
+
+  backend: Backend {
+    # Source: Wikichip
+    rob: ROB
+
+    # Source: Wikichip
+    bob: 48-entry Branch Order Buffer
+
+    rf: "" {
+      # Source: Wikichip
+      irf: 180-entry Integer Register File
+
+      # Source: Wikichip
+      vrf: 168-entry FP/Vector Register File
+    }
+
+    # Source: Wikichip
+    sched1: 97-entry Unified Scheduler
+
+    # Source: Wikichip
+    pipe1: Port 0 {
+      grid-columns: 1
+      ALU
+      INT DIV
+      INT Vec ALU
+      INT Vec MUL
+      FMA
+      AES
+      Vec String
+      FDIV
+      Branch
+    }
+    rob -> sched1 -> rf -> pipe1
+
+    # Source: Wikichip
+    pipe2: Port 1 {
+      grid-columns: 1
+      ALU
+      MUL
+      INT Vec ALU
+      INT Vec MUL
+      FMA
+      Bit Scan
+    }
+    rob -> sched1 -> rf -> pipe2
+
+    # Source: Wikichip
+    pipe3: Port 5 {
+      grid-columns: 1
+      ALU
+      Vec Shuffle
+      INT Vec ALU
+      LEA
+    }
+    rob -> sched1 -> rf -> pipe3
+
+    # Source: Wikichip
+    pipe4: Port 6 {
+      grid-columns: 1
+      ALU
+      Branch
+    }
+    rob -> sched1 -> rf -> pipe4
+
+    # Source: Wikichip
+    pipe5: Port 2 {
+      AGU
+      Load Data
+    }
+    rob -> sched1 -> rf -> pipe5
+
+    # Source: Wikichip
+    pipe6: Port 3 {
+      AGU
+      Load Data
+    }
+    rob -> sched1 -> rf -> pipe6
+
+    # Source: Wikichip
+    pipe7: Port 4 {
+      Store Data
+    }
+    rob -> sched1 -> rf -> pipe7
+
+    # Source: Wikichip
+    pipe8: Port 7 {
+      AGU
+    }
+    rob -> sched1 -> rf -> pipe8
+
+
+    lsu: LSU {
+      # Source: Wikichip
+      72-entry Load Queue
+      56-entry Store Queue
+    }
+
+    pipe5 -> lsu
+    pipe6 -> lsu
+    pipe7 -> lsu
+    pipe8 -> lsu
+  }
+  frontend.rename -> backend.rob
+  frontend.rename -> backend.bob
+
+  mem: Memory {
+    l1: L1 DC {
+      # Source: Wikichip
+      l1dc: 32KB 8-way L1DC
+
+      # Source: Wikichip
+      mshr: 10-entry MSHR
+    }
+
+    l2: L2 {
+      # Source: Wikichip
+      l2dc: 256 KB 4-way L2 DC
+    }
+
+    # Source: Wikichip
+    l1 -> l2: 64B/cycle
+
+    l3: L3 {
+      # Source: Wikichip
+      l3dc: L3 Cache
+    }
+    l2 -> l3
+  }
+  frontend.l1ic -> mem.l2
+  backend.lsu -> mem.l1
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from Wikichip
+  |
+}
