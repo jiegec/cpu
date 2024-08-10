@@ -76,9 +76,14 @@ cpu : AMD Zen2 CPU {
 
     rf: Register File {
       # Source: Chips and Cheese, AMD
+      # Source: jiegec, 132 speculative
       irf: 180-entry Integer Register File
 
+      # Source: jiegec, 138 speculative
+      flagsrf: 138-entry Flags Register File
+
       # Source: Chips and Cheese, AMD
+      # Source: jiegec, 144 speculative
       vrf: 160-entry FP/Vector Register File
     }
 
