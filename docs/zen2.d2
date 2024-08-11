@@ -56,8 +56,8 @@ cpu : AMD Zen2 CPU {
 
     # Source: Chips and Cheese
     uop: UOP Queue
-    uopc -> uop
-    decode -> uop
+    uopc -> uop: 8 fused instructions/cycle
+    decode -> uop: 4 instructions/cycle
 
     # Source: Chips and Cheese
     rename: 5-way Rename {
@@ -236,6 +236,9 @@ cpu : AMD Zen2 CPU {
 
       # Source: Chips and Cheese
       mshr: 22-entry MSHR
+
+      # Source: AMD
+      ptw: 2 Page Table Walkers
     }
 
     l2: L2 {

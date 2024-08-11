@@ -47,8 +47,8 @@ cpu : AMD Zen3 CPU {
 
     # Source: Chips and Cheese
     uop: UOP Queue
-    uopc -> uop
-    decode -> uop
+    uopc -> uop: 8 macro ops/cycle
+    decode -> uop: 4 instructions/cycle
 
     # Source: Chips and Cheese
     rename: 6-way Rename {
@@ -73,10 +73,11 @@ cpu : AMD Zen3 CPU {
       flagsrf: 122-entry Flags Register File
 
       # Source: Chips and Cheese, AMD
-      vrf: 160-entry Vector Register File
+      vrf: 160-entry 256b Vector Register File
     }
 
     # Source: Chips and Cheese, AMD
+    # Source: AMD, 96 integer scheduler entries
     sched1: 24-entry Scheduler \#1
 
     # Source: Chips and Cheese
