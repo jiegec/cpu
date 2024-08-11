@@ -9,7 +9,7 @@
 | AMD Zen2                    | 16 L1 + 512 L2 + 7168 L3               | 1024     | 31  |
 | AMD Zen3                    | 1024 L1 + 6656 L2                      | 1536     | 32  |
 | AMD Zen4                    | 1536 L1 + 7168 L2                      | 3072     | 32  |
-| AMD Zen5                    | 16384 L1 + 8192 L2                     |          | 52  |
+| AMD Zen5                    | 1024 L1 + 16384 L2 + 8192 L3           |          | 52  |
 | Intel Sunny Cove            | 256 L1 + 5120 L2                       |          | 22  |
 | Intel Golden Cove           | 128 L1 + 6144 L2 + 12288 L3            |          |     |
 | Intel Gracemont             | 1024 L1 + 5120 L2                      |          |     |

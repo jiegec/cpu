@@ -83,6 +83,8 @@ cpu : Intel Alder Lake Golden Cove CPU {
     # Source: Chips and Cheese
     # Source: jiegec, 97 sched size for alu
     # Source: Intel, 248 scheduler entries in total (248>205=97+70+38)
+    # where's the missing 40 scheduler entries?
+    # possibly two schedulers for store, one for address, one for data?
     sched1: 97-entry Unified Math Scheduler
 
     # Source: uops.info, perfmon.intel.com, Intel
