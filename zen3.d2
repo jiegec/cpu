@@ -2,16 +2,19 @@ cpu : AMD Zen3 CPU {
   frontend: Frontend {
     bp: Branch Predictor {
       # Source: Chips and Cheese, AMD
-      l1btb: 1024-entry L1 BTB
+      l1btb: 1024-entry L1 BTB, zero bubbles
 
       # Source: Chips and Cheese, AMD
-      l2btb: 6656-entry L2 BTB
+      l2btb: 6656-entry L2 BTB, three bubbles
 
       # Source: Chips and Cheese, AMD
       indir: 1536-entry Indirect Target Array
 
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, AMD
       ras: 32-entry Return Address Stack
+
+      # Source: AMD
+      penalty: 11-18 cycle branch misprediction latency, 13 typical
     }
 
     l1ic: L1 IC {
