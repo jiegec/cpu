@@ -57,10 +57,15 @@ cpu : Intel Ice Lake Sunny Cove CPU {
 
     rf: "" {
       # Source: Chips and Cheese, Intel
+      # Source: jiegec, 239 speculative
       irf: 280-entry Integer Register File
 
       # Source: Chips and Cheese, Intel
+      # Source: jiegec, 158 speculative
       vrf: 224-entry FP/Vector Register File
+
+      # Source: jiegec, 237 speculative
+      flagsrf: 238-entry Flags Register File
 
       # Source: Chips and Cheese
       mxscrrf: 8-entry MXCSR Register File
