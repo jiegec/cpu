@@ -97,6 +97,8 @@ cpu : Intel Ice Lake Sunny Cove CPU {
     # 512-bit Shift(VPSLLD YMM): Port 0
 
     # Source: Chips and Cheese
+    # Source: jiegec, 81 sched size for fp
+    # Source: jiegec, 40 sched size for f2i
     # Source: Intel, 160 scheduler entries in total(160=80+34+23+23)
     sched1: 80-entry Unified Math Scheduler
 
@@ -151,6 +153,7 @@ cpu : Intel Ice Lake Sunny Cove CPU {
     rob -> sched1 -> rf -> pipe4
 
     # Source: Chips and Cheese
+    # Source: jiegec, 36 sched size for store data
     sched2: 34-entry Store Data Scheduler
 
     # Source: Chips and Cheese
@@ -166,6 +169,7 @@ cpu : Intel Ice Lake Sunny Cove CPU {
     rob -> sched2 -> rf -> pipe6
 
     # Source: Chips and Cheese
+    # Source: jiegec, 48(~46=23+23) sched size for load & store address
     sched3: 23-entry AGU Scheduler \#1
 
     # Source: Chips and Cheese

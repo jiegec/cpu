@@ -1,11 +1,14 @@
 cpu : AMD Zen5 CPU {
   frontend: Frontend {
     bp: Branch Predictor {
-      # Source: Chips and Cheese, AMD
-      l1btb: 16384-entry L1 BTB
+      # Source: Chips and Cheese
+      l1btb: 1024-entry L1 BTB
 
       # Source: Chips and Cheese, AMD
-      l2btb: 8192-entry L2 Victim BTB
+      l2btb: 16384-entry L2 BTB
+
+      # Source: Chips and Cheese, AMD
+      l3btb: 8192-entry L3 Victim BTB
 
       # Source: Chips and Cheese, AMD
       ras: 52-entry Return Address Stack
@@ -73,6 +76,9 @@ cpu : AMD Zen5 CPU {
     # Source: Chips and Cheese, AMD
     rob: 448-entry ROB
 
+    # Source: Chips and Cheese
+    bob: 96-entry Taken Branch Buffer
+
     rf: Register File {
       # Source: Chips and Cheese, AMD
       irf: 240-entry Integer Register File
@@ -80,13 +86,16 @@ cpu : AMD Zen5 CPU {
       # Source: Chips and Cheese, AMD
       flagsrf: 192-entry Flags Register File
 
+      # Source: Chips and Cheese
+      vmaskrf: 146-entry Vector Mask Register File
+
       # Source: Chips and Cheese, AMD
-      vmaskrf: Vector Mask Register File
-      vrf: 384-entry 512b Vector Register File
+      # AMD: 384-entry, 384=240+144
+      vrf: 240-entry 512b, 144-entry 256b Vector Register File
     }
 
     # Source: Chips and Cheese, AMD
-    sched1: 88-entry Scheduler \#1
+    sched1: 88-entry ALU Scheduler \#1
 
     # Source: Chips and Cheese
     pipe1: Pipe \#1 {
@@ -131,7 +140,7 @@ cpu : AMD Zen5 CPU {
     sched1 -> rf -> pipe6
 
     # Source: Chips and Cheese, AMD
-    sched2: 56-entry Scheduler \#2
+    sched2: 56-entry AGU Scheduler \#2
 
     # Source: Chips and Cheese
     pipe7: Pipe \#7 {
@@ -158,9 +167,9 @@ cpu : AMD Zen5 CPU {
     sched2 -> rf -> pipe10
 
     lsu: LSU {
-      # Source: Chips and Cheese, AMD
-      Load Queue
-      Store Queue
+      # Source: Chips and Cheese
+      202-entry Load Queue
+      104-entry Store Queue
       4x Load Pipe
       2x Store Pipe
     }
@@ -184,6 +193,7 @@ cpu : AMD Zen5 CPU {
     pipe11: Pipe \#11 {
       FMUL
       FMA
+      512b ALU
     }
     nsq -> sched3 -> rf -> pipe11
 
@@ -200,6 +210,7 @@ cpu : AMD Zen5 CPU {
     pipe13: Pipe \#13 {
       FMUL
       FMA
+      512b ALU
     }
     nsq -> sched4 -> rf -> pipe13
 
@@ -227,6 +238,7 @@ cpu : AMD Zen5 CPU {
     nsq -> sched5 -> rf -> pipe16 -> lsu
   }
   frontend.rename -> backend.rob
+  frontend.rename -> backend.bob
 
   mem: Memory {
     l1: L1 DC {
