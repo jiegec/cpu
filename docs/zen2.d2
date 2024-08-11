@@ -2,13 +2,13 @@ cpu : AMD Zen2 CPU {
   frontend: Frontend {
     bp: Branch Predictor {
       # Source: Chips and Cheese, AMD
-      l1btb: 16-entry(8 forward, 8 backward) L1 BTB
+      l1btb: 16-entry(8 forward, 8 backward) L1 BTB, zero bubbles
 
       # Source: Chips and Cheese, AMD
       l2btb: 512-entry L2 BTB, one bubble
 
       # Source: Chips and Cheese, AMD
-      l3btb: 7168-entry L3 BTB, four bubble
+      l3btb: 7168-entry L3 BTB, four bubbles
 
       # Source: Chips and Cheese, AMD
       indir: 1024-entry Indirect Target Array
