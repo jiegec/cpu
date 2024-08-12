@@ -5,12 +5,16 @@ cpu : Intel Meteor Lake Crestmont CPU {
       l1btb: 1024-entry L1 BTB
 
       # Source: Chips and Cheese, Intel
+      # Intel: "Larger Branch Target Buffer (6K entry from 5K) with Enhanced
+      # Path Based Branch Prediction."
       l2btb: 6144-way L2 BTB
 
       # Source: Chips and Cheese
       ind: >=512-entry Indirect Target Array
 
       # Source: Intel
+      # "Increased Branch Prediction Bandwidth (128B/cycle max from 32B/cycle on
+      # Gracemont)."
       bw: 128B/cycle prediction bandwidth
     }
 
@@ -50,6 +54,7 @@ cpu : Intel Meteor Lake Crestmont CPU {
     decode2 -> uop2
 
     # Source: Chips and Cheese, Intel
+    # Intel: "Wider allocation width (6-wide from 5-wide)"
     rename: 6-way Rename {
       Move Elimination
       Zero Idiom
@@ -59,8 +64,10 @@ cpu : Intel Meteor Lake Crestmont CPU {
   }
 
   backend: Backend {
-    # Source: Chips and Cheese
-    rob: 256-entry ROB
+    # Source: Chips and Cheese, Intel
+    # Intel: "For the 256-entry retirement buffer, retirement can be up to eight
+    # instructions per cycle."
+    rob: 256-entry ROB, 8-wide retirement
 
     # Source: Chips and Cheese
     bob: 116-taken-entry 126-not-taken-entry Branch Order Buffer
