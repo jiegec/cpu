@@ -53,24 +53,26 @@ cpu : Intel Alder Lake Golden Cove CPU {
 
   backend: Backend {
     # Source: Chips and Cheese, Intel
+    # Source: jiegec, see /data/golden_cove/rob.csv
     rob: 512-entry ROB
 
     # Source: Chips and Cheese
-    bob: 128-entry Branch Order Buffer
+    # Source: jiegec, see /data/golden_cove/bob.csv, pattern 1
+    bob: 128-not-taken-entry Branch Order Buffer
 
     rf: Register File {
       # Source: Chips and Cheese: 280
       # Source: Intel, 288
-      # Source: jiegec, 247 speculative
+      # Source: jiegec, 247 speculative, see /data/golden_cove/rf.csv, pattern 0
       irf: 288-entry Integer Register File
 
       # Source: Chips and Cheese
-      # Source: jiegec, 247 speculative
+      # Source: jiegec, 247 speculative, see /data/golden_cove/rf.csv, pattern 2
       flagsrf: 248-entry Flags Register File
 
       # Source: Chips and Cheese, 332
       # Source: Intel, 220 (512b), 320 (256b)
-      # Source: jiegec, 296 speculative
+      # Source: jiegec, 296 speculative, see /data/golden_cove/rf.csv, pattern 1
       vrf: 332-entry FP/Vector Register File
 
       # Source: Chips and Cheese
@@ -81,7 +83,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
     }
 
     # Source: Chips and Cheese
-    # Source: jiegec, 97 sched size for alu
+    # Source: jiegec, 97 sched size for alu, see /data/golden_cove/sched.csv, pattern 3
     # Source: Intel, 248 scheduler entries in total (248>205=97+70+38)
     # where's the missing 40 scheduler entries?
     # possibly two schedulers for store, one for address, one for data?
@@ -173,7 +175,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
     rob -> sched1 -> rf -> pipe5
 
     # Source: Chips and Cheese
-    # Source: jiegec, 69 sched size for load
+    # Source: jiegec, 69 sched size for load, see /data/golden_cove/sched.csv, pattern 0
     sched2: 70-entry Load Scheduler
 
     # Source: Chips and Cheese, Intel
@@ -196,7 +198,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
     rob -> sched2 -> rf -> pipe8
 
     # Source: Chips and Cheese
-    # Source: jiegec, 40 sched size for store
+    # Source: jiegec, 40 sched size for store, see /data/golden_cove/sched.csv, pattern 1
     sched3: 38-entry Store Scheduler
 
     # Source: Chips and Cheese, Intel
