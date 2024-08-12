@@ -8,3 +8,4 @@ References:
 - [Intel Alder Lake CPU Architectures](https://ieeexplore.ieee.org/document/9747991)
 - [Intel’s Gracemont Small Core Eclipses Last-Gen Big Core Performance](https://fuse.wikichip.org/news/6102/intels-gracemont-small-core-eclipses-last-gen-big-core-performance/)
 - [Meteor Lake’s E-Cores: Crestmont Makes Incremental Progress](https://chipsandcheese.com/2024/05/13/meteor-lakes-e-cores-crestmont-makes-incremental-progress/)
+- Intel 64 and IA-32 Architectures Optimization Reference Manual Volume 1

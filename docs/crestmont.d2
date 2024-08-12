@@ -4,16 +4,19 @@ cpu : Intel Meteor Lake Crestmont CPU {
       # Source: Chips and Cheese
       l1btb: 1024-entry L1 BTB
 
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, Intel
       l2btb: 6144-way L2 BTB
 
       # Source: Chips and Cheese
       ind: >=512-entry Indirect Target Array
+
+      # Source: Intel
+      bw: 128B/cycle prediction bandwidth
     }
 
     l1ic: L1 IC {
-      # Source: Chips and Cheese
-      itlb: 64-entry ITLB
+      # Source: Chips and Cheese, Intel
+      itlb: 64-entry fully associative ITLB
 
       # Source: Chips and Cheese
       l1ic: 64KB 8-way L1 IC
@@ -46,7 +49,7 @@ cpu : Intel Meteor Lake Crestmont CPU {
     uop2: UOP Queue \#2
     decode2 -> uop2
 
-    # Source: Chips and Cheese
+    # Source: Chips and Cheese, Intel
     rename: 6-way Rename {
       Move Elimination
       Zero Idiom
@@ -244,8 +247,8 @@ cpu : Intel Meteor Lake Crestmont CPU {
 
   mem: Memory {
     l1: L1 DC {
-      # Source: Chips and Cheese
-      l1dtlb: 48-entry L1 DTLB
+      # Source: Chips and Cheese, Intel
+      l1dtlb: 48-entry fully associative L1 DTLB
 
       # Source: Chips and Cheese
       l1dc: 32KB 8-way L1DC
@@ -253,14 +256,14 @@ cpu : Intel Meteor Lake Crestmont CPU {
 
     l2: L2 {
       # Source: Chips and Cheese
-      l2tlb: 3072-entry 6-way L2 TLB
+      l2tlb: 3072-entry 6-way 4K/2M/4M page, 16-entry fully associative 2G page L2 TLB
 
       # Source: Chips and Cheese
-      l2dc: 2MB 16-way Shared L2 Cache
+      l2dc: 2MB 16-way Shared L2 Cache, 17 cycle latency
     }
 
     # Source: Chips and Cheese
-    l1 -> l2
+    l1 -> l2: 64B/cycle shared among 4 cores
 
     l3: L3 {
       # Source: Chips and Cheese
