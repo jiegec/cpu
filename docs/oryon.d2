@@ -20,9 +20,11 @@ cpu : Qualcomm Oryon CPU {
 
     l1ic: L1 IC {
       # Source: Chips and Cheese
+      # Source: Qualcomm
       itlb: 256-entry 8-way ITLB, 1 cycle latency
 
       # Source: Chips and Cheese, Anandtech
+      # Source: Qualcomm
       l1ic: 192KB 6-way L1 IC
     }
 
@@ -46,19 +48,26 @@ cpu : Qualcomm Oryon CPU {
 
   backend: Backend {
     # Source: Chips and Cheese
+    # Source: Qualcomm, 650+
     rob: 680-entry ROB
+
+    # Source: jiegec
+    bob: 119-entry ROB
 
     rf: Register File {
       # Source: Chips and Cheese
+      # Source: Qualcomm, 400+
       irf: 384 + 32-entry Integer Register File
 
       # Source: Chips and Cheese
+      # Source: Qualcomm, 400+
       vrf: 384 + 32-entry 128b Vector Register File
 
     }
 
     # Source: Chips and Cheese, Anandtech
-    sched1: 20-entry Scheduler \#1
+    # Source: Qualcomm, each with a 20e queue
+    sched1: 20-entry ALU Scheduler \#1
 
     # Source: Chips and Cheese
     pipe1: Pipe \#1 {
@@ -69,7 +78,7 @@ cpu : Qualcomm Oryon CPU {
     sched1 -> rf.irf -> pipe1
 
     # Source: Chips and Cheese
-    sched2: 20-entry Scheduler \#2
+    sched2: 20-entry ALU Scheduler \#2
 
     # Source: Chips and Cheese
     pipe2: Pipe \#2 {
@@ -79,7 +88,7 @@ cpu : Qualcomm Oryon CPU {
     sched2 -> rf.irf -> pipe2
 
     # Source: Chips and Cheese
-    sched3: 20-entry Scheduler \#3
+    sched3: 20-entry ALU Scheduler \#3
 
     # Source: Chips and Cheese
     pipe3: Pipe \#3 {
@@ -90,7 +99,7 @@ cpu : Qualcomm Oryon CPU {
     sched3 -> rf.irf -> pipe3
 
     # Source: Chips and Cheese
-    sched4: 20-entry Scheduler \#4
+    sched4: 20-entry ALU Scheduler \#4
 
     # Source: Chips and Cheese
     pipe4: Pipe \#4 {
@@ -99,7 +108,7 @@ cpu : Qualcomm Oryon CPU {
     sched4 -> rf.irf -> pipe4
 
     # Source: Chips and Cheese
-    sched5: 20-entry Scheduler \#5
+    sched5: 20-entry ALU Scheduler \#5
 
     # Source: Chips and Cheese
     pipe5: Pipe \#5 {
@@ -110,7 +119,7 @@ cpu : Qualcomm Oryon CPU {
     sched5 -> rf.irf -> pipe5
 
     # Source: Chips and Cheese
-    sched6: 20-entry Scheduler \#6
+    sched6: 20-entry ALU Scheduler \#6
 
     # Source: Chips and Cheese
     pipe6: Pipe \#6 {
@@ -122,7 +131,8 @@ cpu : Qualcomm Oryon CPU {
     sched6 -> rf.irf -> pipe6
 
     # Source: Chips and Cheese, Anandtech
-    sched7: 16-entry Scheduler \#7
+    # Source: Qualcomm, each with a 16e queue
+    sched7: 16-entry Memory Scheduler \#7
 
     # Source: Chips and Cheese
     pipe7: Pipe \#7 {
@@ -133,7 +143,7 @@ cpu : Qualcomm Oryon CPU {
     sched7 -> rf.irf -> pipe7
 
     # Source: Chips and Cheese
-    sched8: 16-entry Scheduler \#8
+    sched8: 16-entry Memory Scheduler \#8
 
     # Source: Chips and Cheese
     pipe8: Pipe \#8 {
@@ -144,7 +154,7 @@ cpu : Qualcomm Oryon CPU {
     sched8 -> rf.irf -> pipe8
 
     # Source: Chips and Cheese
-    sched9: 16-entry Scheduler \#9
+    sched9: 16-entry Memory Scheduler \#9
 
     # Source: Chips and Cheese
     pipe9: Pipe \#9 {
@@ -155,7 +165,7 @@ cpu : Qualcomm Oryon CPU {
     sched9 -> rf.irf -> pipe9
 
     # Source: Chips and Cheese
-    sched10: 16-entry Scheduler \#10
+    sched10: 16-entry Memory Scheduler \#10
 
     # Source: Chips and Cheese
     pipe10: Pipe \#10 {
@@ -166,7 +176,7 @@ cpu : Qualcomm Oryon CPU {
     sched10 -> rf.irf -> pipe10
 
     lsu: LSU {
-      # Source: Chips and Cheese, Anandtech
+      # Source: Chips and Cheese, Anandtech, Qualcomm
       192-entry Load Queue
       56-entry Store Queue
     }
@@ -188,7 +198,8 @@ cpu : Qualcomm Oryon CPU {
     rob -> sched10
 
     # Source: Chips and Cheese, Anandtech
-    sched11: 48-entry Scheduler \#11
+    # Source: Qualcomm, each with a 48e queue
+    sched11: 48-entry FP Scheduler \#11
 
     # Source: Chips and Cheese
     pipe11: Pipe \#11 {
@@ -199,7 +210,7 @@ cpu : Qualcomm Oryon CPU {
     sched11 -> rf.vrf -> pipe11
 
     # Source: Chips and Cheese
-    sched12: 48-entry Scheduler \#12
+    sched12: 48-entry FP Scheduler \#12
 
     # Source: Chips and Cheese
     pipe12: Pipe \#12 {
@@ -210,7 +221,7 @@ cpu : Qualcomm Oryon CPU {
     sched12 -> rf.vrf -> pipe12
 
     # Source: Chips and Cheese
-    sched13: 48-entry Scheduler \#13
+    sched13: 48-entry FP Scheduler \#13
 
     # Source: Chips and Cheese
     pipe13: Pipe \#13 {
@@ -220,7 +231,7 @@ cpu : Qualcomm Oryon CPU {
     sched13 -> rf.vrf -> pipe13
 
     # Source: Chips and Cheese
-    sched14: 48-entry Scheduler \#14
+    sched14: 48-entry FP Scheduler \#14
 
     # Source: Chips and Cheese
     pipe14: Pipe \#14 {
@@ -236,10 +247,11 @@ cpu : Qualcomm Oryon CPU {
     rob -> sched14
   }
   frontend.rename -> backend.rob
+  frontend.rename -> backend.bob
 
   mem: Memory {
     l1: L1 DC {
-      # Source: Chips and Cheese, Anandtech
+      # Source: Chips and Cheese, Anandtech, Qualcomm
       l1dtlb: 224-entry 7-way L1 DTLB, 1 cycle latency
 
       # Source: Chips and Cheese, Anandtech

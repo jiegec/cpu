@@ -52,7 +52,7 @@ cpu : Apple M1 Firestorm CPU {
     # Source: jiegec, 133(~=134=24+26+16+12+28+28) sched w/o nsq size for alu
     # Source: jiegec, 68(12+28+28) sched size for imul
     # Source: jiegec, 56(28+28) sched w/o nsq size for imul
-    dispatch1: 12-entry Dispatch Queue \#1
+    dispatch1: 12-entry ALU Dispatch Queue \#1
 
     # Source: Dougall Johnson
     sched1: 24-entry Scheduler \#1
@@ -93,7 +93,7 @@ cpu : Apple M1 Firestorm CPU {
     dispatch1 -> sched3 -> rf.irf -> pipe3
 
     # Source: Dougall Johnson
-    dispatch2: 12-entry Dispatch Queue \#2
+    dispatch2: 12-entry ALU Dispatch Queue \#2
 
     # Source: Dougall Johnson
     sched4: 12-entry Scheduler \#4
@@ -132,10 +132,10 @@ cpu : Apple M1 Firestorm CPU {
     # Source: Dougall Johnson
     # Source: jiegec, 58(10+48) sched size for load & store
     # Source: jiegec, 48 sched size for load & store
-    dispatch3: 10-entry Dispatch Queue \#3
+    dispatch3: 10-entry Memory Dispatch Queue \#3
 
     # Source: Dougall Johnson
-    sched7: 48-entry Scheduler \#7
+    sched7: 48-entry Memory Scheduler \#7
 
     # Source: Dougall Johnson
     pipe7: Pipe \#7 {
@@ -187,7 +187,7 @@ cpu : Apple M1 Firestorm CPU {
     # Source: Dougall Johnson
     # Source: jiegec, 156(=12+36+36+36+36) sched size for fp
     # Source: jiegec, 143(~=144=36+36+36+36) sched w/o nsq size for fp
-    dispatch4: 12-entry Dispatch Queue \#4
+    dispatch4: 12-entry FP Dispatch Queue \#4
 
     # Source: Dougall Johnson
     sched8: 36-entry Scheduler \#8
