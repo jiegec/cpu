@@ -36,4 +36,23 @@
 | Apple M4 P-core             | 192KB       |                 |
 | Qualcomm Oryon              | 192KB 6-way | 256 8-way ITLB  |
 
+## Move Elimination & Zero Idiom
 
+| Pattern\uArch            | Firestorm | Golden Cove | Sunny Cove | Zen 2   |
+|--------------------------|-----------|-------------|------------|---------|
+| # ALU                    | 6         | 5           | 4          | 4       |
+| # Dispatch               | 8         | 6           | 5          | 5       |
+| Dep int add              | 1.0       | 1.0         | 1.0        | 1.0     |
+| Indep int add            | 3.9       | 4.7         | 4.0        | 4.0     |
+| Dep int mov              | 1.2       | **5.5**     | **4.6**    | **5.0** |
+| Indep int mov            | **8.0**   | **5.4**     | **4.6**    | **5.0** |
+| Dep zero via xor         | 1.0       | **5.5**     | **4.6**    | 4.0     |
+| Dep zero via sub         | 1.0       | **6.0**     | **4.6**    | 4.0     |
+| Indep set zero via mov   | **8.0**   | **6.0**     | 3.7        | 4.0     |
+| Indep set one via mov    | **7.8**   | **6.0**     | 4.0        | 4.0     |
+| Indep set two via mov    | **7.8**   | **6.0**     | 4.0        | 4.0     |
+| Indep set 1024 via mov   | **7.8**   | 5.0         | 4.0        | 4.0     |
+| Vec dep mov              | 0.6       | 1.0         | 1.0        | 1.0     |
+| Vec indep mov            | **8.0**   | 3.0         | 3.0        | 4.0     |
+| Vec dep set zero via xor | 0.5       | **6.0**     | **5.0**    | 4.0     |
+| Vec dep set zero via sub | 0.5       | 0.5         | 0.25       | 0.3     |
