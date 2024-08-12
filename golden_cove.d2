@@ -16,7 +16,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
 
     l1ic: L1 IC {
       # Source: Chips and Cheese, Intel
-      itlb: 256-entry 8-way ITLB
+      itlb: 256-4k-page-entry 32-2m/4m-page-entry 8-way ITLB
 
       # Source: Chips and Cheese
       # Source: lscpu -C
@@ -25,10 +25,11 @@ cpu : Intel Alder Lake Golden Cove CPU {
 
     bp -> l1ic
 
+    # Source: Intel
     iq: Instruction Queue
-    l1ic -> iq
+    l1ic -> iq: 32 bytes/cycle
 
-    # Source: Chips and Cheese
+    # Source: Chips and Cheese, Intel
     decode: 6-way Decode
     iq -> decode
 
@@ -40,8 +41,8 @@ cpu : Intel Alder Lake Golden Cove CPU {
     # Source: Chips and Cheese
     # Source: Intel, called allocation queue
     uop: 2x 72-entry UOP Queue
-    uopc -> uop
-    decode -> uop
+    uopc -> uop: 8 UOP/cycle
+    decode -> uop: 6 UOP/cycle
 
     # Source: Chips and Cheese, Intel
     rename: 6-way Rename {
@@ -54,7 +55,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
   backend: Backend {
     # Source: Chips and Cheese, Intel
     # Source: jiegec, see /data/golden_cove/rob.csv
-    rob: 512-entry ROB
+    rob: 512-entry ROB, 8-wide retirement
 
     # Source: Chips and Cheese
     # Source: jiegec, see /data/golden_cove/bob.csv, pattern 1
@@ -166,8 +167,9 @@ cpu : Intel Alder Lake Golden Cove CPU {
     rob -> sched1 -> rf -> pipe4
 
     # Source: Chips and Cheese, Intel
-    # Figure 1 in Intel paper was wrong, should be Port 11 instead of Port 10
-    pipe5: Port 11 {
+    # There is a mismatch: PMU counters have swapped definition for Port 10 & Port 11
+    # But in other places, Port 10 is for ALU, Port 11 is for Load
+    pipe5: Port 10 {
       grid-columns: 1
       ALU
       LEA
@@ -191,8 +193,7 @@ cpu : Intel Alder Lake Golden Cove CPU {
     rob -> sched2 -> rf -> pipe7
 
     # Source: Chips and Cheese, Intel
-    # Figure 1 in Intel paper was wrong, should be Port 10 instead of Port 11
-    pipe8: Port 10 {
+    pipe8: Port 11 {
       Load AGU
     }
     rob -> sched2 -> rf -> pipe8
@@ -228,8 +229,10 @@ cpu : Intel Alder Lake Golden Cove CPU {
     lsu: LSU {
       # Source: Chips and Cheese, 192 Load + 114 store
       # Source: Intel, 240 Load + 112 Store
-      240-entry Load Queue
-      112-entry Store Queue
+      lq: 240-entry Load Queue
+      sq: 112-entry Store Queue
+      # Source: Intel
+      3 load/cycle
     }
 
     pipe6 -> lsu
