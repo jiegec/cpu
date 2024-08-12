@@ -36,7 +36,7 @@
 | Apple M4 P-core             | 192KB       |                 |
 | Qualcomm Oryon              | 192KB 6-way | 256 8-way ITLB  |
 
-## Move Elimination / Zeroing Idiom / Ones Idiom
+### Move Elimination / Zeroing Idiom / Ones Idiom
 
 | Pattern\uArch            | Firestorm | Golden Cove | Sunny Cove | Zen 1-2 |
 |--------------------------|-----------|-------------|------------|---------|
@@ -56,3 +56,23 @@
 | Vec indep mov            | **8.0**   | 3.0         | 3.0        | 4.0     |
 | Vec dep set zero via xor | 0.5       | **6.0**     | **5.0**    | 4.0     |
 | Vec dep set zero via sub | 0.5       | 0.5         | 0.25       | 0.3     |
+
+## Backend
+
+### ROB
+
+| uArch                       | ROB                    |
+|-----------------------------|------------------------|
+| AMD Zen2                    | 224                    |
+| AMD Zen3                    | 256                    |
+| AMD Zen4                    | 320                    |
+| AMD Zen5                    | 448                    |
+| Intel Sunny Cove            | 352                    |
+| Intel Golden Cove           | 512                    |
+| Intel Gracemont             | 256                    |
+| Intel Crestmont             | 256                    |
+| Apple M1 P-core (Firestorm) |                        |
+| Apple M2 P-core (Avalanche) |                        |
+| Apple M3 P-core             |                        |
+| Apple M4 P-core             |                        |
+| Qualcomm Oryon              |                        |
