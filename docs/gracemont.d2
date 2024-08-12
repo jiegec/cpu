@@ -5,7 +5,10 @@ cpu : Intel Alder Lake Gracemont CPU {
       l1btb: 1024-entry L1 BTB
 
       # Source: Chips and Cheese, Intel
-      l2btb: 5120-way L2 BTB
+      # Intel: "he NLP is backed by the second predictor that includes a 5K
+      # entry target array combined with path-based information to make
+      # predictions and verify target addresses in three cycles."
+      l2btb: 5120-way L2 BTB, 3 cycle latency
 
       # Source: Chips and Cheese
       ind: >=512-entry Indirect Target Array
@@ -19,6 +22,8 @@ cpu : Intel Alder Lake Gracemont CPU {
       itlb: 64-entry fully associative ITLB
 
       # Source: Chips and Cheese, Intel
+      # Intel: "Larger 64KB Instruction Cache with dual 32B reads (32B read per
+      # fetch cluster)."
       l1ic: 64KB 8-way L1 IC, 2x32 B/cycle
     }
 
@@ -123,6 +128,10 @@ cpu : Intel Alder Lake Gracemont CPU {
     rob -> sched4 -> rf.irf -> pipe4
 
     # Source: Chips and Cheese
+    # Intel: "The fifth integer reservation station holds jumps and store data
+    # operations. This structure is banked and can schedule two uops of each
+    # type every cycle; two store data on ports 08 and 09, and two jumps on
+    # ports 30 and 31"
     sched5: 42-entry Branch/Store Data Scheduler \#5
 
     # Source: Chips and Cheese, Intel
@@ -261,15 +270,26 @@ cpu : Intel Alder Lake Gracemont CPU {
       l1dtlb: 32-entry fully associative L1 DTLB
 
       # Source: Chips and Cheese
-      l1dc: 32KB 8-way L1DC
+      # Intel: "4-cycle load-to-use latency."
+      l1dc: 32KB 8-way L1DC, 4 cycle load-to-use latency
     }
 
     l2: L2 {
       # Source: Chips and Cheese, Intel
+      # Intel: "The main STLB is 2048 entries 4-way set associative and caches
+      # 4KB and 2MB translations. Additionally, Gracemont microarchitecture has
+      # an 8-entry fully associative structure for GB translations"
       l2tlb: 2048-entry 4-way 4K/2M/4M page, 8-entry fully associative 1G page L2 TLB
 
       # Source: Chips and Cheese, Intel
+      # Intel: "The L2 cache delivers 64 bytes of data per cycle at a latency of
+      # 17 cycles, and that bandwidth is shared among four cores."
       l2dc: 2MB 16-way Shared L2 Cache, 17 cycle latency
+
+      # Source: Intel
+      # Intel: "Pipelined Page Miss Handler capable of handling 4 concurrent
+      # page walks."
+      ptw: 4 page table walkers
     }
 
     # Source: Chips and Cheese, Intel
