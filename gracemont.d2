@@ -1,4 +1,4 @@
-cpu : Intel Alder Lake Gracement CPU {
+cpu : Intel Alder Lake Gracemont CPU {
   frontend: Frontend {
     bp: Branch Predictor {
       # Source: Chips and Cheese
@@ -6,6 +6,9 @@ cpu : Intel Alder Lake Gracement CPU {
 
       # Source: Chips and Cheese
       l2btb: 5120-way L2 BTB
+
+      # Source: Chips and Cheese
+      ind: >=512-entry Indirect Target Array
     }
 
     l1ic: L1 IC {
@@ -76,7 +79,7 @@ cpu : Intel Alder Lake Gracement CPU {
       ALU
       SHIFT
     }
-    sched1 -> rf.irf -> pipe1
+    rob -> sched1 -> rf.irf -> pipe1
 
     # Source: Chips and Cheese
     sched2: 16-entry ALU Scheduler \#2
@@ -89,7 +92,7 @@ cpu : Intel Alder Lake Gracement CPU {
       INT MUL
       INT DIV
     }
-    sched2 -> rf.irf -> pipe2
+    rob -> sched2 -> rf.irf -> pipe2
 
     # Source: Chips and Cheese
     sched3: 16-entry ALU Scheduler \#3
@@ -103,10 +106,10 @@ cpu : Intel Alder Lake Gracement CPU {
       INT DIV
       PDEP
     }
-    sched3 -> rf.irf -> pipe3
+    rob -> sched3 -> rf.irf -> pipe3
 
     # Source: Chips and Cheese
-    sched4: 16-entry ALU Scheduler \#4
+    sched4: 15-entry ALU Scheduler \#4
 
     # Source: Chips and Cheese, Intel
     pipe4: Port 3 {
@@ -114,70 +117,69 @@ cpu : Intel Alder Lake Gracement CPU {
       ALU
       SHIFT
     }
-    sched4 -> rf.irf -> pipe4
+    rob -> sched4 -> rf.irf -> pipe4
 
     # Source: Chips and Cheese
-    sched5: 42-entry Scheduler \#5
+    sched5: 42-entry Branch/Store Data Scheduler \#5
 
     # Source: Chips and Cheese, Intel
     pipe5: Port 30 {
       JMP/Branch
     }
-    sched5 -> rf.irf -> pipe5
+    rob -> sched5 -> rf.irf -> pipe5
 
     # Source: Chips and Cheese, Intel
     pipe6: Port 31 {
       JMP/Branch
     }
-    sched5 -> rf.irf -> pipe6
+    rob -> sched5 -> rf.irf -> pipe6
 
-    # Source: Chips and Cheese
-    nsq1: 22-entry Non-Scheduling Queue \#1
-
-    # Source: Chips and Cheese
-    sched6: 22-entry Scheduler \#6
-    nsq1 -> sched6
-    nsq1 -> sched6
-    nsq1 -> sched6
-    nsq1 -> sched6
-    nsq1 -> sched6
-    nsq1 -> sched6
-
+    # new Chips and Cheese new post (Meteor Lake’s E-Cores: Crestmont Makes Incremental Progress)
+    # the scheduler organization was different:
+    # "Intel’s optimization guide says Crestmont and Gracemont serve store data
+    # and jump operations with the same queue. I missed this in 2021 because
+    # that possibility didn’t cross my mind."
     # Source: Chips and Cheese, Intel
-    pipe7: Port 10 {
-      Load AGU
-    }
-    sched6 -> rf.irf -> pipe7
-
-    # Source: Chips and Cheese, Intel
-    pipe8: Port 11 {
-      Load AGU
-    }
-    sched6 -> rf.irf -> pipe8
-
-    # Source: Chips and Cheese, Intel
-    pipe9: Port 12 {
+    pipe7: Port 12 {
       Store AGU
     }
-    sched6 -> rf.irf -> pipe9
+    rob -> sched5 -> rf.irf -> pipe7
 
     # Source: Chips and Cheese, Intel
-    pipe10: Port 13 {
+    pipe8: Port 13 {
       Store AGU
     }
-    sched6 -> rf.irf -> pipe10
+    rob -> sched5 -> rf.irf -> pipe8
+
+    # Source: Chips and Cheese
+    nsq1: 22-entry AGU Non-Scheduling Queue \#1
+
+    # Source: Chips and Cheese
+    sched6: 22-entry AGU Scheduler \#6
+
+    # Source: Chips and Cheese, Intel
+    pipe9: Port 10 {
+      Load AGU
+    }
+    rob -> nsq1 -> sched6 -> rf.irf -> pipe9
+
+    # Source: Chips and Cheese, Intel
+    pipe10: Port 11 {
+      Load AGU
+    }
+    rob -> nsq1 -> sched6 -> rf.irf -> pipe10
 
     # Source: Chips and Cheese, Intel
     pipe11: Port 8 {
       Store Data
     }
-    sched6 -> rf.irf -> pipe11
+    rob -> nsq1 -> sched6 -> rf.irf -> pipe11
 
     # Source: Chips and Cheese, Intel
     pipe12: Port 9 {
       Store Data
     }
-    sched6 -> rf.irf -> pipe12
+    rob -> nsq1 -> sched6 -> rf.irf -> pipe12
 
     lsu: LSU {
       # Source: Chips and Cheese
@@ -192,38 +194,26 @@ cpu : Intel Alder Lake Gracement CPU {
     pipe11 -> lsu
     pipe12 -> lsu
 
-    rob -> sched1
-    rob -> sched2
-    rob -> sched3
-    rob -> sched4
-    rob -> sched5
-    rob -> nsq1
+    # Source: Chips and Cheese
+    nsq2: 56-entry FP Non-Scheduling Queue \#2
 
     # Source: Chips and Cheese
-    nsq2: 56-entry Non-Scheduling Queue \#2
-
-    # Source: Chips and Cheese
-    sched7: 18-entry Scheduler \#7
-    nsq2 -> sched7
-    nsq2 -> sched7
+    sched7: 18-entry FStore Scheduler \#7
 
     # Source: Chips and Cheese, Intel
     pipe13: Port 28 {
       FP Store Data
     }
-    sched7 -> rf.vrf -> pipe13
+    rob -> nsq2 -> sched7 -> rf.vrf -> pipe13
 
     # Source: Chips and Cheese, Intel
     pipe14: Port 29 {
       FP Store Data
     }
-    sched7 -> rf.vrf -> pipe14
+    rob -> nsq2 -> sched7 -> rf.vrf -> pipe14
 
     # Source: Chips and Cheese
-    sched8: 35-entry Scheduler \#8
-    nsq2 -> sched8
-    nsq2 -> sched8
-    nsq2 -> sched8
+    sched8: 35-entry FP/Vector Scheduler \#8
 
     # Source: Chips and Cheese, Intel
     pipe15: Port 20 {
@@ -237,7 +227,7 @@ cpu : Intel Alder Lake Gracement CPU {
       FDIV
       SHA
     }
-    sched8 -> rf.vrf -> pipe15
+    rob -> nsq2 -> sched8 -> rf.vrf -> pipe15
 
     # Source: Chips and Cheese, Intel
     pipe16: Port 21 {
@@ -248,14 +238,13 @@ cpu : Intel Alder Lake Gracement CPU {
       FMUL
       AES
     }
-    sched8 -> rf.vrf -> pipe16
+    rob -> nsq2 -> sched8 -> rf.vrf -> pipe16
 
     # Source: Chips and Cheese, Intel
     pipe17: Port 22 {
       INT Vec ALU
     }
-    sched8 -> rf.vrf -> pipe17
-    rob -> nsq2
+    rob -> nsq2 -> sched8 -> rf.vrf -> pipe17
   }
 
   frontend.rename -> backend.rob

@@ -16,6 +16,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://jia.je/cpu/crestmont.html</loc>
+         <lastmod>2024-08-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://jia.je/cpu/firestorm.html</loc>
          <lastmod>2024-08-12</lastmod>
          <changefreq>daily</changefreq>
@@ -42,6 +47,11 @@
     </url>
     <url>
          <loc>https://jia.je/cpu/oryon.html</loc>
+         <lastmod>2024-08-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://jia.je/cpu/redwood_cove.html</loc>
          <lastmod>2024-08-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
