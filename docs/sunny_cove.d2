@@ -22,7 +22,7 @@ cpu : Intel Ice Lake Sunny Cove CPU {
     bp -> l1ic
 
     # Source: Chips and Cheese
-    iq: 2x 25-entry Instruction Queue
+    iq: 2x 70-entry Instruction Queue
     l1ic -> iq
 
     # Source: Chips and Cheese
@@ -226,7 +226,8 @@ cpu : Intel Ice Lake Sunny Cove CPU {
       l1dtlb: 64-entry load, 16-entry store L1 DTLB
 
       # Source: Chips and Cheese, Intel
-      l1dc: 48KB 12-way L1DC
+      # Intel says 8-way?
+      l1dc: 48KB 12-way L1DC, 5 cycle latency, 64B cache line
 
       # Source: Chips and Cheese
       mshr: 12-entry MSHR
@@ -237,7 +238,7 @@ cpu : Intel Ice Lake Sunny Cove CPU {
       l2tlb: 2048-entry L2 TLB
 
       # Source: Chips and Cheese
-      l2dc: 512 KB 8-way/1280 KB 20-way L2 DC
+      l2dc: 512 KB 8-way/1280 KB 20-way L2 DC, 13 cycle latency
 
       # Source: Chips and Cheese
       mshr: 32-entry MSHR
@@ -248,7 +249,7 @@ cpu : Intel Ice Lake Sunny Cove CPU {
 
     l3: L3 {
       # Source: Chips and Cheese
-      l3dc: L3 Cache
+      l3dc: up to 2MB/core 16-way L3 Cache
     }
     l2 -> l3
   }
