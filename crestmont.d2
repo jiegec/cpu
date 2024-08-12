@@ -1,0 +1,279 @@
+cpu : Intel Meteor Lake Crestmont CPU {
+  frontend: Frontend {
+    bp: Branch Predictor {
+      # Source: Chips and Cheese
+      l1btb: 1024-entry L1 BTB
+
+      # Source: Chips and Cheese
+      l2btb: 6144-way L2 BTB
+
+      # Source: Chips and Cheese
+      ind: >=512-entry Indirect Target Array
+    }
+
+    l1ic: L1 IC {
+      # Source: Chips and Cheese
+      itlb: 64-entry ITLB
+
+      # Source: Chips and Cheese
+      l1ic: 64KB 8-way L1 IC
+    }
+
+    # Source: Chips and Cheese
+    fq: 2x Fetch Queue
+    bp -> fq
+    fq -> l1ic
+
+    iq1: Instruction Queue \#1
+    l1ic -> iq1
+
+    # Source: Chips and Cheese
+    decode1: 3-way Decode \#1
+    iq1 -> decode1
+
+    # Source: Chips and Cheese
+    uop1: UOP Queue \#1
+    decode1 -> uop1
+
+    iq2: Instruction Queue \#2
+    l1ic -> iq2
+
+    # Source: Chips and Cheese
+    decode2: 3-way Decode \#2
+    iq2 -> decode2
+
+    # Source: Chips and Cheese
+    uop2: UOP Queue \#2
+    decode2 -> uop2
+
+    # Source: Chips and Cheese
+    rename: 6-way Rename {
+      Move Elimination
+      Zero Idiom
+    }
+    uop1 -> rename
+    uop2 -> rename
+  }
+
+  backend: Backend {
+    # Source: Chips and Cheese
+    rob: 256-entry ROB
+
+    # Source: Chips and Cheese
+    bob: 116-taken-entry 126-not-taken-entry Branch Order Buffer
+
+    rf: Register File {
+      # Source: Chips and Cheese
+      irf: 214-entry Integer Register File
+
+      # Source: Chips and Cheese
+      vrf: 207-entry 128b Vector Register File
+    }
+
+    # Source: Chips and Cheese
+    sched1: 16-entry ALU Scheduler \#1
+
+    # Source: Chips and Cheese
+    pipe1: Port 0 {
+      grid-columns: 1
+      ALU
+    }
+    rob -> sched1 -> rf.irf -> pipe1
+
+    # Source: Chips and Cheese
+    sched2: 16-entry ALU Scheduler \#2
+
+    # Source: Chips and Cheese
+    pipe2: Port 1 {
+      grid-columns: 1
+      ALU
+      INT MUL
+      INT DIV
+      LEA
+    }
+    rob -> sched2 -> rf.irf -> pipe2
+
+    # Source: Chips and Cheese
+    sched3: 16-entry ALU Scheduler \#3
+
+    # Source: Chips and Cheese
+    pipe3: Port 2 {
+      grid-columns: 1
+      ALU
+      INT MUL
+      INT DIV
+      PDEP
+    }
+    rob -> sched3 -> rf.irf -> pipe3
+
+    # Source: Chips and Cheese
+    sched4: 16-entry ALU Scheduler \#4
+
+    # Source: Chips and Cheese
+    pipe4: Port 3 {
+      grid-columns: 1
+      ALU
+    }
+    rob -> sched4 -> rf.irf -> pipe4
+
+    # Source: Chips and Cheese
+    sched5: 42-entry Branch/Store Data Scheduler \#5
+
+    # Source: Chips and Cheese
+    pipe5: Port 30 {
+      JMP/Branch
+    }
+    rob -> sched5 -> rf.irf -> pipe5
+
+    # Source: Chips and Cheese
+    pipe6: Port 31 {
+      JMP/Branch
+    }
+    rob -> sched5 -> rf.irf -> pipe6
+
+    # Source: Chips and Cheese
+    pipe7: Port 12 {
+      Store AGU
+    }
+    rob -> sched5 -> rf.irf -> pipe7
+
+    # Source: Chips and Cheese
+    pipe8: Port 13 {
+      Store AGU
+    }
+    rob -> sched5 -> rf.irf -> pipe8
+
+    # Source: Chips and Cheese
+    nsq1: 22-entry AGU Non-Scheduling Queue \#1
+
+    # Source: Chips and Cheese
+    sched6: 22-entry AGU Scheduler \#6
+
+    # Source: Chips and Cheese
+    pipe9: Port 10 {
+      Load AGU
+    }
+    rob -> nsq1 -> sched6 -> rf.irf -> pipe9
+
+    # Source: Chips and Cheese
+    pipe10: Port 11 {
+      Load AGU
+    }
+    rob -> nsq1 -> sched6 -> rf.irf -> pipe10
+
+    # Source: Chips and Cheese
+    pipe11: Port 8 {
+      Store Data
+    }
+    rob -> nsq1 -> sched6 -> rf.irf -> pipe11
+
+    # Source: Chips and Cheese
+    pipe12: Port 9 {
+      Store Data
+    }
+    rob -> nsq1 -> sched6 -> rf.irf -> pipe12
+
+    lsu: LSU {
+      # Source: Chips and Cheese
+      80-entry Load Queue
+      48-entry Store Queue
+    }
+
+    pipe7 -> lsu
+    pipe8 -> lsu
+    pipe9 -> lsu
+    pipe10 -> lsu
+    pipe11 -> lsu
+    pipe12 -> lsu
+
+    # Source: Chips and Cheese
+    nsq2: 57-entry FP Non-Scheduling Queue \#2
+
+    # Source: Chips and Cheese
+    sched7: 22-entry FStore Scheduler \#7
+
+    # Source: Chips and Cheese
+    pipe13: Port 28 {
+      FP Store Data
+    }
+    rob -> nsq2 -> sched7 -> rf.vrf -> pipe13
+
+    # Source: Chips and Cheese
+    pipe14: Port 29 {
+      FP Store Data
+    }
+    rob -> nsq2 -> sched7 -> rf.vrf -> pipe14
+
+    # Source: Chips and Cheese
+    sched8: 38-entry FP/Vector Scheduler \#8
+
+    # Source: Chips and Cheese
+    pipe15: Port 20 {
+      grid-columns: 1
+      INT Vec ALU
+      INT Vec MUL
+      FMA
+      FADD
+      FMUL
+      AES
+      SHA
+    }
+    rob -> nsq2 -> sched8 -> rf.vrf -> pipe15
+
+    # Source: Chips and Cheese
+    pipe16: Port 21 {
+      grid-columns: 1
+      INT Vec ALU
+      INT Vec MUL
+      FMA
+      FADD
+      FMUL
+      AES
+    }
+    rob -> nsq2 -> sched8 -> rf.vrf -> pipe16
+
+    # Source: Chips and Cheese
+    pipe17: Port 22 {
+      INT Vec ALU
+    }
+    rob -> nsq2 -> sched8 -> rf.vrf -> pipe17
+  }
+
+  frontend.rename -> backend.rob
+  frontend.rename -> backend.bob
+
+  mem: Memory {
+    l1: L1 DC {
+      # Source: Chips and Cheese
+      l1dtlb: 48-entry L1 DTLB
+
+      # Source: Chips and Cheese
+      l1dc: 32KB 8-way L1DC
+    }
+
+    l2: L2 {
+      # Source: Chips and Cheese
+      l2tlb: 3072-entry 6-way L2 TLB
+
+      # Source: Chips and Cheese
+      l2dc: 2MB 16-way Shared L2 Cache
+    }
+
+    # Source: Chips and Cheese
+    l1 -> l2
+
+    l3: L3 {
+      # Source: Chips and Cheese
+      l3dc: 24MB 12-way L3 Cache
+    }
+    l2 -> l3
+  }
+  frontend.l1ic -> mem.l2
+  backend.lsu -> mem.l1
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from Chips and Cheese
+  |
+}
