@@ -4,19 +4,22 @@ cpu : Intel Alder Lake Gracemont CPU {
       # Source: Chips and Cheese
       l1btb: 1024-entry L1 BTB
 
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, Intel
       l2btb: 5120-way L2 BTB
 
       # Source: Chips and Cheese
       ind: >=512-entry Indirect Target Array
+
+      # Source: Intel
+      bw: 32B/cycle prediction bandwidth
     }
 
     l1ic: L1 IC {
       # Source: Chips and Cheese
-      itlb: 64-entry ITLB
+      itlb: 64-entry fully associative ITLB
 
       # Source: Chips and Cheese, Intel
-      l1ic: 64KB 8-way L1 IC
+      l1ic: 64KB 8-way L1 IC, 2x32 B/cycle
     }
 
     # Source: Chips and Cheese
@@ -253,7 +256,9 @@ cpu : Intel Alder Lake Gracemont CPU {
   mem: Memory {
     l1: L1 DC {
       # Source: Chips and Cheese
-      l1dtlb: 48-entry L1 DTLB
+      # Chips and Cheese: 48-entry
+      # Intel: 32-entry
+      l1dtlb: 32-entry fully associative L1 DTLB
 
       # Source: Chips and Cheese
       l1dc: 32KB 8-way L1DC
@@ -261,14 +266,14 @@ cpu : Intel Alder Lake Gracemont CPU {
 
     l2: L2 {
       # Source: Chips and Cheese, Intel
-      l2tlb: 2048-entry 4-way L2 TLB
+      l2tlb: 2048-entry 4-way 4K/2M/4M page, 8-entry fully associative 1G page L2 TLB
 
       # Source: Chips and Cheese, Intel
-      l2dc: 2MB 16-way Shared L2 Cache
+      l2dc: 2MB 16-way Shared L2 Cache, 17 cycle latency
     }
 
     # Source: Chips and Cheese, Intel
-    l1 -> l2
+    l1 -> l2: 64B/cycle shared among 4 cores
 
     l3: L3 {
       # Source: Chips and Cheese
