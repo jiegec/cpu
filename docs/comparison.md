@@ -11,7 +11,7 @@
 | AMD Zen4                    | 1536 L1 + 7168 L2                      | 3072     | 32  |
 | AMD Zen5                    | 1024 L1 + 16384 L2 + 8192 L3           |          | 52  |
 | Intel Sunny Cove            | 256 L1 + 5120 L2                       |          | 22  |
-| Intel Golden Cove           | 128 L1 + 6144 L2 + 12288 L3            |          |     |
+| Intel Golden Cove           | 128 L1 + 6144 L2 + 12288 L3            |          | 20  |
 | Intel Gracemont             | 1024 L1 + 5120 L2                      |          |     |
 | Apple M1 P-core (Firestorm) | 1024 L1 + 192KB ICache as L2           |          | 50  |
 | Apple M2 P-core (Avalanche) | 1024 L1 + 3072 L2 + 192KB ICache as L3 |          |     |
@@ -36,9 +36,9 @@
 | Apple M4 P-core             | 192KB       |                 |
 | Qualcomm Oryon              | 192KB 6-way | 256 8-way ITLB  |
 
-## Move Elimination & Zero Idiom
+## Move Elimination / Zeroing Idiom / Ones Idiom
 
-| Pattern\uArch            | Firestorm | Golden Cove | Sunny Cove | Zen 2   |
+| Pattern\uArch            | Firestorm | Golden Cove | Sunny Cove | Zen 1-2 |
 |--------------------------|-----------|-------------|------------|---------|
 | # ALU                    | 6         | 5           | 4          | 4       |
 | # Dispatch               | 8         | 6           | 5          | 5       |
