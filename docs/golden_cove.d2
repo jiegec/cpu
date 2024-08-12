@@ -16,6 +16,8 @@ cpu : Intel Alder Lake Golden Cove CPU {
 
     l1ic: L1 IC {
       # Source: Chips and Cheese, Intel
+      # Intel: "Double the size of the instruction TLB: 128 -> 256 entries for
+      # 4K pages, 16 -> 32 entries for 2M/4M pages."
       itlb: 256-4k-page-entry 32-2m/4m-page-entry 8-way ITLB
 
       # Source: Chips and Cheese
@@ -26,20 +28,27 @@ cpu : Intel Alder Lake Golden Cove CPU {
     bp -> l1ic
 
     # Source: Intel
+    # "legacy decode pipeline fetch bandwidth increase to 32B/cycles"
     iq: Instruction Queue
     l1ic -> iq: 32 bytes/cycle
 
     # Source: Chips and Cheese, Intel
+    # Intel: "The number of decoders increased from four to six, allowing the
+    # decode of up to six instructions per cycle."
     decode: 6-way Decode
     iq -> decode
 
     # Source: Chips and Cheese, Intel
+    # Intel: "The micro-op cache size increased, and its bandwidth increased to
+    # deliver up to eight micro-ops per cycle."
     uopc: 4096-entry UOP Cache
     decode -> uopc
     bp -> uopc
 
     # Source: Chips and Cheese
     # Source: Intel, called allocation queue
+    # Intel: The IDQ can hold 144 μops per logical processor in single-thread
+    # mode, or 72 μops per thread when SMT is active.
     uop: 2x 72-entry UOP Queue
     uopc -> uop: 8 UOP/cycle
     decode -> uop: 6 UOP/cycle
@@ -232,6 +241,8 @@ cpu : Intel Alder Lake Golden Cove CPU {
       lq: 240-entry Load Queue
       sq: 112-entry Store Queue
       # Source: Intel
+      # "Maximum load bandwidth increased from two loads/cycle to three
+      # loads/cycle."
       3 load/cycle
     }
 
@@ -249,6 +260,8 @@ cpu : Intel Alder Lake Golden Cove CPU {
   mem: Memory {
     l1: L1 DC {
       # Source: Chips and Cheese, Intel
+      # Intel: "Number of entries for 4K pages in the load DTLB increased from
+      # 64 to 96."
       l1dtlb: 96-entry 6-way L1 DTLB
 
       # Source: Chips and Cheese, Intel
@@ -265,6 +278,8 @@ cpu : Intel Alder Lake Golden Cove CPU {
 
       # Source: Chips and Cheese, Intel
       # Source: lscpu -C
+      # Intel: "Mid-level cache size increased to 2MB on server parts; remains
+      # 1.25MB on client parts."
       l2dc: 1280KB(client), 2048KB(server) L2 Cache, 15 cycle latency
 
       # Source: Chips and Cheese
