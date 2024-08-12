@@ -20,6 +20,7 @@ nav:
     - Intel Ice Lake (Sunny Cove): sunny_cove.md
     - Intel Alder Lake P-core (Golden Cove): golden_cove.md
     - Intel Alder Lake E-core (Gracemont): gracemont.md
+    - Intel Meteor Lake E-core (Crestmont): crestmont.md
 theme:
   name: material
   icon:
