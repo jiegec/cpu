@@ -65,7 +65,9 @@ cpu : Intel Alder Lake Gracemont CPU {
 
   backend: Backend {
     # Source: Chips and Cheese, Intel
-    rob: 256-entry ROB
+    # Intel: "Retirement can be up to eight instructions per cycle for the
+    # 256-entry retirement buffer."
+    rob: 256-entry ROB, 8-wide retirement
 
     # Source: Chips and Cheese
     bob: 116-taken-entry 126-not-taken-entry Branch Order Buffer
