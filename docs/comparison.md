@@ -38,41 +38,41 @@
 
 ### Move Elimination / Zeroing Idiom / Ones Idiom
 
-| Pattern\uArch            | Firestorm | Golden Cove | Sunny Cove | Zen 1-2 |
-|--------------------------|-----------|-------------|------------|---------|
-| # ALU                    | 6         | 5           | 4          | 4       |
-| # Dispatch               | 8         | 6           | 5          | 5       |
-| Dep int add              | 1.0       | 1.0         | 1.0        | 1.0     |
-| Indep int add            | 3.9       | 4.7         | 4.0        | 4.0     |
-| Dep int mov              | 1.2       | **5.5**     | **4.6**    | **5.0** |
-| Indep int mov            | **8.0**   | **5.4**     | **4.6**    | **5.0** |
-| Dep zero via xor         | 1.0       | **5.5**     | **4.6**    | 4.0     |
-| Dep zero via sub         | 1.0       | **6.0**     | **4.6**    | 4.0     |
-| Indep set zero via mov   | **8.0**   | **6.0**     | 3.7        | 4.0     |
-| Indep set one via mov    | **7.8**   | **6.0**     | 4.0        | 4.0     |
-| Indep set two via mov    | **7.8**   | **6.0**     | 4.0        | 4.0     |
-| Indep set 1024 via mov   | **7.8**   | 5.0         | 4.0        | 4.0     |
-| Vec dep mov              | 0.6       | 1.0         | 1.0        | 1.0     |
-| Vec indep mov            | **8.0**   | 3.0         | 3.0        | 4.0     |
-| Vec dep set zero via xor | 0.5       | **6.0**     | **5.0**    | 4.0     |
-| Vec dep set zero via sub | 0.5       | 0.5         | 0.25       | 0.3     |
+| Pattern\uArch            | Oryon   | Firestorm | Golden Cove | Sunny Cove | Zen 1-2 |
+|--------------------------|---------|-----------|-------------|------------|---------|
+| # ALU                    | 6       | 6         | 5           | 4          | 4       |
+| # Dispatch               | 8       | 8         | 6           | 5          | 5       |
+| Dep int add              | 1.0     | 1.0       | 1.0         | 1.0        | 1.0     |
+| Indep int add            | 6.0     | 3.9       | 4.7         | 4.0        | 4.0     |
+| Dep int mov              | 1.2     | 1.2       | **5.5**     | **4.6**    | **5.0** |
+| Indep int mov            | **8.0** | **8.0**   | **5.4**     | **4.6**    | **5.0** |
+| Dep zero via xor         | 1.0     | 1.0       | **5.5**     | **4.6**    | 4.0     |
+| Dep zero via sub         | 1.0     | 1.0       | **6.0**     | **4.6**    | 4.0     |
+| Indep set zero via mov   | 6.0     | **8.0**   | **6.0**     | 3.7        | 4.0     |
+| Indep set one via mov    | 6.0     | **7.8**   | **6.0**     | 4.0        | 4.0     |
+| Indep set two via mov    | 6.0     | **7.8**   | **6.0**     | 4.0        | 4.0     |
+| Indep set 1024 via mov   | 6.0     | **7.8**   | 5.0         | 4.0        | 4.0     |
+| Vec dep mov              | 0.6     | 0.6       | 1.0         | 1.0        | 1.0     |
+| Vec indep mov            | **8.0** | **8.0**   | 3.0         | 3.0        | 4.0     |
+| Vec dep set zero via xor | 0.5     | 0.5       | **6.0**     | **5.0**    | 4.0     |
+| Vec dep set zero via sub | 0.5     | 0.5       | 0.5         | 0.25       | 0.3     |
 
 ## Backend
 
 ### ROB
 
-| uArch                       | ROB                    |
-|-----------------------------|------------------------|
-| AMD Zen2                    | 224                    |
-| AMD Zen3                    | 256                    |
-| AMD Zen4                    | 320                    |
-| AMD Zen5                    | 448                    |
-| Intel Sunny Cove            | 352                    |
-| Intel Golden Cove           | 512                    |
-| Intel Gracemont             | 256                    |
-| Intel Crestmont             | 256                    |
-| Apple M1 P-core (Firestorm) |                        |
-| Apple M2 P-core (Avalanche) |                        |
-| Apple M3 P-core             |                        |
-| Apple M4 P-core             |                        |
-| Qualcomm Oryon              |                        |
+| uArch                       | ROB |
+|-----------------------------|-----|
+| AMD Zen2                    | 224 |
+| AMD Zen3                    | 256 |
+| AMD Zen4                    | 320 |
+| AMD Zen5                    | 448 |
+| Intel Sunny Cove            | 352 |
+| Intel Golden Cove           | 512 |
+| Intel Gracemont             | 256 |
+| Intel Crestmont             | 256 |
+| Apple M1 P-core (Firestorm) |     |
+| Apple M2 P-core (Avalanche) |     |
+| Apple M3 P-core             |     |
+| Apple M4 P-core             |     |
+| Qualcomm Oryon              |     |
