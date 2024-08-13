@@ -240,10 +240,13 @@ cpu : Intel Alder Lake Golden Cove CPU {
       # Source: Intel, 240 Load + 112 Store
       lq: 240-entry Load Queue
       sq: 112-entry Store Queue
+
       # Source: Intel
+      # Source: jiegec
       # "Maximum load bandwidth increased from two loads/cycle to three
       # loads/cycle."
-      3 load/cycle
+      3x Load Pipe
+      2x Store Pipe
     }
 
     pipe6 -> lsu
