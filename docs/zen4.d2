@@ -148,8 +148,12 @@ cpu : AMD Zen4 CPU {
       136-entry Load Validation Queue
       88-entry Load (Execution) Queue
       64-entry Store Queue
-      3x Load Pipe
-      2x Store Pipe
+
+      # Source: AMD
+      # 3 loads per cycle (max 2 if 256b)
+      # 2 stores per cycle (max 1 if 256b)
+      3 Load per cycle (2 if 256b)
+      2 Store per cycle (1 if 256b)
     }
 
     pipe4 -> lsu

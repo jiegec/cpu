@@ -148,8 +148,22 @@ cpu : AMD Zen3 CPU {
       # Source: Chips and Cheese, AMD
       # 116-entry Load Queue reported by Chips and Cheese
       # 72-entry Load Queue reported by AMD
+      # "The LS unit can process up to 72 out-of-order loads."
+      # "The LS unit utilizes a 64-entry store queue (STQ)."
       72-entry Load Queue
       64-entry Store Queue
+
+      # Source: AMD
+      # 3 loads per cycle (max 2 if 256b)
+      # 2 stores per cycle (max 1 if 256b)
+      # Max 3 total memory ops
+      # "The LS unit contains three largely independent pipelines enabling the
+      # execution of three 256-bit memory operations per cycle. All three memory
+      # operations can be loads, with a separate maximum of two 128- or
+      # 256-bit loads. A maximum of two of the memory operations can be stores,
+      # with a maximum of one store if the store is a 128- or 256-bit store."
+      3 Load per cycle (max 2 if 128b/256b)
+      2 Store per cycle (max 1 if 128b/256b)
     }
 
     pipe4 -> lsu
