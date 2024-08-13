@@ -79,6 +79,7 @@
 | Zen4        | 3/cycle  | 2/cycle   | 2/cycle   | 1/cycle    | 2/cycle   | 1/cycle    |
 | Golden Cove | 3/cycle  | 2/cycle   | 3/cycle   | 2/cycle    | 3/cycle   | 2/cycle    |
 | Firestorm   | 3/cycle  | 2/cycle   | 3/cycle   | 2/cycle    | N/A       | N/A        |
+| Oryon       | 4/cycle  | 2/cycle   | 4/cycle   | 2/cycle    | N/A       | N/A        |
 
 ## Comparison between microarchitecture pairs
 
