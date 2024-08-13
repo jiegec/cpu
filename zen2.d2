@@ -159,17 +159,23 @@ cpu : AMD Zen2 CPU {
       # Source: Chips and Cheese
       # 44-entry Pre-L1D Access Load Queue
       # (44+72)-entry Load Queue
-      # Source: AMD
+      # Source: AMD: "The LS unit includes a 44-entry load queue (LDQ)"
       # Source: jiegec, see /data/zen2/lsu.csv:
       # pattern 0: spike at 116, equals to 44+72
       72-entry Load Queue
       # Source: Chips and Cheese, AMD
+      # AMD: "The LS unit utilizes a 48-entry store queue which holds stores
+      # from dispatch until the store data can be written to the data cache."
       # Source: jiegec, see /data/zen2/lsu.csv, pattern 2 & 3, spike at 48
       48-entry Store Queue
 
       # Source: jiegec
-      2x Load Pipe
-      1x Store Pipe
+      # Source: AMD
+      # "The LS unit contains three largely independent pipelines enabling the
+      # execution of two 256-bit load memory operations and one 256-bit store
+      # memory operation per cycle."
+      2x 256b Load Pipe
+      1x 256b Store Pipe
     }
 
     pipe5 -> lsu
