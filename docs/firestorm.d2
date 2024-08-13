@@ -173,6 +173,10 @@ cpu : Apple M1 Firestorm CPU {
       # store: spike at 107(pattern 2 & 6, 107=60+48(scheduler)-1) and 118(pattern 7, 60+48(scheduler)+10(dispatch queue))
       # 60 was computed by 118 - 48(scheduler) - 10(dispatch queue)
       60-entry Store Queue
+      # Source: jiegec
+      2 Load Pipe
+      1 Store Pipe
+      1 Load/Store Pipe
     }
 
     pipe7 -> lsu
