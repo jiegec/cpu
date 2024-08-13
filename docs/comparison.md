@@ -73,12 +73,12 @@
 
 ### LSU
 
-| uArch       | Load Pipe | Store Pipe | Load/Store Shared Pipe |
-|-------------|-----------|------------|------------------------|
-| Zen2        | 2         | 1          | 0                      |
-| Zen4        | 3         | 2          | 0                      |
-| Golden Cove | 3         | 2          | 0                      |
-| Firestorm   | 2         | 1          | 1                      |
+| uArch       | 64b Load | 64b Store | 128b Load | 128b Store | 256b Load | 256b Store |
+|-------------|----------|-----------|-----------|------------|-----------|------------|
+| Zen2        | 2/cycle  | 1/cycle   | 2/cycle   | 1/cycle    | 2/cycle   | 1/cycle    |
+| Zen4        | 3/cycle  | 2/cycle   | 2/cycle   | 1/cycle    | 2/cycle   | 1/cycle    |
+| Golden Cove | 3/cycle  | 2/cycle   | 3/cycle   | 2/cycle    | 3/cycle   | 2/cycle    |
+| Firestorm   | 3/cycle  | 2/cycle   | 3/cycle   | 2/cycle    | N/A       | N/A        |
 
 ## Comparison between microarchitecture pairs
 
