@@ -77,3 +77,11 @@
 | Apple M3 P-core             |     |
 | Apple M4 P-core             |     |
 | Qualcomm Oryon              |     |
+
+## Comparison between microarchitecture pairs
+
+### Firestorm vs Oryon
+
+- L1 BTB: 1024(Firestorm) vs 2048(Oryon)
+- L1 DC: 128KB(Firestorm) vs 96KB(Oryon)
+- Load pipe: 3(Firestorm) vs 4(Oryon)
