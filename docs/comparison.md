@@ -15,8 +15,6 @@
 | Intel Gracemont             | 1024 L1 + 5120 L2                      |          |     |
 | Apple M1 P-core (Firestorm) | 1024 L1 + 192KB ICache as L2           |          | 50  |
 | Apple M2 P-core (Avalanche) | 1024 L1 + 3072 L2 + 192KB ICache as L3 |          |     |
-| Apple M3 P-core             |                                        |          |     |
-| Apple M4 P-core             |                                        |          |     |
 | Qualcomm Oryon              | 2048 L1 + ICache as L2                 | 2048     | 48  |
 
 ### L1 ICache + ITLB
@@ -62,21 +60,25 @@
 
 ### ROB
 
-| uArch                       | ROB |
-|-----------------------------|-----|
-| AMD Zen2                    | 224 |
-| AMD Zen3                    | 256 |
-| AMD Zen4                    | 320 |
-| AMD Zen5                    | 448 |
-| Intel Sunny Cove            | 352 |
-| Intel Golden Cove           | 512 |
-| Intel Gracemont             | 256 |
-| Intel Crestmont             | 256 |
-| Apple M1 P-core (Firestorm) |     |
-| Apple M2 P-core (Avalanche) |     |
-| Apple M3 P-core             |     |
-| Apple M4 P-core             |     |
-| Qualcomm Oryon              |     |
+| uArch             | ROB |
+|-------------------|-----|
+| AMD Zen2          | 224 |
+| AMD Zen3          | 256 |
+| AMD Zen4          | 320 |
+| AMD Zen5          | 448 |
+| Intel Sunny Cove  | 352 |
+| Intel Golden Cove | 512 |
+| Intel Gracemont   | 256 |
+| Intel Crestmont   | 256 |
+
+### LSU
+
+| uArch       | Load Pipe | Store Pipe | Load/Store Shared Pipe |
+|-------------|-----------|------------|------------------------|
+| Zen2        | 2         | 1          | 0                      |
+| Zen4        | 3         | 2          | 0                      |
+| Golden Cove | 3         | 2          | 0                      |
+| Firestorm   | 2         | 1          | 1                      |
 
 ## Comparison between microarchitecture pairs
 
