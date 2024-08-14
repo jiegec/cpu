@@ -11,7 +11,7 @@ cpu : AMD Zen5 CPU {
       l3btb: 8192-entry L3 Victim BTB
 
       # Source: Chips and Cheese, AMD
-      ras: 52-entry Return Address Stack
+      ras: 2x52-entry Return Address Stack
 
       2 taken predictions per cycle
       2 ahead
@@ -33,18 +33,18 @@ cpu : AMD Zen5 CPU {
     fq -> l1ic
 
     iq1: Instruction Queue \#1
-    l1ic -> iq1
+    l1ic -> iq1: 32 bytes/cycle
 
     # Source: Chips and Cheese, AMD
     decode1: 4-way Decode
-    iq1 -> decode1
+    iq1 -> decode1: 4 instructions
 
     iq2: Instruction Queue \#2
-    l1ic -> iq2
+    l1ic -> iq2: 32 bytes/cycle
 
     # Source: Chips and Cheese, AMD
     decode2: 4-way Decode
-    iq2 -> decode2
+    iq2 -> decode2: 4 instructions
 
     # Source: Chips and Cheese, AMD
     uopc: 6144-entry 16-way 2x6-wide UOP Cache
@@ -54,9 +54,9 @@ cpu : AMD Zen5 CPU {
 
     # Source: Chips and Cheese
     uop: UOP Queue
-    uopc -> uop
-    decode1 -> uop
-    decode2 -> uop
+    uopc -> uop: 2x6 uops
+    decode1 -> uop: 4 uops
+    decode2 -> uop: 4 uops
 
     # Source: Chips and Cheese
     dispatch: 8-way Dispatch
@@ -87,11 +87,13 @@ cpu : AMD Zen5 CPU {
       flagsrf: 192-entry Flags Register File
 
       # Source: Chips and Cheese
-      vmaskrf: 146-entry Vector Mask Register File
+      vmaskrf: 146-entry AVX512 Vector Mask Register File
 
       # Source: Chips and Cheese, AMD
       # AMD: 384-entry, 384=240+144
-      vrf: 240-entry 512b, 144-entry 256b Vector Register File
+      # Chips and Cheese: Mobile platform, 240-entry 512b, 144-entry 256b
+      # Chips and Cheese: Desktop platform, 384-entry 512b
+      vrf: 384-entry 512b Vector Register File
     }
 
     # Source: Chips and Cheese, AMD
@@ -191,15 +193,15 @@ cpu : AMD Zen5 CPU {
 
     # Source: Chips and Cheese
     pipe11: Pipe \#11 {
-      FMUL
-      FMA
+      512b(Desktop)/256b(Mobile) FMA
       512b ALU
     }
     nsq -> sched3 -> rf -> pipe11
 
     # Source: Chips and Cheese
+    # Chips and Cheese: Mobile platform, 256b FADD
     pipe12: Pipe \#12 {
-      FADD
+      512b(Desktop)/256b(Mobile) FADD
     }
     nsq -> sched3 -> rf -> pipe12
 
@@ -208,15 +210,14 @@ cpu : AMD Zen5 CPU {
 
     # Source: Chips and Cheese
     pipe13: Pipe \#13 {
-      FMUL
-      FMA
+      512b(Desktop)/256b(Mobile) FMA
       512b ALU
     }
     nsq -> sched4 -> rf -> pipe13
 
     # Source: Chips and Cheese
     pipe14: Pipe \#14 {
-      FMA
+      512b(Desktop)/256b(Mobile) FADD
     }
     nsq -> sched4 -> rf -> pipe14
 
