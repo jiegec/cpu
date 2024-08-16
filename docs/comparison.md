@@ -58,6 +58,7 @@
 
 - **Bold**: Not executed by ALU/FPU, eliminated at rename stage
 - *Italics*: Executed by ALU/FPU, but source register dependency was removed so that dependent ops can be executed in parallel
+- Although Cortex-X1 has 8 dispatch width, but it has many limitations on instruction type
 
 ## Backend
 
