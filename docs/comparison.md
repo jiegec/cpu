@@ -55,6 +55,7 @@
 | Vec dep set zero via xor   | 0.5     | 0.5       | **6.0**     | 0.5       | *4.0*   | **5.0**    | *4.0*   |
 | Vec dep set zero via sub   | 0.5     | 0.5       | 0.5         | 0.5       | 0.3     | 0.25       | 0.3     |
 | Vec indep set zero via mov | 4.0     | **8.0**   | N/A         | **6.0**   | N/A     | N/A        | N/A     |
+| Nop                        | **8.0** | **8.0**   | **5.7**     | **8.0**   | NT      | 4.0        | **5.0** |
 
 - **Bold**: Not executed by ALU/FPU, eliminated at rename stage
 - *Italics*: Executed by ALU/FPU, but source register dependency was removed so that dependent ops can be executed in parallel
