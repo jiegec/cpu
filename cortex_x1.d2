@@ -13,9 +13,11 @@ cpu : ARM Cortex-X1 CPU {
 
     l1ic: L1 IC {
       # Source: JamesAslan
-      l1itlb: 48-entry L1 ITLB
+      # Source: ARM
+      l1itlb: 48-entry fully-associative L1 ITLB
 
-      l1ic: L1 IC
+      # Source: ARM
+      l1ic: 4-way 64KB L1 IC
     }
 
     fq: Fetch Queue
@@ -30,7 +32,7 @@ cpu : ARM Cortex-X1 CPU {
     iq -> decode
 
     # Source: ARM
-    mopc: 3072-entry MOP Cache
+    mopc: 3072-entry 4-way skewed-associative MOP Cache
     decode -> mopc
     bp -> mopc
 
@@ -190,16 +192,19 @@ cpu : ARM Cortex-X1 CPU {
 
   mem: Memory {
     l1: L1 DC {
-      l1dtlb: L1 DTLB
-      l1dc: L1 DC
+      # Source: ARM
+      l1dtlb: 40-entry fully associative L1 DTLB
 
       # Source: ARM
-      l2tlb: 2048-entry 4-bank L2 TLB
+      l1dc: 64KB L1 DC
+
+      # Source: ARM
+      l2tlb: 2048-entry 8-way associative 4-bank L2 TLB
     }
 
     l2: L2 {
       # Source: ARM
-      512KB/1MB L2 Cache
+      512KB/1MB 8-way L2 Cache
     }
 
     l1 -> l2
