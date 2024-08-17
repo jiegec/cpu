@@ -27,6 +27,8 @@ cpu : ARM Cortex-X3 CPU {
     decode -> mop
 
     # Source: ARM
+    # "The dispatch stage can process up to 8 MOPs per cycle and dispatch up to
+    # 16 µOPs per cycle, with the following limitations ..."
     rename: 8-way Rename {
       Zero Idiom
     }

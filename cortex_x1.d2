@@ -43,6 +43,8 @@ cpu : ARM Cortex-X1 CPU {
     decode -> mop: 5 instructions/cycle
 
     # Source: ARM
+    # "The dispatch stage can process up to 8 MOPs per cycle and dispatch up to
+    # 16 µOPs per cycle, with the following limitations ..."
     rename: 8-way Rename {
       Zero Idiom
     }
