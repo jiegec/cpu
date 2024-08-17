@@ -9,3 +9,4 @@ References:
 - [AMD Zen 3 Ryzen Deep Dive Review: 5950X, 5900X, 5800X and 5600X Tested](https://www.anandtech.com/show/16214/amd-zen-3-ryzen-deep-dive-review-5950x-5900x-5800x-and-5700x-tested/4)
 - [X86SchedulerZnver2.td in LLVM](https://github.com/llvm/llvm-project/blob/main/llvm/lib/Target/X86/X86ScheduleZnver2.td)
 - Software Optimization Guide for AMD Family 17h Models 30h and Greater Processors
+- [Zen 2 Dieshot](https://www.bilibili.com/video/BV1Af421i7jY/)

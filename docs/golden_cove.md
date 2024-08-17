@@ -15,3 +15,4 @@ References:
 - [Alder Lake Architecture on Hot Chips 33](https://hc33.hotchips.org/assets/program/conference/day1/HC2021.C1.1%20Intel%20Efraim%20Rotem.pdf)
 - [Sapphire Rapids on Hot Chips 33](https://hc33.hotchips.org/assets/program/conference/day1/HC2021.C1.4%20Intel%20Arijit.pdf)
 - Intel 64 and IA-32 Architectures Optimization Reference Manual Volume 1
+- [Sapphire Rapids Dieshot](https://www.bilibili.com/video/BV1nb421J7jy/)
