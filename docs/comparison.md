@@ -93,3 +93,11 @@
 - L1 BTB: 1024(Firestorm) vs 2048(Oryon)
 - L1 DC: 128KB(Firestorm) vs 96KB(Oryon)
 - Load pipe: 3(Firestorm) vs 4(Oryon)
+
+## Cortex-X series
+
+- ALU: 4(X1-X2) vs 6(X3) vs 8(X4)
+- Branch: 2(X1-X3) vs 3(X4)
+- Load(L) Store(S): 2L/S+1L(X1-X3) vs 1L/S+2L+1S(X4)
+- ROB: 224(X1) vs 288(X2) vs 320(X3) vs 384(X4)
+- Decode width: 5(X1-X2) vs 6(X3) vs 10(X4)
