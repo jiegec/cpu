@@ -23,10 +23,11 @@ cpu : ARM Cortex-X3 CPU {
 
     mop: MOP Queue
 
-    mopc -> mop
-    decode -> mop
+    mopc -> mop: 8 MOP/cycle
+    decode -> mop: 6 MOP/cycle
 
     # Source: ARM
+    # "Cortex-X3 dispatch width: 6 instrs (I$), 8 insts (Mop$)"
     # "The dispatch stage can process up to 8 MOPs per cycle and dispatch up to
     # 16 µOPs per cycle, with the following limitations ..."
     rename: 8-way Rename {

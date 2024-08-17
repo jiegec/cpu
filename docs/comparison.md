@@ -102,3 +102,4 @@
 - ROB: 224(X1) vs 288(X2) vs 320(X3) vs 384(X4)
 - Decode width: 5(X1-X2) vs 6(X3) vs 10(X4)
 - Dispatch width: 8(X1-X3) vs 10(X4)
+- Scalar integer mac: 1(X1-X3) vs 2(X4)
