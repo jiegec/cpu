@@ -1,14 +1,9 @@
-cpu : ARM Cortex-X4 CPU {
+cpu : ARM Cortex-X3 CPU {
   frontend: Frontend {
     bp: Branch Predictor {
     }
 
     l1ic: L1 IC {
-      # Source: ARM
-      l1itlb: 48-entry fully-associative L1 ITLB
-
-      # Source: ARM
-      l1ic: 64KB 4-way L1 IC
     }
 
     fq: Fetch Queue
@@ -18,21 +13,29 @@ cpu : ARM Cortex-X4 CPU {
     iq: Instruction Queue
     l1ic -> iq
 
-    # Source: ARM
-    decode: 10-way Decode
+    decode: 6-way Decode
     iq -> decode
 
     # Source: ARM
-    rename: 10-way Rename {
-      Move Elimination
+    mopc: 1536-entry MOP Cache
+    decode -> mopc
+    bp -> mopc
+
+    mop: MOP Queue
+
+    mopc -> mop
+    decode -> mop
+
+    # Source: ARM
+    rename: 8-way Rename {
       Zero Idiom
     }
-    decode -> rename
+    mop -> rename
   }
 
   backend: Backend {
     # Source: ARM
-    rob: 384-MOP-entry ROB
+    rob: 320-MOP-entry ROB
 
     rf: Register File {
       irf: Integer Register File
@@ -59,7 +62,7 @@ cpu : ARM Cortex-X4 CPU {
 
     # Source: ARM
     pipe3: Pipe \#3 {
-      Branch
+      ALU
     }
     rob -> sched1 -> rf -> pipe3
 
@@ -84,150 +87,115 @@ cpu : ARM Cortex-X4 CPU {
     # Source: ARM
     pipe7: Pipe \#7 {
       ALU
+      MUL
     }
     rob -> sched1 -> rf -> pipe7
 
     # Source: ARM
     pipe8: Pipe \#8 {
       ALU
-    }
-    rob -> sched1 -> rf -> pipe8
-
-    # Source: ARM
-    pipe9: Pipe \#9 {
-      ALU
-    }
-    rob -> sched1 -> rf -> pipe9
-
-    # Source: ARM
-    pipe10: Pipe \#10 {
-      ALU
-      MAC
-    }
-    rob -> sched1 -> rf -> pipe10
-
-    # Source: ARM
-    pipe11: Pipe \#11 {
-      ALU
       MAC
       DIV
     }
-    rob -> sched1 -> rf -> pipe11
+    rob -> sched1 -> rf -> pipe8
 
     # Source: ARM
     sched2: FP/Vector Scheduler
 
     # Source: ARM
+    pipe9: Pipe \#9 {
+      FMUL
+      FADD
+      FDIV
+      Vec ALU
+      IMAC
+    }
+    rob -> sched2 -> rf -> pipe9
+
+    # Source: ARM
+    pipe10: Pipe \#10 {
+      FMUL
+      FADD
+      Vec ALU
+    }
+    rob -> sched2 -> rf -> pipe10
+
+    # Source: ARM
+    pipe11: Pipe \#11 {
+      FMUL
+      FADD
+      FDIV
+      Vec ALU
+      IMAC
+    }
+    rob -> sched2 -> rf -> pipe11
+
+    # Source: ARM
     pipe12: Pipe \#12 {
       FMUL
       FADD
-      FDIV
       Vec ALU
-      IMAC
     }
     rob -> sched2 -> rf -> pipe12
-
-    # Source: ARM
-    pipe13: Pipe \#13 {
-      FMUL
-      FADD
-      Vec ALU
-    }
-    rob -> sched2 -> rf -> pipe13
-
-    # Source: ARM
-    pipe14: Pipe \#14 {
-      FMUL
-      FADD
-      FDIV
-      Vec ALU
-      IMAC
-    }
-    rob -> sched2 -> rf -> pipe14
-
-    # Source: ARM
-    pipe15: Pipe \#15 {
-      FMUL
-      FADD
-      Vec ALU
-    }
-    rob -> sched2 -> rf -> pipe15
 
     # Source: ARM
     sched3: Memory Scheduler
 
     # Source: ARM
-    pipe16: Pipe \#16 {
+    pipe13: Pipe \#13 {
       Store Data
+    }
+    rob -> sched3 -> rf -> pipe13
+
+    # Source: ARM
+    pipe14: Pipe \#14 {
+      Store Data
+    }
+    rob -> sched3 -> rf -> pipe14
+
+    # Source: ARM
+    pipe15: Pipe \#15 {
+      Load AGU
+      Store AGU
+    }
+    rob -> sched3 -> rf -> pipe15
+
+    # Source: ARM
+    pipe16: Pipe \#16 {
+      Load AGU
+      Store AGU
     }
     rob -> sched3 -> rf -> pipe16
 
     # Source: ARM
     pipe17: Pipe \#17 {
-      Store Data
+      Load AGU
     }
     rob -> sched3 -> rf -> pipe17
-
-    # Source: ARM
-    pipe18: Pipe \#18 {
-      Load AGU
-      Store AGU
-    }
-    rob -> sched3 -> rf -> pipe18
-
-    # Source: ARM
-    pipe19: Pipe \#19 {
-      Load AGU
-    }
-    rob -> sched3 -> rf -> pipe19
-
-    # Source: ARM
-    pipe20: Pipe \#20 {
-      Load AGU
-    }
-    rob -> sched3 -> rf -> pipe20
-
-    # Source: ARM
-    pipe21: Pipe \#21 {
-      Store AGU
-    }
-    rob -> sched3 -> rf -> pipe21
 
     lsu: LSU {
       Load Queue
       Store Queue
     }
 
+    pipe13 -> lsu
+    pipe14 -> lsu
+    pipe15 -> lsu
     pipe16 -> lsu
     pipe17 -> lsu
-    pipe18 -> lsu
-    pipe19 -> lsu
-    pipe20 -> lsu
-    pipe21 -> lsu
   }
   frontend.rename -> backend.rob
 
   mem: Memory {
     l1: L1 DC {
-      # Source: ARM
-      l1dtlb: 96-entry fully-associative L1 DTLB
-
-      # Source: ARM
-      l1dc: 64KB 4-way L1 DC
-
-      # Source: ARM
-      l2tlb: 2048-entry 8-way L2 TLB
     }
 
     l2: L2 {
-      # Source: ARM
-      512KB/1MB/2MB 8-way 4-bank L2 Cache
     }
 
     l1 -> l2
 
     l3: L3 {
-      32MB L3 Cache
     }
     l2 -> l3
   }
@@ -237,6 +205,6 @@ cpu : ARM Cortex-X4 CPU {
   info: |md
     Drawn by Jiajie Chen @jiegec
 
-    Based on data from ARM and Anandtech
+    Based on data from ARM and Wikichip
   |
 }
