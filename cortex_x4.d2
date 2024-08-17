@@ -23,6 +23,7 @@ cpu : ARM Cortex-X4 CPU {
     iq -> decode
 
     # Source: ARM
+    # "Cortex-X4 dispatch width: 10 instrs"
     # "The dispatch stage can process up to 10 MOPs per cycle and dispatch up to
     # 20 μOPs per cycle, with the following limitations ..."
     rename: 10-way Rename {
