@@ -1,0 +1,213 @@
+cpu : ARM Cortex-X2 CPU {
+  frontend: Frontend {
+    bp: Branch Predictor {
+    }
+
+    l1ic: L1 IC {
+      # Source: ARM
+      l1itlb: 48-entry fully associative L1 ITLB
+
+      # Source: ARM
+      l1ic: 64KB 4-way L1 IC
+    }
+
+    fq: Fetch Queue
+    bp -> fq
+    fq -> l1ic
+
+    iq: Instruction Queue
+    l1ic -> iq
+
+    decode: Decode
+    iq -> decode
+
+    # Source: ARM
+    mopc: 3072-entry 4-way MOP Cache
+    decode -> mopc
+    bp -> mopc
+
+    mop: MOP Queue
+
+    mopc -> mop
+    decode -> mop
+
+    # Source: ARM
+    rename: 8-way Rename {
+      Zero Idiom
+    }
+    mop -> rename
+  }
+
+  backend: Backend {
+    # Source: ARM
+    rob: 288-entry ROB
+
+    rf: Register File {
+      irf: Integer Register File
+
+      flagsrf: Flags Register File
+
+      vrf: FP/Vector Register File
+    }
+
+    # Source: ARM
+    sched1: ALU Scheduler
+
+    # Source: ARM
+    pipe1: Pipe \#1 {
+      Branch
+    }
+    rob -> sched1 -> rf -> pipe1
+
+    # Source: ARM
+    pipe2: Pipe \#2 {
+      Branch
+    }
+    rob -> sched1 -> rf -> pipe2
+
+    # Source: ARM
+    pipe3: Pipe \#3 {
+      ALU
+    }
+    rob -> sched1 -> rf -> pipe3
+
+    # Source: ARM
+    pipe4: Pipe \#4 {
+      ALU
+    }
+    rob -> sched1 -> rf -> pipe4
+
+    # Source: ARM
+    pipe5: Pipe \#5 {
+      ALU
+      MUL
+    }
+    rob -> sched1 -> rf -> pipe5
+
+    # Source: ARM
+    pipe6: Pipe \#6 {
+      ALU
+      MAC
+      DIV
+    }
+    rob -> sched1 -> rf -> pipe6
+
+    # Source: ARM
+    sched2: FP/Vector Scheduler
+
+    # Source: ARM
+    pipe7: Pipe \#7 {
+      FMUL
+      FADD
+      FDIV
+      Vec ALU
+      IMAC
+    }
+    rob -> sched2 -> rf -> pipe7
+
+    # Source: ARM
+    pipe8: Pipe \#8 {
+      FMUL
+      FADD
+      Vec ALU
+    }
+    rob -> sched2 -> rf -> pipe8
+
+    # Source: ARM
+    pipe9: Pipe \#9 {
+      FMUL
+      FADD
+      FDIV
+      Vec ALU
+      IMAC
+    }
+    rob -> sched2 -> rf -> pipe9
+
+    # Source: ARM
+    pipe10: Pipe \#10 {
+      FMUL
+      FADD
+      Vec ALU
+    }
+    rob -> sched2 -> rf -> pipe10
+
+    # Source: ARM
+    sched3: Memory Scheduler
+
+    # Source: ARM
+    pipe11: Pipe \#11 {
+      Store Data
+    }
+    rob -> sched3 -> rf -> pipe11
+
+    # Source: ARM
+    pipe12: Pipe \#12 {
+      Store Data
+    }
+    rob -> sched3 -> rf -> pipe12
+
+    # Source: ARM
+    pipe13: Pipe \#13 {
+      Load AGU
+      Store AGU
+    }
+    rob -> sched3 -> rf -> pipe13
+
+    # Source: ARM
+    pipe14: Pipe \#14 {
+      Load AGU
+      Store AGU
+    }
+    rob -> sched3 -> rf -> pipe14
+
+    # Source: ARM
+    pipe15: Pipe \#15 {
+      Load AGU
+    }
+    rob -> sched3 -> rf -> pipe15
+
+    lsu: LSU {
+      Load Queue
+      Store Queue
+    }
+
+    pipe11 -> lsu
+    pipe12 -> lsu
+    pipe13 -> lsu
+    pipe14 -> lsu
+    pipe15 -> lsu
+  }
+  frontend.rename -> backend.rob
+
+  mem: Memory {
+    l1: L1 DC {
+      # Source: ARM
+      l1dtlb: 48-entry fully associative L1 DTLB
+
+      # Source: ARM
+      l1dc: 64KB 4-way L1 DC
+
+      # Source: ARM
+      l2tlb: 2048-entry 8-way L2 TLB
+    }
+
+    l2: L2 {
+      # Source: ARM
+      2ldc: 512KB/1MB 8-way 4 bank L2 Cache
+    }
+
+    l1 -> l2
+
+    l3: L3 {
+    }
+    l2 -> l3
+  }
+  frontend.l1ic -> mem.l2
+  backend.lsu -> mem.l1
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from Chips and Cheese, ARM and Anandtech
+  |
+}
