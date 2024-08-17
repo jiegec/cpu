@@ -26,6 +26,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://jia.je/cpu/cortex_x3.html</loc>
+         <lastmod>2024-08-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://jia.je/cpu/cortex_x4.html</loc>
          <lastmod>2024-08-17</lastmod>
          <changefreq>daily</changefreq>

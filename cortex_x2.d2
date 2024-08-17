@@ -40,7 +40,7 @@ cpu : ARM Cortex-X2 CPU {
 
   backend: Backend {
     # Source: ARM
-    rob: 288-entry ROB
+    rob: 288-MOP-entry ROB
 
     rf: Register File {
       irf: Integer Register File
@@ -193,7 +193,7 @@ cpu : ARM Cortex-X2 CPU {
 
     l2: L2 {
       # Source: ARM
-      2ldc: 512KB/1MB 8-way 4 bank L2 Cache
+      l2dc: 512KB/1MB 8-way 4 bank L2 Cache
     }
 
     l1 -> l2
