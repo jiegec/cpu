@@ -34,7 +34,12 @@ cpu : Apple M1 Firestorm CPU {
 
   backend: Backend {
     # Source: Dougall Johnson
+    # Source: jiegec, ~325
     rob: ~330-entry Coalesced ROB
+
+    # Source: Dougall Johnson
+    # Source: jiegec, ~620
+    rename: ~623-entry Rename History
 
     rf: Register File {
       # Source: Dougall Johnson
@@ -238,6 +243,7 @@ cpu : Apple M1 Firestorm CPU {
     rob -> dispatch4
   }
   frontend.rename -> backend.rob
+  frontend.rename -> backend.rename
 
   mem: Memory {
     l1: L1 DC {
