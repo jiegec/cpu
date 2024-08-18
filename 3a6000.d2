@@ -1,0 +1,173 @@
+cpu : Loongson 3A6000 CPU {
+  frontend: Frontend {
+    bp: Branch Predictor {
+      # Source: Chips and Cheese
+      l1btb: 64-entry L1 BTB, 1 cycle latency
+
+      # Source: Chips and Cheese
+      ras: 16-entry RAS
+    }
+
+    l1ic: L1 IC {
+      # Source: Chips and Cheese
+      l1ic: 64KB 4-way L1 IC
+    }
+
+    bp -> l1ic
+
+    iq: Instruction Queue
+    l1ic -> iq
+
+    # Source: Chips and Cheese
+    decode: 6-way Decode
+    iq -> decode
+
+    # Source: Chips and Cheese
+    rename: 6-way Rename
+    decode -> rename
+  }
+
+  backend: Backend {
+    # Source: Chips and Cheese
+    rob: 256-entry ROB
+
+    rf: Register File {
+      # Source: Chips and Cheese
+      irf: 192-entry Integer Register File
+
+      # Source: Chips and Cheese
+      vrf: 192-entry Vector Register File
+    }
+
+    # Source: Chips and Cheese
+    sched1: 48-entry Integer Scheduler \#1
+
+    # Source: Chips and Cheese
+    pipe1: Pipe \#1 {
+      ALU
+      INT MUL
+      Branch
+    }
+    rob -> sched1 -> rf -> pipe1
+
+    # Source: Chips and Cheese
+    pipe2: Pipe \#2 {
+      ALU
+      INT MUL
+      Branch
+    }
+    rob -> sched1 -> rf -> pipe2
+
+    # Source: Chips and Cheese
+    pipe3: Pipe \#3 {
+      ALU
+    }
+    rob -> sched1 -> rf -> pipe3
+
+    # Source: Chips and Cheese
+    pipe4: Pipe \#4 {
+      ALU
+    }
+    rob -> sched1 -> rf -> pipe4
+
+    # Source: Chips and Cheese
+    sched2: 48-entry Mmeory Scheduler \#2
+
+    # Source: Chips and Cheese
+    pipe5: Pipe \#5 {
+      Load AGU
+    }
+    rob -> sched2 -> rf -> pipe5
+
+    # Source: Chips and Cheese
+    pipe6: Pipe \#6 {
+      Load AGU
+    }
+    rob -> sched2 -> rf -> pipe6
+
+    # Source: Chips and Cheese
+    pipe7: Pipe \#7 {
+      Store AGU
+    }
+    rob -> sched2 -> rf -> pipe7
+
+    # Source: Chips and Cheese
+    pipe8: Pipe \#8 {
+      Store AGU
+    }
+    rob -> sched2 -> rf -> pipe8
+
+    lsu: LSU {
+      # Source: Chips and Cheese
+      75-entry Load Queue
+      64-entry Store Queue
+    }
+
+    pipe5 -> lsu
+    pipe6 -> lsu
+    pipe7 -> lsu
+    pipe8 -> lsu
+
+    # Source: Chips and Cheese
+    sched3: 48-entry FP/Vector Scheduler \#3
+
+    # Source: Chips and Cheese
+    pipe9: Pipe \#9 {
+      Vec ALU
+      Vec FADD
+      FMUL
+    }
+    rob -> sched3 -> rf -> pipe9
+
+    # Source: Chips and Cheese
+    pipe10: Pipe \#10 {
+      Vec ALU
+      Vec FADD
+      FMUL
+    }
+    rob -> sched3 -> rf -> pipe10
+
+    # Source: Chips and Cheese
+    pipe11: Pipe \#11 {
+      Vec ALU
+      Vec FADD
+      Vec FMUL
+      FADD
+    }
+    rob -> sched3 -> rf -> pipe11
+
+    # Source: Chips and Cheese
+    pipe12: Pipe \#12 {
+      Vec ALU
+      Vec FADD
+      Vec FMUL
+      FADD
+    }
+    rob -> sched3 -> rf -> pipe12
+  }
+  frontend.rename -> backend.rob
+
+  mem: Memory {
+    l1: L1 DC {
+      # Source: Chips and Cheese
+      l1dtlb: 64-entry L1 DTLB
+
+      # Source: Chips and Cheese
+      l1dc: 64KB 4-way L1DC
+    }
+
+    l2: L2 {
+      # Source: Chips and Cheese
+      l2dc: 256KB 4-way L2 Cache
+    }
+    l1 -> l2
+  }
+  frontend.l1ic -> mem.l2
+  backend.lsu -> mem.l1
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from Chips and Cheese, Loongson
+  |
+}
