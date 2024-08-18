@@ -25,6 +25,8 @@ nav:
     - Intel Alder Lake P-core (Golden Cove): golden_cove.md
     - Intel Alder Lake E-core (Gracemont): gracemont.md
     - Intel Meteor Lake E-core (Crestmont): crestmont.md
+  - LoongArch64:
+    - Loongson 3A6000: 3a6000.md
 theme:
   name: material
   icon:
