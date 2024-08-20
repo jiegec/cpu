@@ -13,8 +13,10 @@
 | Intel Sunny Cove            | 256 L1 + 5120 L2                       |          | 22  |
 | Intel Golden Cove           | 128 L1 + 6144 L2 + 12288 L3            |          | 20  |
 | Intel Gracemont             | 1024 L1 + 5120 L2                      |          |     |
+| Intel Crestmont             | 1024 L1 + 6144 L2                      |          |     |
 | Apple M1 P-core (Firestorm) | 1024 L1 + 192KB ICache as L2           |          | 50  |
 | Apple M2 P-core (Avalanche) | 1024 L1 + 3072 L2 + 192KB ICache as L3 |          |     |
+| Cortex-X1                   | 96 L1 + 8192 L2                        |          | 16  |
 | Qualcomm Oryon              | 2048 L1 + ICache as L2                 | 2048     | 48  |
 
 ### L1 ICache + ITLB
