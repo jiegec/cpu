@@ -1,0 +1,235 @@
+cpu : SiFive P870 CPU {
+  frontend: Frontend {
+    bp: Branch Predictor {
+      # Source: SiFive
+      nlp: 1024-entry Next Line Predictor
+
+      # Source: SiFive
+      ras: 64-entry RAS
+
+      # Source: SiFive
+      cbp: 16384-entry TAGE Direction Predictor
+
+      # Source: SiFive
+      ibp: 2560-entry Indirect Predictor
+    }
+
+    # Coupled Frontend
+    l1ic: L1 IC {
+      # Source: SiFive
+      l1ic: 64KB L1 IC
+
+      # Source: SiFive
+      l1itlb: 32-entry L1 ITLB
+    }
+
+    bp -> l1ic
+
+    # Source: SiFive
+    decode: 6-way Decode
+    l1ic -> decode: 36 bytes/cycle
+    decode -> bp
+
+    # Source: SiFive
+    rename: 6-way Rename
+    decode -> rename
+  }
+
+  backend: Backend {
+    # Source: SiFive
+    rob: 1120-entry ROB
+
+    rf: Register File {
+      # Source: SiFive
+      irf: 228-entry Integer Register File
+
+      # Source: SiFive
+      frf: 240-entry FP Register File
+
+      # Source: SiFive
+      vrf: 128-entry Vector Register File
+    }
+
+    # Source: SiFive
+    dispatch1: Integer Dispatch Queue \#1
+
+    # Source: SiFive
+    sched1: 16-entry Scheduler \#1
+
+    # Source: SiFive
+    pipe1: Pipe \#1 {
+      ALU
+      DIV
+    }
+    dispatch1 -> sched1 -> rf -> pipe1
+
+    # Source: SiFive
+    sched2: 16-entry Scheduler \#2
+
+    # Source: SiFive
+    pipe2: Pipe \#2 {
+      ALU
+      MUL
+    }
+    dispatch1 -> sched2 -> rf -> pipe2
+
+    # Source: SiFive
+    sched3: 16-entry Scheduler \#3
+
+    # Source: SiFive
+    pipe3: Pipe \#3 {
+      ALU
+      MUL
+    }
+    dispatch1 -> sched3 -> rf -> pipe3
+
+    # Source: SiFive
+    sched4: 16-entry Scheduler \#4
+
+    # Source: SiFive
+    pipe4: Pipe \#4 {
+      ALU
+    }
+    dispatch1 -> sched4 -> rf -> pipe4
+
+    # Source: SiFive
+    sched5: 16-entry Scheduler \#5
+
+    # Source: SiFive
+    pipe5: Pipe \#5 {
+      BR
+      ALU
+    }
+    dispatch1 -> sched5 -> rf -> pipe5
+
+    # Source: SiFive
+    sched6: 16-entry Scheduler \#6
+
+    # Source: SiFive
+    pipe6: Pipe \#6 {
+      BR
+    }
+    dispatch1 -> sched6 -> rf -> pipe6
+
+    # Source: SiFive
+    dispatch2: Memory Dispatch Queue \#2
+
+    # Source: SiFive
+    sched7: 32-entry Scheduler \#7
+
+    # Source: SiFive
+    pipe7: Pipe \#7 {
+      AGU
+      LD
+    }
+    dispatch2 -> sched7 -> rf -> pipe7
+
+    # Source: SiFive
+    pipe8: Pipe \#8 {
+      AGU
+      LDST
+    }
+    dispatch2 -> sched7 -> rf -> pipe8
+
+    # Source: SiFive
+    pipe9: Pipe \#9 {
+      AGU
+      LDST
+    }
+    dispatch2 -> sched7 -> rf -> pipe9
+
+    lsu: LSU {
+      # Source: SiFive
+      48-entry Load Queue
+      48-entry Store Queue
+      1 Load Pipe
+      2 Load/Store pipe
+    }
+
+    pipe7 -> lsu
+    pipe8 -> lsu
+    pipe9 -> lsu
+
+    # Source: SiFive
+    dispatch3: FP Dispatch Queue \#3
+
+    # Source: SiFive
+    sched8: 24-entry Scheduler \#8
+
+    # Source: SiFive
+    pipe10: Pipe \#13 {
+      FADD
+      FMUL
+      FMAC
+    }
+    dispatch3 -> sched8 -> rf -> pipe10
+
+    # Source: SiFive
+    sched9: 24-entry Scheduler \#9
+
+    # Source: SiFive
+    pipe11: Pipe \#11 {
+      FADD
+      FMUL
+      FMAC
+      FDIV
+      FSQRT
+    }
+    dispatch3 -> sched9 -> rf -> pipe11
+
+    # Source: SiFive
+    seq: Vector Sequencer
+
+    # Source: SiFive
+    dispatch4: Vector Dispatch Queue \#4
+
+    # Source: SiFive
+    sched10: 16-entry Scheduler \#10
+
+    # Source: SiFive
+    pipe12: Pipe \#12 {
+      Vec ADD
+      Vec MUL
+      Vec MAC
+      Vec Crypto
+      Vec Div
+      Vec Permute
+    }
+    dispatch4 -> sched10 -> rf -> pipe12
+
+    # Source: SiFive
+    sched11: 16-entry Scheduler \#11
+
+    # Source: SiFive
+    pipe13: Pipe \#13 {
+      Vec ADD
+      Vec MUL
+      Vec MAC
+      Vec Crypto
+      Vec Mask
+    }
+    dispatch4 -> sched11 -> rf -> pipe13
+
+    rob -> dispatch1
+    rob -> dispatch2
+    rob -> dispatch3
+    rob -> seq -> dispatch4
+  }
+  frontend.rename -> backend.rob
+
+  mem: Memory {
+    l1: L1 DC {
+      # Source: SiFive
+      l1dc: 64KB L1DC
+      l1dtlb: 64-entry L1 DTLB
+      l2tlb: 1024-entry L2 TLB
+    }
+  }
+  backend.lsu -> mem.l1
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from SiFive
+  |
+}
