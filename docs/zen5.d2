@@ -83,6 +83,13 @@ cpu : AMD Zen5 CPU {
     }
 
     # Source: Chips and Cheese, AMD
+    # "The retire control unit (RCU) tracks the completion status of all
+    # outstanding operations (integer, load/store, and floating-point) and is
+    # the final arbiter for exception processing and recovery. The unit can
+    # receive up to 8 macro ops dispatched per cycle and track up to 448 macro
+    # ops in-flight in non-SMT mode or 224 per thread in SMT mode. In some
+    # cases, a single retire queue entry can track two macro-ops from adjacent
+    # instructions."
     rob: 448-entry ROB
     rename.irename -> rob
 
@@ -92,9 +99,15 @@ cpu : AMD Zen5 CPU {
 
     rf: Register File {
       # Source: Chips and Cheese, AMD
+      # "The integer physical register file (PRF) consists of 240 registers,
+      # with up to 40 per thread mapped to architectural state or micro-
+      # architectural temporary state."
       irf: 240-entry Integer Register File
 
       # Source: Chips and Cheese, AMD
+      # "Flag information is kept in a separate flag physical register file
+      # which provides 192 free registers that are available for out- of- order
+      # renames of flag writing instructions."
       flagsrf: 192-entry Flags Register File
 
       # Source: Chips and Cheese
@@ -180,8 +193,14 @@ cpu : AMD Zen5 CPU {
     sched2 -> rf -> pipe10
 
     lsu: LSU {
-      # Source: Chips and Cheese
-      202-entry Load Queue
+      # Source: Chips and Cheese, AMD
+      # "The LS can track up to 64 uncompleted loads and has no specific limit
+      # on the number of completed loads."
+      # so 202 reported by Chips and Cheese was not Load Queue limit: it was
+      # bounded by register file
+      Load Queue
+      # "The LS unit utilizes a 104-entry store queue (STQ) which holds stores
+      # from dispatch until the store data can be written to the data cache."
       104-entry Store Queue
       4x Load Pipe
       2x Store Pipe
@@ -250,8 +269,8 @@ cpu : AMD Zen5 CPU {
     }
     rob -> sched5 -> rf -> pipe16 -> lsu
   }
-  frontend.dispatch -> backend.nsq
-  frontend.dispatch -> backend.rename.irename
+  frontend.dispatch -> backend.nsq: 8 MOP/cycle
+  frontend.dispatch -> backend.rename.irename: 8 MOP/cycle
 
   mem: Memory {
     l1: L1 DC {
