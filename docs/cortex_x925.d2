@@ -1,0 +1,267 @@
+cpu : ARM Cortex-X925 CPU {
+  frontend: Frontend {
+    bp: Branch Predictor {
+    }
+
+    l1ic: L1 IC {
+      # Source: ARM
+      l1itlb: 128-entry fully-associative L1 ITLB
+
+      # Source: ARM
+      l1ic: 64KB 4-way L1 IC
+    }
+
+    fq: Fetch Queue
+    bp -> fq
+    fq -> l1ic
+
+    iq: Instruction Queue
+    l1ic -> iq
+
+    # Source: ARM
+    decode: 10-way Decode
+    iq -> decode
+
+    # Source: ARM
+    # "The dispatch stage can process up to 10 MOPs per cycle and dispatch up to
+    # 20 µOPs per cycle, with the following limitations ..."
+    rename: 10-way Rename {
+      Move Elimination
+      Zero Idiom
+    }
+    decode -> rename
+  }
+
+  backend: Backend {
+    rob: ROB
+
+    rf: Register File {
+      irf: Integer Register File
+
+      flagsrf: Flags Register File
+
+      vrf: FP/Vector Register File
+    }
+
+    # Source: ARM
+    sched1: ALU Scheduler
+
+    # Source: ARM
+    pipe1: Pipe \#1 {
+      Branch
+    }
+    rob -> sched1 -> rf -> pipe1
+
+    # Source: ARM
+    pipe2: Pipe \#2 {
+      Branch
+    }
+    rob -> sched1 -> rf -> pipe2
+
+    # Source: ARM
+    pipe3: Pipe \#3 {
+      Branch
+    }
+    rob -> sched1 -> rf -> pipe3
+
+    # Source: ARM
+    pipe4: Pipe \#4 {
+      ALU
+    }
+    rob -> sched1 -> rf -> pipe4
+
+    # Source: ARM
+    pipe5: Pipe \#5 {
+      ALU
+      MUL
+    }
+    rob -> sched1 -> rf -> pipe5
+
+    # Source: ARM
+    pipe6: Pipe \#6 {
+      ALU
+    }
+    rob -> sched1 -> rf -> pipe6
+
+    # Source: ARM
+    pipe7: Pipe \#7 {
+      ALU
+      MUL
+    }
+    rob -> sched1 -> rf -> pipe7
+
+    # Source: ARM
+    pipe8: Pipe \#8 {
+      ALU
+    }
+    rob -> sched1 -> rf -> pipe8
+
+    # Source: ARM
+    pipe9: Pipe \#9 {
+      ALU
+      MUL
+    }
+    rob -> sched1 -> rf -> pipe9
+
+    # Source: ARM
+    pipe10: Pipe \#10 {
+      ALU
+      DIV
+      CRC
+    }
+    rob -> sched1 -> rf -> pipe10
+
+    # Source: ARM
+    pipe11: Pipe \#11 {
+      ALU
+      MUL
+      CRC
+    }
+    rob -> sched1 -> rf -> pipe11
+
+    # Source: ARM
+    sched2: FP/Vector Scheduler
+
+    # Source: ARM
+    pipe12: Pipe \#12 {
+      Vec ALU
+      Vec INT MUL
+      FADD
+      FMUL
+      Crypto
+    }
+    rob -> sched2 -> rf -> pipe12
+
+    # Source: ARM
+    pipe13: Pipe \#13 {
+      Vec ALU
+      FMUL
+      FADD
+      FDIV
+      FSQRT
+      Crypto
+    }
+    rob -> sched2 -> rf -> pipe13
+
+    # Source: ARM
+    pipe14: Pipe \#14 {
+      Vec ALU
+      FMUL
+      FADD
+    }
+    rob -> sched2 -> rf -> pipe14
+
+    # Source: ARM
+    pipe15: Pipe \#15 {
+      Vec ALU
+      Vec INT MUL
+      FMUL
+      FADD
+      Crypto
+    }
+    rob -> sched2 -> rf -> pipe15
+
+    # Source: ARM
+    pipe16: Pipe \#16 {
+      Vec ALU
+      FMUL
+      FADD
+      Crypto
+    }
+    rob -> sched2 -> rf -> pipe16
+
+    # Source: ARM
+    pipe17: Pipe \#17 {
+      Vec ALU
+      FMUL
+      FADD
+    }
+    rob -> sched2 -> rf -> pipe17
+
+    # Source: ARM
+    sched3: Memory Scheduler
+
+    # Source: ARM
+    pipe18: Pipe \#18 {
+      Store Data
+    }
+    rob -> sched3 -> rf -> pipe18
+
+    # Source: ARM
+    pipe19: Pipe \#19 {
+      Store Data
+    }
+    rob -> sched3 -> rf -> pipe19
+
+    # Source: ARM
+    pipe20: Pipe \#20 {
+      Load AGU
+      Store AGU
+    }
+    rob -> sched3 -> rf -> pipe20
+
+    # Source: ARM
+    pipe21: Pipe \#21 {
+      Load AGU
+      Store AGU
+    }
+    rob -> sched3 -> rf -> pipe21
+
+    # Source: ARM
+    pipe22: Pipe \#22 {
+      Load AGU
+    }
+    rob -> sched3 -> rf -> pipe22
+
+    # Source: ARM
+    pipe23: Pipe \#23 {
+      Load AGU
+    }
+    rob -> sched3 -> rf -> pipe23
+
+    lsu: LSU {
+      Load Queue
+      Store Queue
+    }
+
+    pipe18 -> lsu
+    pipe19 -> lsu
+    pipe20 -> lsu
+    pipe21 -> lsu
+    pipe22 -> lsu
+    pipe23 -> lsu
+  }
+  frontend.rename -> backend.rob
+
+  mem: Memory {
+    l1: L1 DC {
+      # Source: ARM
+      l1dtlb: 96-entry fully-associative L1 DTLB
+
+      # Source: ARM
+      l1dc: 64KB 4-way L1 DC
+
+      # Source: ARM
+      l2tlb: 2048-entry 8-way L2 TLB
+    }
+
+    l2: L2 {
+      # Source: ARM
+      2MB 8-way or 3MB 12-way, 4-bank L2 Cache
+    }
+
+    l1 -> l2
+
+    l3: L3 {
+    }
+    l2 -> l3
+  }
+  frontend.l1ic -> mem.l2
+  backend.lsu -> mem.l1
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from ARM and Anandtech
+  |
+}
