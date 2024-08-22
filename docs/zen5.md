@@ -11,3 +11,4 @@ References:
 - [AMD’s Ryzen 9950X: Zen 5 on Desktop](https://chipsandcheese.com/2024/08/14/amds-ryzen-9950x-zen-5-on-desktop/)
 - [Zen 5 Dieshot](https://www.bilibili.com/opus/965843745820901377)
 - [Strix Point Dieshot](https://www.bilibili.com/opus/959217298443337751)
+- [Software Optimization Guide for the AMD Zen5 Microarchitecture](https://www.amd.com/content/dam/amd/en/documents/processor-tech-docs/software-optimization-guides/58455.zip)
