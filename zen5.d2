@@ -127,6 +127,7 @@ cpu : AMD Zen5 CPU {
     pipe1: Pipe \#1 {
       ALU
       MUL
+      CRC
     }
     sched1 -> rf -> pipe1
 
@@ -134,6 +135,7 @@ cpu : AMD Zen5 CPU {
     pipe2: Pipe \#2 {
       ALU
       MUL
+      CRC
     }
     sched1 -> rf -> pipe2
 
@@ -141,19 +143,27 @@ cpu : AMD Zen5 CPU {
     pipe3: Pipe \#3 {
       ALU
       MUL
+      CRC
     }
     sched1 -> rf -> pipe3
 
     # Source: Chips and Cheese
     pipe4: Pipe \#4 {
       ALU
+      PDEP
+      PEXT
+      Shift
       BR
+      DIV
     }
     sched1 -> rf -> pipe4
 
     # Source: Chips and Cheese
     pipe5: Pipe \#5 {
       ALU
+      PDEP
+      PEXT
+      Shift
       BR
     }
     sched1 -> rf -> pipe5
@@ -161,6 +171,9 @@ cpu : AMD Zen5 CPU {
     # Source: Chips and Cheese
     pipe6: Pipe \#6 {
       ALU
+      PDEP
+      PEXT
+      Shift
       BR
     }
     sched1 -> rf -> pipe6
@@ -198,12 +211,19 @@ cpu : AMD Zen5 CPU {
       # on the number of completed loads."
       # so 202 reported by Chips and Cheese was not Load Queue limit: it was
       # bounded by register file
-      Load Queue
+      64-entry Load Queue
       # "The LS unit utilizes a 104-entry store queue (STQ) which holds stores
       # from dispatch until the store data can be written to the data cache."
       104-entry Store Queue
       4x Load Pipe
       2x Store Pipe
+      4x64-bit loads/cycle
+      2x512-bit loads/cycle
+      2x64-bit stores/cycle
+      1x512-bit store/cycle
+      124-entry Miss Address Buffer
+      4/5 cycle load-to-use integer
+      7/8 cycle load-to-use fp
     }
 
     pipe7 -> lsu
@@ -211,16 +231,16 @@ cpu : AMD Zen5 CPU {
     pipe9 -> lsu
     pipe10 -> lsu
 
-    rob -> sched1
-    rob -> sched2
+    rob -> sched1: 8 MOP/cycle
+    rob -> sched2: 8 MOP/cycle
 
     # Source: Chips and Cheese, AMD
     nsq: 96-entry Non/Pre-Scheduling Queue
-    nsq -> rename.vrename
+    nsq -> rename.vrename: 6 MOP/cycle
     rename.vrename -> rob
 
     # Source: Chips and Cheese, AMD
-    sched3: 38-entry Scheduler \#3
+    sched3: 38-entry FP Scheduler \#3
 
     # Source: Chips and Cheese
     pipe11: Pipe \#11 {
@@ -237,7 +257,7 @@ cpu : AMD Zen5 CPU {
     rob -> sched3 -> rf -> pipe12
 
     # Source: Chips and Cheese, AMD
-    sched4: 38-entry Scheduler \#4
+    sched4: 38-entry FP Scheduler \#4
 
     # Source: Chips and Cheese
     pipe13: Pipe \#13 {
@@ -253,7 +273,7 @@ cpu : AMD Zen5 CPU {
     rob -> sched4 -> rf -> pipe14
 
     # Source: Chips and Cheese, AMD
-    sched5: 38-entry Scheduler \#5
+    sched5: 38-entry FP Scheduler \#5
 
     # Source: Chips and Cheese
     pipe15: Pipe \#15 {
