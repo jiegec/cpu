@@ -52,6 +52,7 @@ plugins:
   - social:
       cards_layout_options:
         font_family: Noto Sans SC
+  - macros
 markdown_extensions:
   - pymdownx.superfences:
       custom_fences:

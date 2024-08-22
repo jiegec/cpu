@@ -1,3 +1,4 @@
 .cache/
 site/
 *.svg
+__pycache__
