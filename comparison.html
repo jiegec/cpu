@@ -1256,6 +1256,7 @@
 <th style="text-align: left;">L1 BTB</th>
 <th style="text-align: left;">L2 BTB</th>
 <th style="text-align: left;">L3 BTB</th>
+<th style="text-align: left;">ITA</th>
 <th style="text-align: left;">RAS</th>
 </tr>
 </thead>
@@ -1265,6 +1266,7 @@
 <td style="text-align: left;">16 (0 bubble)</td>
 <td style="text-align: left;">512 (1 bubble)</td>
 <td style="text-align: left;">7168 (4 bubble)</td>
+<td style="text-align: left;">1024</td>
 <td style="text-align: left;">32</td>
 </tr>
 <tr>
@@ -1272,20 +1274,23 @@
 <td style="text-align: left;">1024 (0 bubble)</td>
 <td style="text-align: left;">6656 (3 buble)</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;">32</td>
+<td style="text-align: left;">1536</td>
+<td style="text-align: left;">2x32</td>
 </tr>
 <tr>
 <td style="text-align: left;">AMD Zen 4</td>
 <td style="text-align: left;">1536 (0 bubble)</td>
 <td style="text-align: left;">7186/7680 (3 bubble)</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;">32</td>
+<td style="text-align: left;">3072</td>
+<td style="text-align: left;">2x32</td>
 </tr>
 <tr>
 <td style="text-align: left;">AMD Zen 5</td>
 <td style="text-align: left;">16384 (0 bubble)</td>
 <td style="text-align: left;">8192 (8 bubble)</td>
 <td style="text-align: left;"></td>
+<td style="text-align: left;">3072</td>
 <td style="text-align: left;">2x52</td>
 </tr>
 <tr>
@@ -1294,11 +1299,13 @@
 <td style="text-align: left;">3072</td>
 <td style="text-align: left;">192KB L1 IC</td>
 <td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
 <td style="text-align: left;">Apple Firestorm</td>
 <td style="text-align: left;">1024</td>
 <td style="text-align: left;">192KB L1 IC</td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;">50</td>
 </tr>
@@ -1307,10 +1314,12 @@
 <td style="text-align: left;">96</td>
 <td style="text-align: left;">8192</td>
 <td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">16</td>
 </tr>
 <tr>
 <td style="text-align: left;">ARM Cortex-X2</td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
@@ -1322,9 +1331,11 @@
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
 <td style="text-align: left;">ARM Cortex-X4</td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
@@ -1336,11 +1347,13 @@
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
 <td style="text-align: left;">Intel Crestmont</td>
 <td style="text-align: left;">1024</td>
 <td style="text-align: left;">6144</td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 </tr>
@@ -1349,6 +1362,7 @@
 <td style="text-align: left;">128</td>
 <td style="text-align: left;">6144</td>
 <td style="text-align: left;">12288</td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">20</td>
 </tr>
 <tr>
@@ -1357,11 +1371,13 @@
 <td style="text-align: left;">5120</td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
 <td style="text-align: left;">Intel Sunny Cove</td>
 <td style="text-align: left;">256</td>
 <td style="text-align: left;">5120</td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;">22</td>
 </tr>
@@ -1370,7 +1386,8 @@
 <td style="text-align: left;">2048</td>
 <td style="text-align: left;">192KB L1 IC</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;">48</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">50</td>
 </tr>
 </tbody>
 </table>
@@ -1846,7 +1863,7 @@
 <tr>
 <td style="text-align: left;">RAS</td>
 <td style="text-align: left;">50</td>
-<td style="text-align: left;">48</td>
+<td style="text-align: left;">50</td>
 </tr>
 <tr>
 <td style="text-align: left;">L1 IC</td>

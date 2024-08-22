@@ -15,6 +15,7 @@ def define_env(env):
                 "L1 BTB",
                 "L2 BTB",
                 "L3 BTB",
+                "ITA",
                 "RAS",
             ]
         ]
@@ -22,6 +23,12 @@ def define_env(env):
         data = data.set_index("uArch")
         # handle empty fields
         data = data.fillna("")
+        # convert to integer
+        fields = ["ITA"]
+        for index, row in data.iterrows():
+            for field in fields:
+                if row[field] != "":
+                    data.loc[index, field] = str(int(row[field]))
         return data.to_markdown()
 
     @env.macro
