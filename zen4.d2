@@ -66,6 +66,8 @@ cpu : AMD Zen4 CPU {
 
   backend: Backend {
     # Source: Chips and Cheese, AMD
+    # "The unit can receive up to 6 macro ops dispatched per cycle and track up
+    # to 320 macro ops in-flight in non- SMT mode or 160 per thread in SMT mode"
     rob: 320-entry ROB
 
     # Source: Chips and Cheese
@@ -73,6 +75,9 @@ cpu : AMD Zen4 CPU {
 
     rf: Register File {
       # Source: Chips and Cheese, AMD
+      # "The integer physical register file (PRF) consists of 224 registers,
+      # with up to 38 per thread mapped to architectural state or
+      # micro-architectural temporary state. "
       irf: 224-entry Integer Register File
 
       # Source: Chips and Cheese, AMD
@@ -152,8 +157,12 @@ cpu : AMD Zen4 CPU {
       # Source: Chips and Cheese, AMD
       # 136 (Load Validation Queue) & 88 (Load Execution Queue) reported by Chips and Cheese
       # 88 reported by AMD
+      # "The LS can track up to 48 uncompleted loads and up to 88 completed
+      # loads."
       136-entry Load Validation Queue
       88-entry Load (Execution) Queue
+      # "The LS unit utilizes a 64-entry store queue (STQ) which holds stores
+      # from dispatch until the store data can be written to the data cache."
       64-entry Store Queue
 
       # Source: AMD
