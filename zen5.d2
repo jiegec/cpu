@@ -47,7 +47,8 @@ cpu : AMD Zen5 CPU {
     iq2 -> decode2: 4 instructions
 
     # Source: Chips and Cheese, AMD
-    uopc: 6144-entry 16-way 2x6-wide UOP Cache
+    # Software Optimization Guide says 6.75K
+    uopc: 6144/6912-entry 16-way 2x6-wide UOP Cache
     decode1 -> uopc
     decode2 -> uopc
     bp -> uopc
@@ -61,7 +62,9 @@ cpu : AMD Zen5 CPU {
     # Source: Chips and Cheese
     dispatch: 8-way Dispatch
     uop -> dispatch
+  }
 
+  backend: Backend {
     rename: {
       # Source: Chips and Cheese, AMD
       irename: 8-way Integer Rename
@@ -69,15 +72,14 @@ cpu : AMD Zen5 CPU {
       # Source: Chips and Cheese, AMD
       vrename: 6-way Vector Rename
     }
-    dispatch -> rename
-  }
 
-  backend: Backend {
     # Source: Chips and Cheese, AMD
     rob: 448-entry ROB
+    rename.irename -> rob
 
     # Source: Chips and Cheese
     bob: 96-entry Taken Branch Buffer
+    rename.irename -> bob
 
     rf: Register File {
       # Source: Chips and Cheese, AMD
@@ -186,7 +188,8 @@ cpu : AMD Zen5 CPU {
 
     # Source: Chips and Cheese, AMD
     nsq: 96-entry Non/Pre-Scheduling Queue
-    rob -> nsq
+    nsq -> rename.vrename
+    rename.vrename -> rob
 
     # Source: Chips and Cheese, AMD
     sched3: 38-entry Scheduler \#3
@@ -196,14 +199,14 @@ cpu : AMD Zen5 CPU {
       512b(Desktop)/256b(Mobile) FMA
       512b ALU
     }
-    nsq -> sched3 -> rf -> pipe11
+    rob -> sched3 -> rf -> pipe11
 
     # Source: Chips and Cheese
     # Chips and Cheese: Mobile platform, 256b FADD
     pipe12: Pipe \#12 {
       512b(Desktop)/256b(Mobile) FADD
     }
-    nsq -> sched3 -> rf -> pipe12
+    rob -> sched3 -> rf -> pipe12
 
     # Source: Chips and Cheese, AMD
     sched4: 38-entry Scheduler \#4
@@ -213,13 +216,13 @@ cpu : AMD Zen5 CPU {
       512b(Desktop)/256b(Mobile) FMA
       512b ALU
     }
-    nsq -> sched4 -> rf -> pipe13
+    rob -> sched4 -> rf -> pipe13
 
     # Source: Chips and Cheese
     pipe14: Pipe \#14 {
       512b(Desktop)/256b(Mobile) FADD
     }
-    nsq -> sched4 -> rf -> pipe14
+    rob -> sched4 -> rf -> pipe14
 
     # Source: Chips and Cheese, AMD
     sched5: 38-entry Scheduler \#5
@@ -229,17 +232,17 @@ cpu : AMD Zen5 CPU {
       Store Data
       Integer Data
     }
-    nsq -> sched5 -> rf -> pipe15 -> lsu
+    rob -> sched5 -> rf -> pipe15 -> lsu
 
     # Source: Chips and Cheese, AMD
     pipe16: Pipe \#16 {
       Store Data
       Integer Data
     }
-    nsq -> sched5 -> rf -> pipe16 -> lsu
+    rob -> sched5 -> rf -> pipe16 -> lsu
   }
-  frontend.rename -> backend.rob
-  frontend.rename -> backend.bob
+  frontend.dispatch -> backend.nsq
+  frontend.dispatch -> backend.rename.irename
 
   mem: Memory {
     l1: L1 DC {
@@ -250,8 +253,7 @@ cpu : AMD Zen5 CPU {
       l2dtlb: 4096-entry L2 DTLB
 
       # Source: Chips and Cheese, AMD
-      l1dc {
-        48KB 12-way L1DC
+      l1dc: 48KB 12-way L1DC {
         4 mem ops per cycle
         4 read, 2 write
         64B fill, 64B victim
