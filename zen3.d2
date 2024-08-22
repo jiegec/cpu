@@ -66,6 +66,8 @@ cpu : AMD Zen3 CPU {
 
   backend: Backend {
     # Source: Chips and Cheese, AMD
+    # "The unit can receive up to 6 macro ops dispatched per cycle and track up
+    # to 256 macro ops in-flight in non-SMT mode or 128 per thread in SMT mode."
     rob: 256-entry ROB
 
     # Source: Chips and Cheese
@@ -73,6 +75,9 @@ cpu : AMD Zen3 CPU {
 
     rf: Register File {
       # Source: Chips and Cheese, AMD
+      # "The integer physical register file (PRF) consists of 192 registers,
+      # with up to 38 per thread mapped to architectural state or
+      # micro-architectural temporary state."
       irf: 192-entry Integer Register File
 
       # Source: Chips and Cheese
