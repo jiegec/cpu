@@ -412,13 +412,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#comparison-between-microarchitecture-pairs" class="md-nav__link">
+  <a href="#comparison-between-microarchitectures" class="md-nav__link">
     <span class="md-ellipsis">
-      Comparison between microarchitecture pairs
+      Comparison between microarchitectures
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Comparison between microarchitecture pairs">
+    <nav class="md-nav" aria-label="Comparison between microarchitectures">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1191,13 +1191,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#comparison-between-microarchitecture-pairs" class="md-nav__link">
+  <a href="#comparison-between-microarchitectures" class="md-nav__link">
     <span class="md-ellipsis">
-      Comparison between microarchitecture pairs
+      Comparison between microarchitectures
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Comparison between microarchitecture pairs">
+    <nav class="md-nav" aria-label="Comparison between microarchitectures">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1252,84 +1252,125 @@
 <table>
 <thead>
 <tr>
-<th>uArch</th>
-<th>BTB</th>
-<th>Indirect</th>
-<th>RAS</th>
+<th style="text-align: left;">uArch</th>
+<th style="text-align: left;">L1 BTB</th>
+<th style="text-align: left;">L2 BTB</th>
+<th style="text-align: left;">L3 BTB</th>
+<th style="text-align: left;">RAS</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>AMD Zen2</td>
-<td>16 L1 + 512 L2 + 7168 L3</td>
-<td>1024</td>
-<td>31</td>
+<td style="text-align: left;">AMD Zen 2</td>
+<td style="text-align: left;">16</td>
+<td style="text-align: left;">512</td>
+<td style="text-align: left;">7168</td>
+<td style="text-align: left;">32</td>
 </tr>
 <tr>
-<td>AMD Zen3</td>
-<td>1024 L1 + 6656 L2</td>
-<td>1536</td>
-<td>32</td>
+<td style="text-align: left;">AMD Zen 3</td>
+<td style="text-align: left;">1024</td>
+<td style="text-align: left;">6656</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">32</td>
 </tr>
 <tr>
-<td>AMD Zen4</td>
-<td>1536 L1 + 7168 L2</td>
-<td>3072</td>
-<td>32</td>
+<td style="text-align: left;">AMD Zen 4</td>
+<td style="text-align: left;">1536</td>
+<td style="text-align: left;">6168</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">32</td>
 </tr>
 <tr>
-<td>AMD Zen5</td>
-<td>1024 L1 + 16384 L2 + 8192 L3</td>
-<td></td>
-<td>52</td>
+<td style="text-align: left;">AMD Zen 5</td>
+<td style="text-align: left;">1024</td>
+<td style="text-align: left;">16384</td>
+<td style="text-align: left;">8192</td>
+<td style="text-align: left;">2x52</td>
 </tr>
 <tr>
-<td>Intel Sunny Cove</td>
-<td>256 L1 + 5120 L2</td>
-<td></td>
-<td>22</td>
+<td style="text-align: left;">Apple Avalanche</td>
+<td style="text-align: left;">1024</td>
+<td style="text-align: left;">3072</td>
+<td style="text-align: left;">192KB L1 IC</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
-<td>Intel Golden Cove</td>
-<td>128 L1 + 6144 L2 + 12288 L3</td>
-<td></td>
-<td>20</td>
+<td style="text-align: left;">Apple Firestorm</td>
+<td style="text-align: left;">1024</td>
+<td style="text-align: left;">192KB L1 IC</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">50</td>
 </tr>
 <tr>
-<td>Intel Gracemont</td>
-<td>1024 L1 + 5120 L2</td>
-<td></td>
-<td></td>
+<td style="text-align: left;">ARM Cortex-X1</td>
+<td style="text-align: left;">96</td>
+<td style="text-align: left;">8192</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">16</td>
 </tr>
 <tr>
-<td>Intel Crestmont</td>
-<td>1024 L1 + 6144 L2</td>
-<td></td>
-<td></td>
+<td style="text-align: left;">ARM Cortex-X2</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
-<td>Apple M1 P-core (Firestorm)</td>
-<td>1024 L1 + 192KB ICache as L2</td>
-<td></td>
-<td>50</td>
+<td style="text-align: left;">ARM Cortex-X3</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
-<td>Apple M2 P-core (Avalanche)</td>
-<td>1024 L1 + 3072 L2 + 192KB ICache as L3</td>
-<td></td>
-<td></td>
+<td style="text-align: left;">ARM Cortex-X4</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
-<td>Cortex-X1</td>
-<td>96 L1 + 8192 L2</td>
-<td></td>
-<td>16</td>
+<td style="text-align: left;">ARM Cortex-X925</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
-<td>Qualcomm Oryon</td>
-<td>2048 L1 + ICache as L2</td>
-<td>2048</td>
-<td>48</td>
+<td style="text-align: left;">Intel Crestmont</td>
+<td style="text-align: left;">1024</td>
+<td style="text-align: left;">6144</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">Intel Golden Cove</td>
+<td style="text-align: left;">128</td>
+<td style="text-align: left;">6144</td>
+<td style="text-align: left;">12288</td>
+<td style="text-align: left;">20</td>
+</tr>
+<tr>
+<td style="text-align: left;">Intel Gracemont</td>
+<td style="text-align: left;">1024</td>
+<td style="text-align: left;">5120</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">Intel Sunny Cove</td>
+<td style="text-align: left;">256</td>
+<td style="text-align: left;">5120</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">22</td>
+</tr>
+<tr>
+<td style="text-align: left;">Qualcomm Oryon</td>
+<td style="text-align: left;">2048</td>
+<td style="text-align: left;">192KB L1 IC</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">48</td>
 </tr>
 </tbody>
 </table>
@@ -1337,71 +1378,108 @@
 <table>
 <thead>
 <tr>
-<th>uArch</th>
-<th>ICache</th>
-<th>ITLB</th>
+<th style="text-align: left;">uArch</th>
+<th style="text-align: left;">L1 IC</th>
+<th style="text-align: left;">L1 ITLB</th>
+<th style="text-align: left;">L2 ITLB</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>AMD Zen2</td>
-<td>32KB 8-way</td>
-<td>64 L1 + 512 L2</td>
+<td style="text-align: left;">AMD Zen 2</td>
+<td style="text-align: left;">8-way 32KB</td>
+<td style="text-align: left;">64</td>
+<td style="text-align: left;">512</td>
 </tr>
 <tr>
-<td>AMD Zen3</td>
-<td>32KB 8-way</td>
-<td>64 L1 + 512 L2</td>
+<td style="text-align: left;">AMD Zen 3</td>
+<td style="text-align: left;">8-way 32KB</td>
+<td style="text-align: left;">64</td>
+<td style="text-align: left;">512</td>
 </tr>
 <tr>
-<td>AMD Zen4</td>
-<td>32KB 8-way</td>
-<td>64 L1 + 512 L2</td>
+<td style="text-align: left;">AMD Zen 4</td>
+<td style="text-align: left;">8-way 32KB</td>
+<td style="text-align: left;">64</td>
+<td style="text-align: left;">512</td>
 </tr>
 <tr>
-<td>AMD Zen5</td>
-<td>32KB 8-way</td>
-<td>64 L1 + 2048 L2</td>
+<td style="text-align: left;">AMD Zen 5</td>
+<td style="text-align: left;">8-way 32KB</td>
+<td style="text-align: left;">64</td>
+<td style="text-align: left;">2048</td>
 </tr>
 <tr>
-<td>Intel Sunny Cove</td>
-<td>32KB 8-way</td>
-<td>128</td>
+<td style="text-align: left;">Apple Avalanche</td>
+<td style="text-align: left;">192KB</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
-<td>Intel Golden Cove</td>
-<td>32KB 8-way</td>
-<td>256</td>
+<td style="text-align: left;">Apple Firestorm</td>
+<td style="text-align: left;">192KB</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
-<td>Intel Gracemont</td>
-<td>64KB 8-way</td>
-<td>64</td>
+<td style="text-align: left;">ARM Cortex-X1</td>
+<td style="text-align: left;">4-way 64KB</td>
+<td style="text-align: left;">48</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
-<td>Apple M1 P-core (Firestorm)</td>
-<td>192KB</td>
-<td></td>
+<td style="text-align: left;">ARM Cortex-X2</td>
+<td style="text-align: left;">4-way 64KB</td>
+<td style="text-align: left;">48</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
-<td>Apple M2 P-core (Avalanche)</td>
-<td>192KB</td>
-<td></td>
+<td style="text-align: left;">ARM Cortex-X3</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
-<td>Apple M3 P-core</td>
-<td>192KB</td>
-<td></td>
+<td style="text-align: left;">ARM Cortex-X4</td>
+<td style="text-align: left;">4-way 64KB</td>
+<td style="text-align: left;">48</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
-<td>Apple M4 P-core</td>
-<td>192KB</td>
-<td></td>
+<td style="text-align: left;">ARM Cortex-X925</td>
+<td style="text-align: left;">4-way 64KB</td>
+<td style="text-align: left;">128</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
-<td>Qualcomm Oryon</td>
-<td>192KB 6-way</td>
-<td>256 8-way ITLB</td>
+<td style="text-align: left;">Intel Crestmont</td>
+<td style="text-align: left;">8-way 64KB</td>
+<td style="text-align: left;">64</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">Intel Golden Cove</td>
+<td style="text-align: left;">8-way 32KB</td>
+<td style="text-align: left;">256</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">Intel Gracemont</td>
+<td style="text-align: left;">8-way 64KB</td>
+<td style="text-align: left;">64</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">Intel Sunny Cove</td>
+<td style="text-align: left;">8-way 32Kb</td>
+<td style="text-align: left;">128</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">Qualcomm Oryon</td>
+<td style="text-align: left;">6-way 192KB</td>
+<td style="text-align: left;">256</td>
+<td style="text-align: left;"></td>
 </tr>
 </tbody>
 </table>
@@ -1612,42 +1690,74 @@
 <table>
 <thead>
 <tr>
-<th>uArch</th>
-<th>ROB</th>
+<th style="text-align: left;">uArch</th>
+<th style="text-align: left;">ROB</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>AMD Zen2</td>
-<td>224</td>
+<td style="text-align: left;">AMD Zen 2</td>
+<td style="text-align: left;">224</td>
 </tr>
 <tr>
-<td>AMD Zen3</td>
-<td>256</td>
+<td style="text-align: left;">AMD Zen 3</td>
+<td style="text-align: left;">256</td>
 </tr>
 <tr>
-<td>AMD Zen4</td>
-<td>320</td>
+<td style="text-align: left;">AMD Zen 4</td>
+<td style="text-align: left;">320</td>
 </tr>
 <tr>
-<td>AMD Zen5</td>
-<td>448</td>
+<td style="text-align: left;">AMD Zen 5</td>
+<td style="text-align: left;">448</td>
 </tr>
 <tr>
-<td>Intel Sunny Cove</td>
-<td>352</td>
+<td style="text-align: left;">Apple Avalanche</td>
+<td style="text-align: left;">274 Group</td>
 </tr>
 <tr>
-<td>Intel Golden Cove</td>
-<td>512</td>
+<td style="text-align: left;">Apple Firestorm</td>
+<td style="text-align: left;">330 Group</td>
 </tr>
 <tr>
-<td>Intel Gracemont</td>
-<td>256</td>
+<td style="text-align: left;">ARM Cortex-X1</td>
+<td style="text-align: left;">224 MOP</td>
 </tr>
 <tr>
-<td>Intel Crestmont</td>
-<td>256</td>
+<td style="text-align: left;">ARM Cortex-X2</td>
+<td style="text-align: left;">288 MOP</td>
+</tr>
+<tr>
+<td style="text-align: left;">ARM Cortex-X3</td>
+<td style="text-align: left;">230 MOP</td>
+</tr>
+<tr>
+<td style="text-align: left;">ARM Cortex-X4</td>
+<td style="text-align: left;">384 MOP</td>
+</tr>
+<tr>
+<td style="text-align: left;">ARM Cortex-X925</td>
+<td style="text-align: left;">?</td>
+</tr>
+<tr>
+<td style="text-align: left;">Intel Crestmont</td>
+<td style="text-align: left;">256</td>
+</tr>
+<tr>
+<td style="text-align: left;">Intel Golden Cove</td>
+<td style="text-align: left;">512</td>
+</tr>
+<tr>
+<td style="text-align: left;">Intel Gracemont</td>
+<td style="text-align: left;">256</td>
+</tr>
+<tr>
+<td style="text-align: left;">Intel Sunny Cove</td>
+<td style="text-align: left;">352</td>
+</tr>
+<tr>
+<td style="text-align: left;">Qualcomm Oryon</td>
+<td style="text-align: left;">680</td>
 </tr>
 </tbody>
 </table>
@@ -1712,13 +1822,84 @@
 </tr>
 </tbody>
 </table>
-<h2 id="comparison-between-microarchitecture-pairs">Comparison between microarchitecture pairs</h2>
+<h2 id="comparison-between-microarchitectures">Comparison between microarchitectures</h2>
 <h3 id="firestorm-vs-oryon">Firestorm vs Oryon</h3>
-<ul>
-<li>L1 BTB: 1024(Firestorm) vs 2048(Oryon)</li>
-<li>L1 DC: 128KB(Firestorm) vs 96KB(Oryon)</li>
-<li>Load pipe: 3(Firestorm) vs 4(Oryon)</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">Apple Firestorm</th>
+<th style="text-align: left;">Qualcomm Oryon</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">L1 BTB</td>
+<td style="text-align: left;">1024</td>
+<td style="text-align: left;">2048</td>
+</tr>
+<tr>
+<td style="text-align: left;">L2 BTB</td>
+<td style="text-align: left;">192KB L1 IC</td>
+<td style="text-align: left;">192KB L1 IC</td>
+</tr>
+<tr>
+<td style="text-align: left;">RAS</td>
+<td style="text-align: left;">50</td>
+<td style="text-align: left;">48</td>
+</tr>
+<tr>
+<td style="text-align: left;">L1 IC</td>
+<td style="text-align: left;">192KB</td>
+<td style="text-align: left;">6-way 192KB</td>
+</tr>
+<tr>
+<td style="text-align: left;">Decode width</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">8</td>
+</tr>
+<tr>
+<td style="text-align: left;">Rename width</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">8</td>
+</tr>
+<tr>
+<td style="text-align: left;">ROB</td>
+<td style="text-align: left;">330 Group</td>
+<td style="text-align: left;">680</td>
+</tr>
+<tr>
+<td style="text-align: left;">Branch units</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr>
+<td style="text-align: left;">ALU units</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">6</td>
+</tr>
+<tr>
+<td style="text-align: left;">FP/Vec units</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">4</td>
+</tr>
+<tr>
+<td style="text-align: left;">Load/Store pipes</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr>
+<td style="text-align: left;">Load-only pipes</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">2</td>
+</tr>
+<tr>
+<td style="text-align: left;">Store-only pipes</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
+</tr>
+</tbody>
+</table>
 <h2 id="cortex-x-series">Cortex-X series</h2>
 <table>
 <thead>
@@ -1790,11 +1971,11 @@
 </tr>
 <tr>
 <td style="text-align: left;">Rename width</td>
-<td style="text-align: left;">8</td>
-<td style="text-align: left;">8</td>
-<td style="text-align: left;">8</td>
-<td style="text-align: left;">10</td>
-<td style="text-align: left;">10</td>
+<td style="text-align: left;">8.0</td>
+<td style="text-align: left;">8.0</td>
+<td style="text-align: left;">8.0</td>
+<td style="text-align: left;">10.0</td>
+<td style="text-align: left;">10.0</td>
 </tr>
 </tbody>
 </table>
