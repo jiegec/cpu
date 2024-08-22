@@ -57,9 +57,7 @@
 
 ### Firestorm vs Oryon
 
-- L1 BTB: 1024(Firestorm) vs 2048(Oryon)
-- L1 DC: 128KB(Firestorm) vs 96KB(Oryon)
-- Load pipe: 3(Firestorm) vs 4(Oryon)
+{{ firestorm_oryon_comparison() }}
 
 ## Cortex-X series
 

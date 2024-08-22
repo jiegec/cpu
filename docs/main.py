@@ -45,11 +45,11 @@ def define_env(env):
         # handle empty fields
         data = data.fillna("")
         # convert to integer
+        fields = ["L1 ITLB", "L2 ITLB"]
         for index, row in data.iterrows():
-            if row["L1 ITLB"] != "":
-                data.loc[index, "L1 ITLB"] = str(int(row["L1 ITLB"]))
-            if row["L2 ITLB"] != "":
-                data.loc[index, "L2 ITLB"] = str(int(row["L2 ITLB"]))
+            for field in fields:
+                if row[field] != "":
+                    data.loc[index, field] = str(int(row[field]))
         return data.to_markdown()
 
     @env.macro
@@ -90,5 +90,39 @@ def define_env(env):
             data.loc[index, "uArch"] = row["uArch"].removeprefix("ARM ")
         # drop integer index
         data = data.set_index("uArch")
+        data = data.transpose()
+        return data.to_markdown()
+
+    @env.macro
+    def firestorm_oryon_comparison():
+        data = all_data
+        # only consider firestorm/oryon
+        data = data[data["uArch"].isin(["Apple Firestorm", "Qualcomm Oryon"])]
+        # filter columns
+        data = data[
+            [
+                "uArch",
+                "L1 BTB",
+                "L2 BTB",
+                "RAS",
+                "L1 IC",
+                "Decode width",
+                "Rename width",
+                "ROB",
+                "Branch units",
+                "ALU units",
+                "FP/Vec units",
+                "Load/Store pipes",
+                "Load-only pipes",
+                "Store-only pipes",
+            ]
+        ]
+        # drop integer index
+        data = data.set_index("uArch")
+        fields = ["L1 BTB", "Rename width"]
+        for index, row in data.iterrows():
+            for field in fields:
+                if row[field] != "":
+                    data.loc[index, field] = str(int(row[field]))
         data = data.transpose()
         return data.to_markdown()
