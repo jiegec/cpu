@@ -1,8 +1,8 @@
 ﻿uArch,L1 BTB,L2 BTB,L3 BTB,RAS,L1 ITLB,L2 ITLB,L1 IC,Decode width,UOP/MOP Cache,UOP/MOP width,Rename width,ROB,Int RF,Flag RF,Float RF,Branch units,ALU units,FP/Vec units,Load/Store pipes,Load-only pipes,Store-only pipes
-AMD Zen 2,16,512,7168,32,64,512,8-way 32KB,4,8-way 4096-entry,8,5,224,180,138,160,2,4,4,0,2,1
-AMD Zen 3,1024,6656,,32,64,512,8-way 32KB,4,4096-entry,8,6,256,192,122,160,2,4,4,2,1,0
-AMD Zen 4,1536,6168,,32,64,512,8-way 32KB,4,12-way 6912-entry,6,6,320,224,126,192,2,4,4,2,1,0
-AMD Zen 5,1024,16384,8192,2x52,64,2048,8-way 32KB,2x4,16-way 6144-entry,2x6,8,448,240,192,384,3,6,4,2,2,0
+AMD Zen 2,16 (0 bubble),512 (1 bubble),7168 (4 bubble),32,64,512,8-way 32KB,4,8-way 4096-entry,8,5,224,180,138,160,2,4,4,0,2,1
+AMD Zen 3,1024 (0 bubble),6656 (3 buble),,32,64,512,8-way 32KB,4,4096-entry,8,6,256,192,122,160,2,4,4,2,1,0
+AMD Zen 4,1536 (0 bubble),7186/7680 (3 bubble),,32,64,512,8-way 32KB,4,12-way 6912-entry,6,6,320,224,126,192,2,4,4,2,1,0
+AMD Zen 5,16384 (0 bubble),8192 (8 bubble),,2x52,64,2048,8-way 32KB,2x4,16-way 6144-entry,2x6,8,448,240,192,384,3,6,4,2,2,0
 Apple Avalanche,1024,3072,192KB L1 IC,,,,192KB,8,N/A,N/A,8,274 Group,350,,380,2,6,4,1,2,1
 Apple Firestorm,1024,192KB L1 IC,,50,,,192KB,8,N/A,N/A,8,330 Group,380,128,432,2,6,4,1,2,1
 ARM Cortex-X1,96,8192,,16,48,,4-way 64KB,5,4-way 3072-entry,8,8,224 MOP,,,,2,4,4,2,1,0

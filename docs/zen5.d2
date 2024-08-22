@@ -1,16 +1,25 @@
 cpu : AMD Zen5 CPU {
   frontend: Frontend {
     bp: Branch Predictor {
-      # Source: Chips and Cheese
-      l1btb: 1024-entry L1 BTB
+      # Source: Chips and Cheese, AMD
+      # "The L1 BTB has 16K entries and predicts with zero prediction bubbles
+      # for direct calls, same-target indirect branches, conditional, and
+      # unconditional direct branches, and a two-cycle bubble for returns and
+      # multiple-target indirect branches. The L2 BTB has 8k entries and creates
+      # eight prediction bubbles if a prediction misses in L1BTB and hits in
+      # L2BTB."
+      # The BTB graph: 0.5 cycle/branch when <= 1024 branch
+      l1btb: 16384-entry L1 BTB
 
       # Source: Chips and Cheese, AMD
-      l2btb: 16384-entry L2 BTB
+      l2btb: 8192-entry L2 Victim BTB
+
+      # Source: AMD
+      # "The processor implements a 3072-entry indirect target array"
+      indir: 3072-entry Indirect Target Array
 
       # Source: Chips and Cheese, AMD
-      l3btb: 8192-entry L3 Victim BTB
-
-      # Source: Chips and Cheese, AMD
+      # "The processor implements a 52-entry return address stack (RAS) per thread"
       ras: 2x52-entry Return Address Stack
 
       2 taken predictions per cycle

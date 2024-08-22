@@ -2,12 +2,17 @@ cpu : AMD Zen3 CPU {
   frontend: Frontend {
     bp: Branch Predictor {
       # Source: Chips and Cheese, AMD
+      # "L1BTB has 1024 entries and predicts with zero bubbles for conditional
+      # and unconditional direct branches, and one cycle for calls, returns and
+      # indirect branches. L2BTB has 6656 entries and creates three bubbles if
+      # its prediction differs from L1BTB."
       l1btb: 1024-entry L1 BTB, zero bubbles
 
       # Source: Chips and Cheese, AMD
       l2btb: 6656-entry L2 BTB, three bubbles
 
       # Source: Chips and Cheese, AMD
+      # "The processor implements a 1536-entry indirect target array"
       indir: 1536-entry Indirect Target Array
 
       # Source: Chips and Cheese, AMD
