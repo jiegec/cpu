@@ -88,12 +88,21 @@ def define_env(env):
                 "Rename width",
             ]
         ]
+        data["Max Load"] = data["Load/Store pipes"] + data["Load-only pipes"]
+        data["Max Store"] = data["Load/Store pipes"] + data["Store-only pipes"]
+        data["Max Load+Store"] = (
+            data["Load/Store pipes"]
+            + data["Load-only pipes"]
+            + data["Store-only pipes"]
+        )
+
         # reduce column width
         for index, row in data.iterrows():
             data.loc[index, "uArch"] = row["uArch"].removeprefix("ARM ")
         # drop integer index
         data = data.set_index("uArch")
         data = data.transpose()
+        # compute maximum load
         return data.to_markdown()
 
     @env.macro

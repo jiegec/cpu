@@ -2,6 +2,7 @@ cpu : ARM Cortex-X1 CPU {
   frontend: Frontend {
     bp: Branch Predictor {
       # Source: ARM, JamesAslan
+      # "50% larger L0-BTB capacity, 96 entries (zero-cycle bubble taken-branch latency)"
       l1btb: 96-entry L1 BTB, zero bubble, two taken branches per cycle
 
       # Source: JamesAslan
@@ -25,13 +26,22 @@ cpu : ARM Cortex-X1 CPU {
     fq -> l1ic
 
     iq: Instruction Queue
-    l1ic -> iq
+    # "5 instruction fetch from the instruction cache"
+    # "Instructions are first fetched and then decoded into internal
+    # Macro-OPerations (MOPs). From there, the MOPs proceed through register
+    # renaming and dispatch stages. A MOP can be split into two Micro-
+    # OPerations (µOPs) further down the pipeline after the decode stage. Once
+    # dispatched, µOPs wait for their operands and issue out-of-order to one of
+    # fifteen issue pipelines. Each issue pipeline can accept one µOP per
+    # cycle."
+    l1ic -> iq: 5 inst/cycle
 
     # Source: ARM
     decode: 5-way Decode
     iq -> decode
 
     # Source: ARM
+    # "3K entries, for increased coverage"
     mopc: 3072-entry 4-way skewed-associative MOP Cache
     decode -> mopc
     bp -> mopc
@@ -39,6 +49,7 @@ cpu : ARM Cortex-X1 CPU {
     mop: MOP Queue
 
     # Source: ARM
+    # "8 Mop fetch from the Mop cache"
     mopc -> mop: 8 macro ops/cycle
     decode -> mop: 5 instructions/cycle
 
@@ -53,6 +64,7 @@ cpu : ARM Cortex-X1 CPU {
 
   backend: Backend {
     # Source: ARM
+    # "224 entry instruction window"
     rob: 224-entry ROB
 
     rf: Register File {
@@ -182,6 +194,10 @@ cpu : ARM Cortex-X1 CPU {
     lsu: LSU {
       Load Queue
       Store Queue
+      4 load to use integer latency
+      6 load to use fp latency
+      3 load/cycle
+      2 store/cycle
     }
 
     pipe11 -> lsu
