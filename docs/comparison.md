@@ -59,7 +59,7 @@
 
 {{ firestorm_oryon_comparison() }}
 
-## Cortex-X series
+### Cortex-X series
 
 {{ cortex_x_comparison() }}
 
