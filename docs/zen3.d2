@@ -47,7 +47,10 @@ cpu : AMD Zen3 CPU {
     iq -> decode
 
     # Source: Chips and Cheese, AMD
-    uopc: 4096-entry UOP Cache
+    # "The op cache is organized as an associative cache with 64 sets and 8
+    # ways. At each set-way intersection is an entry containing up to 8 macro
+    # ops."
+    uopc: 512-entry 8-way, 8 mop/entry UOP Cache
     decode -> uopc
     bp -> uopc
 
