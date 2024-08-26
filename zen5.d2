@@ -56,8 +56,10 @@ cpu : AMD Zen5 CPU {
     iq2 -> decode2: 4 instructions
 
     # Source: Chips and Cheese, AMD
-    # Software Optimization Guide says 6.75K
-    uopc: 6144/6912-entry 16-way 2x6-wide UOP Cache
+    # "The Op Cache is organized as an associative cache with 64 sets and 16
+    # ways. At each set-way intersection is an entry containing up to 6
+    # instructions or fused instructions."
+    uopc: 1024-entry 16-way, 6 inst/entry UOP Cache
     decode1 -> uopc
     decode2 -> uopc
     bp -> uopc

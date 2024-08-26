@@ -47,7 +47,10 @@ cpu : AMD Zen4 CPU {
     iq -> decode
 
     # Source: Chips and Cheese, AMD
-    uopc: 6912-entry 12-way UOP Cache, max 9 ops per entry
+    # "The Op Cache is organized as an associative cache with 64 sets and 12
+    # ways. At each set-way intersection is an entry containing up to 9 macro
+    # ops."
+    uopc: 768-entry 12-way, 9 mops/entry UOP Cache
     decode -> uopc
     bp -> uopc
 
