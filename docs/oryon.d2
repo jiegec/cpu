@@ -2,6 +2,7 @@ cpu : Qualcomm Oryon CPU {
   frontend: Frontend {
     bp: Branch Predictor {
       # Source: Chips and Cheese
+      # Source: Qualcomm, 2Ke+
       l1btb: 2048-entry L1 BTB, 1 cycle latency
 
       # Source: Chips and Cheese
@@ -10,8 +11,15 @@ cpu : Qualcomm Oryon CPU {
       # Source: Chips and Cheese
       ind: 2048-entry Indirect Target Buffer
 
+      # Source: Qualcomm
+      cond: 80KB Conditional Predictor
+
+      # Source: Qualcomm
+      indir: 40KB Indirect Predictor
+
       # Source: Chips and Cheese
       # Source: jiegec, 50
+      # Source: Qualcomm, 50e
       ras: 50-entry RAS
     }
 
@@ -32,7 +40,7 @@ cpu : Qualcomm Oryon CPU {
     fq -> l1ic
 
     iq: Instruction Queue
-    l1ic -> iq
+    l1ic -> iq: 16 inst/cycle
 
     # Source: Chips and Cheese, Anandtech
     decode: 8-way Decode
@@ -50,7 +58,7 @@ cpu : Qualcomm Oryon CPU {
   backend: Backend {
     # Source: Chips and Cheese
     # Source: Qualcomm, 650+
-    rob: 680-entry ROB
+    rob: 680-entry ROB, retire 8/cycle
 
     # Source: jiegec
     bob: 119-entry ROB
@@ -269,11 +277,11 @@ cpu : Qualcomm Oryon CPU {
       # Source: Chips and Cheese, Anandtech
       l2dc: 12MB 12-way L2 Cache per 4-Core Cluster
     }
-    l1 -> l2
+    l1 -> l2: 64B/cycle
 
     # Source: Chips and Cheese, Anandtech
     slc: 6MB System Level Cache
-    l2 -> slc
+    l2 -> slc: 32B/cycle
 
     # Source: Anandtech
     dram: LPDDR5x 8448 MT/s, 8x 16b

@@ -14,3 +14,4 @@ References:
 - [高通自研 PC 芯片 X Elite 实测：真能干翻苹果英特尔？](https://www.bilibili.com/video/BV1Ue41197Qb/)
 - [太贵了，它没你想的那么美好！高通骁龙 X Elite 78-100 笔记本详细评测](https://www.bilibili.com/video/BV1z1421r7dZ/)
 - [AArch64SchedOryon.td in LLVM](https://github.com/llvm/llvm-project/blob/main/llvm/lib/Target/AArch64/AArch64SchedOryon.td)
+- [Hot Chips 2024: Qualcomm’s Oryon Core](https://chipsandcheese.com/2024/08/26/hot-chips-2024-qualcomms-oryon-core/)
