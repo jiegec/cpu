@@ -1,0 +1,219 @@
+cpu : Ampere One CPU {
+  frontend: Frontend {
+    bp: Branch Predictor {
+      # Source: Ampere
+      l1btb: 256-entry L1 BTB, zero bubble
+
+      # Source: Ampere
+      l2btb: 8192-entry L2 BTB, two bubbles
+
+      # Source: Ampere
+      indir: indirect branch predictor
+
+      # Source: Ampere
+      tage: 8-table TAGE direction predictor
+
+      # Source: Ampere
+      latency: 10-cycle branch mispredict recovery
+    }
+
+    l1ic: L1 IC {
+      # Source: Ampere
+      l1itlb: 64-entry 4-way L1 ITLB
+
+      # Source: Ampere
+      l1ic: 16KB 4-way L1 IC
+    }
+
+    # Source: Ampere
+    fq: 32-entry Fetch Queue
+    bp -> fq
+    fq -> l1ic
+
+    # Source: Ampere
+    iq: Instruction Queue
+    l1ic -> iq: 5 inst/cycle
+
+    # Source: Ampere
+    decode: 5-way Decode
+    iq -> decode
+
+    # Source: Ampere
+    rename: 4-way Rename {
+      Macro Fusion
+    }
+    decode -> rename: 4 MOP/cycle
+  }
+
+  backend: Backend {
+    # Source: Ampere
+    rob: 208-entry ROB
+
+    rf: Register File {
+      # Source: Ampere
+      irf: 166-entry Integer Register File
+
+      # Source: Ampere
+      vrf: 128-entry FP/Vector Register File
+    }
+
+    # Source: Ampere
+    sched1: Integer Scheduler A0
+
+    # Source: Ampere
+    pipe1: Pipe \#1 {
+      ALU
+      Branch
+      Flag
+    }
+    rob -> sched1 -> rf -> pipe1
+
+    # Source: Ampere
+    sched2: Integer Scheduler B0
+
+    # Source: Ampere
+    pipe2: Pipe \#2 {
+      ALU
+      Complex shift
+    }
+    rob -> sched2 -> rf -> pipe2
+
+    # Source: Ampere
+    sched3: Integer Scheduler B1
+
+    # Source: Ampere
+    pipe3: Pipe \#3 {
+      Multicycle
+    }
+    rob -> sched2 -> rf -> pipe3
+    rob -> sched3 -> rf -> pipe3
+
+    # Source: Ampere
+    pipe4: Pipe \#4 {
+      ALU
+      Complex shift
+    }
+    rob -> sched3 -> rf -> pipe4
+
+    # Source: Ampere
+    sched4: Integer Scheduler A1
+
+    # Source: Ampere
+    pipe5: Pipe \#5 {
+      ALU
+      Branch
+      Flag
+    }
+    rob -> sched4 -> rf -> pipe5
+
+    # Source: Ampere
+    sched5: FP/Vector Scheduler X
+
+    # Source: Ampere
+    pipe6: Pipe \#6 {
+      Vector
+      FP
+    }
+    rob -> sched5 -> rf -> pipe6
+
+    # Source: Ampere
+    sched6: FP/Vector Scheduler Y
+
+    # Source: Ampere
+    pipe7: Pipe \#7 {
+      FP store data
+    }
+    rob -> sched5 -> rf -> pipe7
+    rob -> sched6 -> rf -> pipe7
+
+    # Source: Ampere
+    pipe8: Pipe \#8 {
+      Vector
+      FP
+    }
+    rob -> sched6 -> rf -> pipe8
+
+    # Source: Ampere
+    sched7: Memory Scheduler 0
+
+    # Source: Ampere
+    pipe9: Pipe \#9 {
+      Load
+    }
+    rob -> sched7 -> rf -> pipe9
+
+    # Source: Ampere
+    pipe10: Pipe \#10 {
+      Store
+    }
+    rob -> sched7 -> rf -> pipe10
+
+    # Source: Ampere
+    sched8: Memory Scheduler 1
+
+    # Source: Ampere
+    pipe11: Pipe \#11 {
+      Load
+    }
+    rob -> sched8 -> rf -> pipe11
+
+    # Source: Ampere
+    pipe12: Pipe \#12 {
+      Store
+    }
+    rob -> sched8 -> rf -> pipe12
+
+    lsu: LSU {
+      Load Queue
+      Store Queue
+    }
+
+    pipe9 -> lsu
+    pipe10 -> lsu
+    pipe11 -> lsu
+    pipe12 -> lsu
+  }
+  frontend.rename -> backend.rob
+
+  mem: Memory {
+    l1: L1 DC {
+      # Source: Ampere
+      l1dtlb: 64-entry fully-associative L1 DTLB
+
+      # Source: Ampere
+      l1dc: 64KB 4-way L1 DC
+
+      # Source: Ampere
+      l2itlb: 768-entry 6-way L2 ITLB
+
+      # Source: Ampere
+      l2dtlb: 1536-entry 6-way L2 DTLB
+
+      # Source: Ampere
+      4-cycle load to use
+      2x128bit load and 1x128bit write per cycle
+      8 page table walkers
+    }
+
+    l2: L2 {
+      # Source: Ampere
+      2MB 8-way L2 Cache
+      11-cycle load to use latency
+    }
+
+    l1 -> l2
+
+    l3: L3 {
+      32MB L3 Cache
+    }
+    l2 -> l3
+  }
+  frontend.l1ic -> mem.l2
+  backend.lsu -> mem.l1
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from Chips and Cheese, Ampere
+  |
+}

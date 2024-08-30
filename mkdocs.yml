@@ -16,6 +16,7 @@ nav:
     - Apple M3 P-core: m3_pcore.md
     - Apple M4 P-core: m4_pcore.md
     - Qualcomm Oryon: oryon.md
+    - Ampere One: ampere_one.md
   - AMD64:
     - AMD Zen2: zen2.md
     - AMD Zen3: zen3.md
