@@ -1,6 +1,6 @@
 # Intel Lunar Lake P-core aka Lion Cove
 
-TODO
+![](./lion_cove.svg)
 
 References:
 
