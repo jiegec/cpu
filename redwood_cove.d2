@@ -38,7 +38,10 @@ cpu : Intel Meteor Lake P-core Redwood Cove CPU {
   }
 
   backend: Backend {
-    rob: ROB
+    # Source: Intel
+    # "8 -> 12 wide retirement" and "512 -> 576 deep instruction window" in
+    # Redwood Cove vs Lion Cove comparison
+    rob: 512-entry ROB, 8 wide retirement
 
     rf: Register File {
       irf: Integer Register File
@@ -160,6 +163,10 @@ cpu : Intel Meteor Lake P-core Redwood Cove CPU {
     lsu: LSU {
       lq: Load Queue
       sq: Store Queue
+      # Source: Intel
+      3 cycle load to use latency
+      # Source: Intel
+      3x256b or 2x512b read per cycle
     }
 
     pipe6 -> lsu
@@ -186,6 +193,11 @@ cpu : Intel Meteor Lake P-core Redwood Cove CPU {
       # Source: Intel
       # "Increased number of outstanding misses (48→64 Deeper MLC miss queues)."
       mshr: 64-entry MSHR
+
+      # Source: Intel
+      16 cycle load to use latency
+      # Source: Intel
+      2x64B read per cycle
     }
 
     l1 -> l2
