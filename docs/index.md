@@ -20,7 +20,7 @@ Major microarchitectures of CPU vendors:
 4. Intel:
 	- Skylake
 	- Sunny Cove (Ice Lake) 
-	- Golden Cove + Gracemont (Alder Lake/Sapphire Rapids)
-	- Redwood Cove + Crestmont (Meteor Lake/Granite Rapids)
+	- Golden Cove + Gracemont (Alder Lake/Sapphire Rapids) -> Raptor Cove + Gracemont (Raptor Lake/Emerald Rapids)
+	- Redwood Cove + Crestmont (Meteor Lake/Granite Rapids/Sierra Forest)
 	- Lion Cove + Skymont (Lunar Lake)
 5. Qualcomm: Oryon
