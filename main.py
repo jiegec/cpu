@@ -104,12 +104,12 @@ def define_env(env):
                 "Rename width",
             ]
         ]
-        data["Max Load"] = data["Load/Store pipes"] + data["Load-only pipes"]
-        data["Max Store"] = data["Load/Store pipes"] + data["Store-only pipes"]
+        data["Max Load"] = data["Load/Store pipes"].astype(int) + data["Load-only pipes"].astype(int)
+        data["Max Store"] = data["Load/Store pipes"].astype(int) + data["Store-only pipes"].astype(int)
         data["Max Load+Store"] = (
-            data["Load/Store pipes"]
-            + data["Load-only pipes"]
-            + data["Store-only pipes"]
+            data["Load/Store pipes"].astype(int)
+            + data["Load-only pipes"].astype(int)
+            + data["Store-only pipes"].astype(int)
         )
 
         # reduce column width
