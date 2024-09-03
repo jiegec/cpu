@@ -1,7 +1,6 @@
-cpu : Intel Meteor Lake P-core Redwood Cove CPU {
+cpu: Intel Meteor Lake P-core Redwood Cove CPU {
   frontend: Frontend {
-    bp: Branch Predictor {
-    }
+    bp: Branch Predictor
 
     l1ic: L1 IC {
       # Source: Intel
@@ -181,6 +180,11 @@ cpu : Intel Meteor Lake P-core Redwood Cove CPU {
 
   mem: Memory {
     l1: L1 DC {
+      # Source: Intel
+      # "96 -> 128 pages DTLB" in 
+      # Redwood Cove vs Lion Cove comparison
+      l1dtlb: 96-entry L1 DTLB
+
       # Source: Intel
       l1dc: 48KB L1DC
     }
