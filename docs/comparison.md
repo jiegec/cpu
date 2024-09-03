@@ -53,6 +53,10 @@
 | Firestorm   | 3/cycle  | 2/cycle   | 3/cycle   | 2/cycle    | 1.5/cycle | 1/cycle    |
 | Oryon       | 4/cycle  | 2/cycle   | 4/cycle   | 2/cycle    | 2/cycle   | 1/cycle    |
 
+### Execution Unit
+
+{{ eu_comparison() }}
+
 ## Comparison between microarchitectures
 
 ### Firestorm vs Oryon

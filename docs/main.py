@@ -70,6 +70,22 @@ def define_env(env):
         return data.to_markdown()
 
     @env.macro
+    def eu_comparison():
+        data = all_data
+        # filter columns
+        data = data[
+            [
+                "uArch",
+                "ALU units",
+                "Branch units",
+                "FP/Vec units",
+            ]
+        ]
+        # drop integer index
+        data = data.set_index("uArch")
+        return data.to_markdown()
+
+    @env.macro
     def cortex_x_comparison():
         data = all_data
         # only consider cortex x cores
