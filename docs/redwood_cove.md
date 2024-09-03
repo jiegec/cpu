@@ -1,6 +1,6 @@
 # Intel Meteor Lake P-core aka Redwood Cove
 
-TODO
+![](./redwood_cove.svg)
 
 References:
 
