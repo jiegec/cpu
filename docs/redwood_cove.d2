@@ -1,0 +1,202 @@
+cpu : Intel Meteor Lake Redwood Cove CPU {
+  frontend: Frontend {
+    bp: Branch Predictor {
+    }
+
+    l1ic: L1 IC {
+      # Source: Intel
+      # "Larger instruction cache: 32K→64K."
+      l1ic: 64KB L1 IC
+    }
+
+    bp -> l1ic
+
+    iq: Instruction Queue
+    l1ic -> iq
+
+    # Source: Intel
+    decode: 6-way Decode
+    iq -> decode
+
+    uopc: UOP Cache
+    decode -> uopc
+    bp -> uopc
+
+    # Source: Intel
+    # "Improved LSD coverage: the IDQ can hold 192 μops per logical processor in
+    # single-thread mode or 96 μops per thread when SMT is active."
+    uop: 2x96 UOP Queue
+    uopc -> uop: 8 UOP/cycle
+    decode -> uop: 6 UOP/cycle
+
+    # Source: Intel
+    rename: 6-way Rename {
+      Move Elimination
+      Zero Idiom
+    }
+    uop -> rename
+  }
+
+  backend: Backend {
+    rob: ROB
+
+    rf: Register File {
+      irf: Integer Register File
+
+      flagsrf: Flags Register File
+
+      vrf: FP/Vector Register File
+    }
+
+    sched1: Unified Math Scheduler
+
+    # Source: Intel
+    pipe1: Port 0 {
+      grid-columns: 1
+      ALU
+      LEA
+      Shift
+      JMP
+      Vec FMA
+      Vec ALU
+      Vec Shift
+      Vec fpDIV
+    }
+    rob -> sched1 -> rf -> pipe1
+
+    # Source: Intel
+    pipe2: Port 1 {
+      grid-columns: 1
+      ALU
+      LEA
+      Shift
+      Int DIV
+      Vec FMA
+      Vec ALU
+      Vec Shift
+      Vec Shuffle
+      Vec FADD
+    }
+    rob -> sched1 -> rf -> pipe2
+
+    # Source: Intel
+    pipe3: Port 5 {
+      grid-columns: 1
+      ALU
+      LEA
+      MulHi
+      Vec FMA512
+      Vec ALU
+      Vec AMX
+      Vec Shuffle
+      Vec FADD
+    }
+    rob -> sched1 -> rf -> pipe3
+
+    # Source: Intel
+    pipe4: Port 6 {
+      grid-columns: 1
+      ALU
+      LEA
+      Shift
+      JMP
+    }
+    rob -> sched1 -> rf -> pipe4
+
+    # Source: Intel
+    pipe5: Port 11 {
+      grid-columns: 1
+      ALU
+      LEA
+    }
+    rob -> sched1 -> rf -> pipe5
+
+    sched2: Load Scheduler
+
+    # Source: Intel
+    pipe6: Port 2 {
+      Load AGU
+    }
+    rob -> sched2 -> rf -> pipe6
+
+    # Source: Intel
+    pipe7: Port 3 {
+      Load AGU
+    }
+    rob -> sched2 -> rf -> pipe7
+
+    # Source: Intel
+    pipe8: Port 10 {
+      Load AGU
+    }
+    rob -> sched2 -> rf -> pipe8
+
+    sched3: Store Scheduler
+
+    # Source: Intel
+    pipe9: Port 7 {
+      Store AGU
+    }
+    rob -> sched3 -> rf -> pipe9
+
+    # Source: Intel
+    pipe10: Port 8 {
+      Store AGU
+    }
+    rob -> sched3 -> rf -> pipe10
+
+    # Source: Intel
+    pipe11: Port 4 {
+      Store Data
+    }
+    rob -> sched3 -> rf -> pipe11
+
+    # Source: Intel
+    pipe12: Port 9 {
+      Store Data
+    }
+    rob -> sched3 -> rf -> pipe12
+
+    lsu: LSU {
+      lq: Load Queue
+      sq: Store Queue
+    }
+
+    pipe6 -> lsu
+    pipe7 -> lsu
+    pipe8 -> lsu
+    pipe9 -> lsu
+    pipe10 -> lsu
+    pipe11 -> lsu
+    pipe12 -> lsu
+  }
+  frontend.rename -> backend.rob
+  frontend.rename -> backend.bob
+
+  mem: Memory {
+    l1: L1 DC {
+      # Source: Intel
+      l1dc: 48KB L1DC
+    }
+
+    l2: L2 {
+      # Source: Intel
+      # "Mid-level-cache size increased to 2MBs for Client."
+      l2dc: 2MB L2 (Mid Level) Cache
+
+      # Source: Intel
+      # "Increased number of outstanding misses (48→64 Deeper MLC miss queues)."
+      mshr: 64-entry MSHR
+    }
+
+    l1 -> l2
+  }
+  frontend.l1ic -> mem.l2
+  backend.lsu -> mem.l1
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from Chips and Cheese, Intel and Anandtech
+  |
+}
