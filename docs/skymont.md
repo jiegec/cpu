@@ -1,6 +1,6 @@
 # Intel Lunar Lake E-core aka Skymont
 
-TODO
+![](./skymont.svg)
 
 References:
 
