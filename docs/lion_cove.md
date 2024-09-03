@@ -6,3 +6,4 @@ References:
 
 - [An Interview with Intel’s Arik Gihon about Lunar Lake at Hot Chips 2024](https://chipsandcheese.com/2024/09/02/an-interview-with-intels-arik-gihon-about-lunar-lake-at-hot-chips-2024/)
 - [Intel’s Lion Cove Architecture Preview](https://chipsandcheese.com/2024/06/03/intels-lion-cove-architecture-preview/)
+- [2024 Intel Tech Tour: Next Gen P-core-The Lion Cove Microarchitecture](https://www.intel.com/content/www/us/en/content-details/824430/2024-intel-tech-tour-next-gen-p-core-the-lion-cove-microarchitecture.html)
