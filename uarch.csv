@@ -1,11 +1,11 @@
 ﻿uArch,L1 BTB,L2 BTB,L3 BTB,ITA,RAS,L1 ITLB,L2 ITLB,L1 IC,Decode width,UOP/MOP Cache,UOP/MOP width,Rename width,ROB,Int RF,Flag RF,Float RF,Branch units,ALU units,FP/Vec units,Load/Store pipes,Load-only pipes,Store-only pipes
-AMD Zen 2,16 (0 bubble),512 (1 bubble),7168 (4 bubble),1024,32,64,512,8-way 32KB,4,8-way 512-entry 8-inst/entry,8,5,224,180,138,160,2,4,4,0,2,1
-AMD Zen 3,1024 (0 bubble),6656 (3 bubble),,1536,2x32,64,512,8-way 32KB,4,8-way 512-entry 8-mop/entry,8,6,256,192,122,160,2,4,4,2,1,0
-AMD Zen 4,1536 (0 bubble),7186/7680 (3 bubble),,3072,2x32,64,512,8-way 32KB,4,12-way 768-entry 9-mop/entry,9,6,320,224,126,192,2,4,4,2,1,0
-AMD Zen 5,16384 (0 bubble),8192 (8 bubble),,3072,2x52,64,2048,8-way 32KB,2x4,16-way 1024-entry 6-inst/entry,2x6,8,448,240,192,384,3,6,4,2,2,0
+AMD Zen 2,16 (0 bubble),512 (1 bubble),7168 (4 bubble),1024,32,64,512,8-way 32KB,4,8-way 512-entry 8-inst/entry,8,5,224,180,138,160,2,4,4x 256b,0,2,1
+AMD Zen 3,1024 (0 bubble),6656 (3 bubble),,1536,2x32,64,512,8-way 32KB,4,8-way 512-entry 8-mop/entry,8,6,256,192,122,160,2,4,4x 256b,2,1,0
+AMD Zen 4,1536 (0 bubble),7186/7680 (3 bubble),,3072,2x32,64,512,8-way 32KB,4,12-way 768-entry 9-mop/entry,9,6,320,224,126,192,2,4,4x 256b,2,1,0
+AMD Zen 5,16384 (0 bubble),8192 (8 bubble),,3072,2x52,64,2048,8-way 32KB,2x4,16-way 1024-entry 6-inst/entry,2x6,8,448,240,192,384,3,6,4x 512b,2,2,0
 Ampere One,256 (0 bubble),8192 (2 bubble),,,,64,768,4-way 16KB,5,,,4,208,166,,128,2,4,2,0,2,2
-Apple Avalanche,1024,3072,192KB L1 IC,,,,,192KB,8,N/A,N/A,8,274 Group,350,,380,2,6,4,1,2,1
-Apple Firestorm,1024,192KB L1 IC,,,50,,,192KB,8,N/A,N/A,8,330 Group,380,128,432,2,6,4,1,2,1
+Apple Avalanche,1024,3072,192KB L1 IC,,,,,192KB,8,N/A,N/A,8,274 Group,350,,380,2,6,4x 128b,1,2,1
+Apple Firestorm,1024,192KB L1 IC,,,50,,,192KB,8,N/A,N/A,8,330 Group,380,128,432,2,6,4x 128b,1,2,1
 ARM Cortex-X1,96,8192,,,16,48,,4-way 64KB,5,4-way 3072-entry,8,8,224 MOP,,,,2,4,4,2,1,0
 ARM Cortex-X2,,,,,,48,,4-way 64KB,5,4-way 3072-entry,8,8,288 MOP,,,,2,4,4,2,1,0
 ARM Cortex-X3,,,,,,,,,6,1536-entry,8,8,230 MOP,,,,2,6,4,2,1,0
@@ -15,5 +15,6 @@ Intel Crestmont,1024,6144,,,,64,,8-way 64KB,2x3,,,6,256,214,,207,2,4,3,0,2,2
 Intel Golden Cove,128,6144,12288,,20,256,,8-way 32KB,6,4096-entry,8,6,512,288,248,332,2,5,3,0,3,2
 Intel Gracemont,1024,5120,,,,64,,8-way 64KB,2x3,,,,256,214,,207,2,4,3,0,2,2
 Intel Redwood Cove,,,,,,,,64KB,6,,8,6,,,,,2,5,3,,,
+Intel Skymont,,,,,,,,64KB,3x3,,3x3,8,416,,,,3,8,4x 128b,,,
 Intel Sunny Cove,256,5120,,,22,128,,8-way 32KB,4,2304-entry,,5,352,280,238,224,2,4,2,0,2,2
-Qualcomm Oryon,2048,192KB L1 IC,,,50,256,,6-way 192KB,8,N/A,N/A,8,680,416,,416,2,6,4,2,2,0
+Qualcomm Oryon,2048,192KB L1 IC,,,50,256,,6-way 192KB,8,N/A,N/A,8,680,416,,416,2,6,4x 128b,2,2,0
