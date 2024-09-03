@@ -4,6 +4,11 @@ cpu : ARM Cortex-X3 CPU {
     }
 
     l1ic: L1 IC {
+      # Source: ARM
+      l1itlb: 48-entry fully-associative L1 ITLB
+
+      # Source: ARM
+      l1ic: 64KB 4-way L1 IC
     }
 
     fq: Fetch Queue
@@ -17,7 +22,7 @@ cpu : ARM Cortex-X3 CPU {
     iq -> decode
 
     # Source: ARM
-    mopc: 1536-entry MOP Cache
+    mopc: 1536-entry 4-way skewed-associative MOP Cache
     decode -> mopc
     bp -> mopc
 
