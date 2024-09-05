@@ -155,8 +155,15 @@ cpu : Intel Skylake CPU {
     }
 
     l2: L2 {
-      # Source: Wikichip
-      l2dc: 256 KB 4-way L2 DC
+      # Source: Wikichip, Intel
+      # "Skylake server microarchitecture implements a mid-level (L2) cache of 1
+      # MB capacity with a minimum load-to-use latency of 14 cycles. The
+      # mid-level cache capacity is four times larger than the capacity in
+      # previous Intel Xeon processor family implementations. The line size of
+      # the mid-level cache is 64B and it is 16-way associative. The mid-level
+      # cache is private to each core."
+      l2dc: 256 KB 4-way/1MB 16-way L2 DC
+      14 cycle load to use latency
     }
 
     # Source: Wikichip

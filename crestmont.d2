@@ -1,4 +1,4 @@
-cpu : Intel Meteor Lake E-core Crestmont CPU {
+cpu: Intel Meteor Lake E-core Crestmont CPU {
   frontend: Frontend {
     bp: Branch Predictor {
       # Source: Chips and Cheese
@@ -20,6 +20,9 @@ cpu : Intel Meteor Lake E-core Crestmont CPU {
 
     l1ic: L1 IC {
       # Source: Chips and Cheese, Intel
+      # Intel:
+      # Level Entries Associativity     Architectural Page Size Cached Translation Size
+      # ITLB  64      Fully associative All                     4KB, 256KB
       itlb: 64-entry fully associative ITLB
 
       # Source: Chips and Cheese
@@ -187,6 +190,19 @@ cpu : Intel Meteor Lake E-core Crestmont CPU {
       # Source: Chips and Cheese
       80-entry Load Queue
       48-entry Store Queue
+
+      # Source: Intel
+      # "The Crestmont microarchitecture’s memory subsystem is designed to handle
+      # two 16 byte loads and two 16 byte stores per cycle, providing
+      # simultaneous 32 bytes of read bandwidth and 32 bytes of write bandwidth
+      # per cycle. The load-to-use latency for loads is typically four cycles.
+      # Suppose you are doing a pointer-chasing operation where the computed
+      # address results from a single prior load and a positive displacement of
+      # no more than +1023. In that case, the load-to-use latency observed can
+      # be reduced to three cycles."
+      2x128b load and 2x128b store per cycle
+      4 cycle load to use latency
+      3 cycle load to use latency in pointer chasing
     }
 
     pipe7 -> lsu
@@ -255,6 +271,8 @@ cpu : Intel Meteor Lake E-core Crestmont CPU {
   mem: Memory {
     l1: L1 DC {
       # Source: Chips and Cheese, Intel
+      # Level Entries Associativity     Architectural Page Size Cached Translation Size
+      # DTLB  48      Fully associative All                     4KB, 2MB
       l1dtlb: 48-entry fully associative L1 DTLB
 
       # Source: Chips and Cheese
@@ -262,10 +280,15 @@ cpu : Intel Meteor Lake E-core Crestmont CPU {
     }
 
     l2: L2 {
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, Intel
+      # Level Entries Associativity     Architectural Page Size Cached Translation Size
+      # STLB  3072    6-way             4K/2M/4M      4KB, 2MB
+      # STLB  16      Fully associative 1GB           1GB
       l2tlb: 3072-entry 6-way 4K/2M/4M page, 16-entry fully associative 2G page L2 TLB
 
-      # Source: Chips and Cheese
+      # Source: Chips and Cheese, Intel
+      # "The L2 cache delivers 64 bytes of data per cycle at a latency of 17
+      # cycles, and that bandwidth is shared amongst 4 cores."
       l2dc: 2MB 16-way Shared L2 Cache, 17 cycle latency
     }
 
