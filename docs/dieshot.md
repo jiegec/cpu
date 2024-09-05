@@ -7,14 +7,14 @@
 - Google Tensor Gen2: https://twitter.com/Kurnalsalts/status/1792171201076551747 https://www.bilibili.com/opus/942059110279413798
 - Google Tensor Gen3: https://twitter.com/Kurnalsalts/status/1799097967884083393 https://www.bilibili.com/opus/942059110279413798
 - Intel Meteor Lake: https://www.bilibili.com/opus/967751673346785305
-- MediaTek Dimensity 9200: https://kurnal.xlog.app/D9200
-- MediaTek Dimensity 9300 MT6989: https://twitter.com/Kurnalsalts/status/1767976930446553369
-- MediaTek Dimensity 930: https://twitter.com/Kurnalsalts/status/1727746638574420285
-- MediaTek Helio X30 MT6799: https://twitter.com/Kurnalsalts/status/1790624036613218466
+- MediaTek Dimensity 9200: 1x Cortex-X3, 3x Cortex-A715, 4x Cortex-A510, Immortalis-G715 https://i.mediatek.com/dimensity-9200 https://kurnal.xlog.app/D9200
+- MediaTek Dimensity 9300: 4x Cortex-X4, 4x Cortex-A720, Immortalis-G720 https://i.mediatek.com/dimensity-9300 https://twitter.com/Kurnalsalts/status/1767976930446553369
+- MediaTek Dimensity 930: 2x Cortex-A78, 6x Cortex-A55 https://i.mediatek.com/dimensity-930 https://twitter.com/Kurnalsalts/status/1727746638574420285
+- MediaTek Helio X30: 2x Cortex-A73, 4x Cortex-A53, 4x Cortex-A35 https://www.mediatek.com/products/smartphones-2/mediatek-helio-x30 https://twitter.com/Kurnalsalts/status/1790624036613218466
 - Nvidia AD102: https://twitter.com/Kurnalsalts/status/1784611359608680563
-- Qualcomm 7 Gen1: https://twitter.com/Kurnalsalts/status/1776276658426966068
-- Qualcomm 8 Gen2: https://twitter.com/Kurnalsalts/status/1705935348893905147 https://kurnal.xlog.app/SM8550
-- Qualcomm 8 Gen3: https://twitter.com/Kurnalsalts/status/1776276658426966068 https://twitter.com/Kurnalsalts/status/1776201339615514721
+- Qualcomm 7 Gen1: 4x(1+3) Cortex-A710, 4x Cortex-A510 https://twitter.com/Kurnalsalts/status/1776276658426966068
+- Qualcomm 8 Gen2: 1x Cortex-X3, 2x Cortex-A715, 2x Cortex-A710, 3x Cortex-A510 https://twitter.com/Kurnalsalts/status/1705935348893905147 https://kurnal.xlog.app/SM8550
+- Qualcomm 8 Gen3: 1x Cortex-X4, 5x(2+3) Cortex-A720, 2x Cortex-A520 https://twitter.com/Kurnalsalts/status/1776276658426966068 https://twitter.com/Kurnalsalts/status/1776201339615514721
 - Qualcomm 845: https://kurnal.xlog.app/SDM845
 - Qualcomm 888: https://twitter.com/Kurnalsalts/status/1727744875305832710
 - Qualcomm 8s Gen3: https://t.bilibili.com/916817677665697796 https://twitter.com/Kurnalsalts/status/1776276658426966068 https://twitter.com/Kurnalsalts/status/1776201339615514721
