@@ -1,0 +1,24 @@
+# Dieshot
+
+- AMD Ryzen 9 9900x: https://www.bilibili.com/opus/965843745820901377
+- AMD Strix Point: https://www.bilibili.com/opus/959217298443337751
+- Apple A17: https://www.youtube.com/watch?v=veikj5uvAc8
+- Google Tensor Gen1: https://twitter.com/Kurnalsalts/status/1792171201076551747 https://www.bilibili.com/opus/942059110279413798
+- Google Tensor Gen2: https://twitter.com/Kurnalsalts/status/1792171201076551747 https://www.bilibili.com/opus/942059110279413798
+- Google Tensor Gen3: https://twitter.com/Kurnalsalts/status/1799097967884083393 https://www.bilibili.com/opus/942059110279413798
+- Intel Meteor Lake: https://www.bilibili.com/opus/967751673346785305
+- MediaTek Dimensity 9200: https://kurnal.xlog.app/D9200
+- MediaTek Dimensity 9300 MT6989: https://twitter.com/Kurnalsalts/status/1767976930446553369
+- MediaTek Dimensity 930: https://twitter.com/Kurnalsalts/status/1727746638574420285
+- MediaTek Helio X30 MT6799: https://twitter.com/Kurnalsalts/status/1790624036613218466
+- Nvidia AD102: https://twitter.com/Kurnalsalts/status/1784611359608680563
+- Qualcomm 7 Gen1: https://twitter.com/Kurnalsalts/status/1776276658426966068
+- Qualcomm 8 Gen2: https://twitter.com/Kurnalsalts/status/1705935348893905147 https://kurnal.xlog.app/SM8550
+- Qualcomm 8 Gen3: https://twitter.com/Kurnalsalts/status/1776276658426966068 https://twitter.com/Kurnalsalts/status/1776201339615514721
+- Qualcomm 845: https://kurnal.xlog.app/SDM845
+- Qualcomm 888: https://twitter.com/Kurnalsalts/status/1727744875305832710
+- Qualcomm 8s Gen3: https://t.bilibili.com/916817677665697796 https://twitter.com/Kurnalsalts/status/1776276658426966068 https://twitter.com/Kurnalsalts/status/1776201339615514721
+- Samsung Exynos 2100: https://twitter.com/Kurnalsalts/status/1784620815474135151
+- Samsung Exynos 2200: https://twitter.com/Kurnalsalts/status/1785040012188471347 https://www.bilibili.com/opus/942039658357850146
+- Samsung Exynos 2300: https://www.bilibili.com/opus/942039658357850146
+- Samsung Exynos 2400: https://twitter.com/Kurnalsalts/status/1785252470408773986 https://www.bilibili.com/opus/942039658357850146
