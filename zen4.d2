@@ -173,6 +173,11 @@ cpu : AMD Zen4 CPU {
       # 2 stores per cycle (max 1 if 256b)
       3 Load per cycle (2 if 256b)
       2 Store per cycle (1 if 256b)
+
+      # Source: AMD
+      # "4-cycle load-to-use integer load latency and 7-cycle load-to-use FP load latency."
+      4 cycle load to use latency
+      7 cycle load to FP use latency
     }
 
     pipe4 -> lsu
