@@ -185,6 +185,9 @@ cpu : AMD Zen2 CPU {
       # memory operation per cycle."
       2x 256b Load Pipe
       1x 256b Store Pipe
+
+      # Source: jiegec
+      4 cycle load to use latency
     }
 
     pipe5 -> lsu

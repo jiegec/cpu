@@ -178,6 +178,9 @@ cpu : AMD Zen3 CPU {
       # with a maximum of one store if the store is a 128- or 256-bit store."
       3 Load per cycle (max 2 if 128b/256b)
       2 Store per cycle (max 1 if 128b/256b)
+
+      # Source: jiegec
+      4 cycle load to use latency
     }
 
     pipe4 -> lsu
