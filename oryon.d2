@@ -191,6 +191,9 @@ cpu : Qualcomm Oryon CPU {
       # Source: Chips and Cheese
       2 Load Pipe
       2 Load/Store Pipe
+      # Source: jiegec
+      4 cycle load to use latency
+      3 cycle load to use latency in pointer chasing
     }
 
     pipe7 -> lsu

@@ -199,6 +199,10 @@ cpu : Intel Alder Lake E-core Gracemont CPU {
       # Source: Chips and Cheese
       80-entry Load Queue
       50-entry Store Queue
+
+      # Source: jiegec
+      4 cycle load to use latency
+      3 cycle load to use latency in pointer chasing
     }
 
     pipe7 -> lsu
