@@ -162,9 +162,10 @@ cpu: Intel Meteor Lake P-core Redwood Cove CPU {
     lsu: LSU {
       lq: Load Queue
       sq: Store Queue
+
       # Source: Intel
-      3 cycle load to use latency
-      # Source: Intel
+      # Redwood Cove vs Lion Cove comparison
+      5 cycle load to use latency
       3x256b or 2x512b read per cycle
     }
 
@@ -186,9 +187,8 @@ cpu: Intel Meteor Lake P-core Redwood Cove CPU {
       l1dtlb: 96-entry L1 DTLB
 
       # Source: Intel
+      # Redwood Cove vs Lion Cove comparison
       l1dc: 48KB L1DC
-      5 cycle load to use latency
-      3x256b or 2x512b read per cycle
     }
 
     l2: L2 {
