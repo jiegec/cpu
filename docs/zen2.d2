@@ -186,8 +186,10 @@ cpu : AMD Zen2 CPU {
       2x 256b Load Pipe
       1x 256b Store Pipe
 
-      # Source: jiegec
+      # Source: jiegec, AMD
+      # AMD: "4-cycle load-to-use integer load latency and 7-cycle load-to-use FP load latency"
       4 cycle load to use latency
+      7 cycle load to FP use latency
     }
 
     pipe5 -> lsu

@@ -224,6 +224,9 @@ cpu : AMD Zen5 CPU {
       2x64-bit stores/cycle
       1x512-bit store/cycle
       124-entry Miss Address Buffer
+
+      # AMD: "4-cycle load-to-use integer load latency and 7-cycle load-to-use FP load latency"
+      # "Complex addressing modes can achieve a 5-cycle (integer)/8-cycle (FP) load-to-use latency"
       4/5 cycle load-to-use integer
       7/8 cycle load-to-use fp
     }

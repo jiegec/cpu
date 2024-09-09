@@ -180,7 +180,10 @@ cpu : AMD Zen3 CPU {
       2 Store per cycle (max 1 if 128b/256b)
 
       # Source: jiegec
+      # Source: AMD
+      # "4-cycle load-to-use integer load latency and 7-cycle load-to-use FP load latency."
       4 cycle load to use latency
+      7 cycle load to FP use latency
     }
 
     pipe4 -> lsu
