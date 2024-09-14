@@ -24,7 +24,8 @@ cpu : Apple M1 Firestorm CPU {
 
     # Source: Dougall Johnson
     decode: 8-way Decode
-    l1ic -> decode
+    # Source: jiegec
+    l1ic -> decode: 16 inst/cycle
     decode -> bp
 
     # Source: Dougall Johnson
