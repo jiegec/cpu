@@ -40,6 +40,8 @@ cpu : Qualcomm Oryon CPU {
     fq -> l1ic
 
     iq: Instruction Queue
+    # Source: Qualcomm
+    # "Fetches up to 16 instructions per cycle"
     l1ic -> iq: 16 inst/cycle
 
     # Source: Chips and Cheese, Anandtech

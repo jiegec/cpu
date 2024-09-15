@@ -6,7 +6,7 @@ cpu : Apple M1 Firestorm CPU {
       l1btb: 1024-entry L1 BTB, 1 cycle latency
 
       # Source: JamesAslan
-      # Source: jiegec, see /data/firestorm/ras.csv
+      # Source: jiegec, see hw.perflevel0.l1icachesize in /data/firestorm/cache.txt
       l2btb: 192KB L1 IC as L2 BTB, 3 cycle latency
 
       # Source: jiegec, see /data/firestorm/ras.csv
@@ -24,7 +24,8 @@ cpu : Apple M1 Firestorm CPU {
 
     # Source: Dougall Johnson
     decode: 8-way Decode
-    l1ic -> decode
+    # Source: jiegec
+    l1ic -> decode: 16 inst/cycle
     decode -> bp
 
     # Source: Dougall Johnson
