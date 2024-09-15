@@ -41,15 +41,29 @@ cpu : AMD Zen5 CPU {
     bp -> fq
     fq -> l1ic
 
-    iq1: Instruction Queue \#1
-    l1ic -> iq1: 32 bytes/cycle
+    # Source: AMD
+    # "Each decode pipe has a 20-entry structure called the IBQ which acts as a
+    # decoupling queue between the fetch/branch-predict unit and the decode
+    # unit. IBQ entries hold 16 byte-aligned fetch windows of the instruction
+    # byte stream"
+    iq1: 20x 16B Instruction Queue \#1
+
+    # Source: AMD
+    # "The processor fetches instructions from the instruction cache in 32-byte
+    # blocks that are 32-byte aligned. Up to two of these blocks can be
+    # independently fetched every cycle to feed the decode unit’s two decode
+    # pipes. Instruction bytes from different basic blocks can be fetched and
+    # sent out-of-order to the 2 decode pipes, enabling instruction fetch-ahead
+    # which can hide latencies for TLB misses, Icache misses, and instruction
+    # decode."
+    l1ic -> iq1: 32 B/cycle
 
     # Source: Chips and Cheese, AMD
     decode1: 4-way Decode
     iq1 -> decode1: 4 instructions
 
-    iq2: Instruction Queue \#2
-    l1ic -> iq2: 32 bytes/cycle
+    iq2: 20x 16B Instruction Queue \#2
+    l1ic -> iq2: 32 B/cycle
 
     # Source: Chips and Cheese, AMD
     decode2: 4-way Decode
