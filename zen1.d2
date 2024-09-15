@@ -1,0 +1,294 @@
+cpu: AMD Zen1 CPU {
+  frontend: Frontend {
+    bp: Branch Predictor {
+      # Source: AMD
+      # "L0BTB holds 4 forward taken branches and 4 backward taken branches, and
+      # predicts with zero bubbles. L1BTB has 256 entries and creates one bubble
+      # if prediction differs from L0BTB. L2BTB has 4096 entries and creates
+      # four bubbles if its prediction differs from L1BTB."
+      l1btb: 8-entry(4 forward, 4 backward) L1 BTB, zero bubbles
+
+      # Source: AMD
+      l2btb: 256-entry L2 BTB, one bubble
+
+      # Source: AMD
+      l3btb: 4096-entry L3 BTB, four bubbles
+
+      # Source: AMD
+      # "The processor implements a 512-entry indirect target array"
+      indir: 512-entry Indirect Target Array
+
+      # Source: AMD
+      # "The processor implements a 32-entry return address stack (RAS) to
+      # predict return addresses from a near call."
+      ras: 32-entry Return Address Stack
+    }
+
+    l1ic: L1 IC {
+      # Source: AMD
+      # "The processor contains a fully-associative L1 instruction TLB (ITLB)
+      # with 64 entries that can hold 4- Kbyte, 2-Mbyte, or 1-Gbyte page
+      # entries."
+      l1itlb: 64-entry L1 ITLB
+
+      # Source: AMD
+      # "The processor provides an 8-way set associative L2 instruction TLB with
+      # 512 entries capable of holding 4-Kbyte pages, and 2-Mbyte pages. 1-Gbyte
+      # pages are not held in the L2 instruction TLB; they are smashed into
+      # 2-Mbyte pages in the L2 ITLB."
+      l2itlb: 512-entry 8-way L2 ITLB
+
+      # Source: AMD
+      # "The AMD Family 17h processor contains a 64-Kbyte, 4-way set associative
+      # L1 instruction cache."
+      l1ic: 64KB 4-way L1 IC
+    }
+
+    fq: Fetch Queue
+    bp -> fq
+    fq -> l1ic
+
+    # Source: AMD
+    # "The fetch unit sends these bytes to the decode unit through a 20 entry
+    # Instruction Byte Queue (IBQ), each entry holding 16 instruction bytes. In
+    # SMT mode each thread has 10 dedicated IBQ entries"
+    iq: 20x 16B Instruction Queue
+    # Source: AMD
+    # "The AMD Family 17h processor fetches instructions from the instruction
+    # cache in 32-byte naturally aligned blocks. The processor can perform an
+    # instruction block fetch every cycle."
+    l1ic -> iq: 32 B/cyc
+
+    decode: Decode
+    iq -> decode
+
+    # Source: AMD
+    # "The op cache is organized as an associative cache with 32 sets and 8
+    # ways. At each set-way intersection is an entry containing up to 8
+    # instructions, so the maximum capacity of the op cache is then 2K
+    # instructions."
+    uopc: 256-entry 8-way, 8 inst/entry UOP Cache
+    decode -> uopc
+    bp -> uopc
+
+    # Source: AMD
+    # "the maximum throughput from the op cache is 8 instructions per cycle
+    # whereas the maximum throughput from the traditional fetch and decode
+    # pipeline is 4 instructions per cycle."
+    uop: UOP Queue
+    uopc -> uop: 8 inst/cycle
+    decode -> uop: 4 inst/cycle
+
+    rename: Rename {
+      Move Elimination
+      Zero Idiom
+    }
+    uop -> rename
+  }
+
+  backend: Backend {
+    # Source: AMD
+    # "The unit can receive up to 6 macro ops dispatched per cycle and track up
+    # to 192 macro ops in-flight. "
+    # "The retire unit handles in-order commit of up to eight macro ops per
+    # cycle."
+    rob: 192-entry ROB, retire 8 op/cycle
+
+    rf: Register File {
+      # Source: AMD
+      # "The integer physical register file (PRF) consists of 168 registers,
+      # with up to 38 per thread mapped to architectural state or
+      # microarchitectural temporary state."
+      irf: 168-entry Integer Register File
+    }
+
+    # Source: AMD
+    # "ALU micro ops are sent to one of four 14-entry ALU schedulers"
+    sched1: 14-entry ALU Scheduler \#1
+
+    pipe1: Pipe \#1 {
+      ALU
+    }
+    sched1 -> rf -> pipe1
+
+    # Source: AMD
+    sched2: 14-entry ALU Scheduler \#2
+
+    pipe2: Pipe \#2 {
+      ALU
+    }
+    sched2 -> rf -> pipe2
+
+    # Source: AMD
+    sched3: 14-entry ALU Scheduler \#3
+
+    pipe3: Pipe \#3 {
+      ALU
+    }
+    sched3 -> rf -> pipe3
+
+    # Source: AMD
+    sched4: 14-entry ALU Scheduler \#4
+
+    # Source: g
+    pipe4: Pipe \#4 {
+      ALU
+    }
+    sched4 -> rf -> pipe4
+
+    # Source: AMD
+    # "Load and Store micro ops are sent to one of two 14-entry address
+    # generation units (AGUs) Each scheduler can issue one micro op per cycle."
+    sched5: 14-entry AGU Scheduler \#5
+
+    # Source: g
+    pipe5: Pipe \#5 {
+      Load AGU
+      Store AGU
+    }
+    sched5 -> rf -> pipe5
+
+    sched6: 14-entry AGU Scheduler \#6
+
+    pipe6: Pipe \#6 {
+      Load AGU
+      Store AGU
+    }
+    sched6 -> rf -> pipe6
+
+    lsu: LSU {
+      # Source: AMD
+      # "The LS unit includes a 44-entry load queue (LDQ)."
+      44-entry Load Queue
+      # Source: AMD
+      # "The LS unit utilizes a 44-entry store queue "
+      44-entry Store Queue
+
+      # Source: AMD
+      # "The LS unit contains three largely independent pipelines enabling the
+      # execution of two 128-bit load memory operations and one 128-bit store
+      # memory operation per cycle."
+      2x 128b Load Pipe
+      1x 128b Store Pipe
+
+      # Source: jiegec, AMD
+      # AMD: "4-cycle load-to-use integer load latency and 7-cycle load-to-use FP load latency"
+      4 cycle load to use latency
+      7 cycle load to FP use latency
+    }
+
+    pipe5 -> lsu
+    pipe6 -> lsu
+
+    rob -> sched1
+    rob -> sched2
+    rob -> sched3
+    rob -> sched4
+    rob -> sched5
+    rob -> sched6
+
+    # Source: AMD
+    # "The floating-point scheduler has a 36 entry micro-op capacity"
+    sched7: 36-entry Vector/FP Scheduler \#7
+    rob -> sched7
+
+    # Source: AMD
+    pipe7: Pipe \#7 {
+      FMUL
+      FMISC
+      VADD
+      VMUL
+      VMISC
+      AES
+    }
+    sched7 -> rf -> pipe7
+
+    # Source: AMD
+    pipe8: Pipe \#8 {
+      FMUL
+      FMISC
+      VADD
+      VSHUF
+      VMISC
+      AES
+      CLM
+    }
+    sched7 -> rf -> pipe8
+
+    # Source: AMD
+    pipe9: Pipe \#9 {
+      FADD
+      FMISC
+      STORE
+      VSHUF
+      VSHIFT
+      VMISC
+    }
+    sched7 -> rf -> pipe9 -> lsu
+
+    # Source: AMD
+    pipe10: Pipe \#10 {
+      FADD
+      FCVT
+      FDIV
+      FMISC
+      VADD
+      VMISC
+    }
+    sched7 -> rf -> pipe10
+  }
+  frontend.rename -> backend.rob
+
+  mem: Memory {
+    l1: L1 DC {
+      # Source: AMD
+      # "The fully-associative L1 data TLB (DTLB) provides 64 entries that hold
+      # 4-Kbyte, 2-Mbyte, or 1- Gbyte page entries."
+      l1dtlb: 64-entry L1 DTLB
+
+      # Source: AMD
+      # "The L2 data TLB provides a unified 12-way set-associative L2 data TLB
+      # with 1536 entries"
+      l2dtlb: 1536-entry 12-way L2 DTLB
+
+      # Source: AMD
+      # "The AMD Family 17h processor contains a 32-Kbyte, 8-way set associative
+      # L1 data cache"
+      l1dc: 32KB 8-way L1DC
+
+      # Source: AMD
+      # "A hardware table walker loads page table information into the TLBs."
+      ptw: 1 Page Table Walker
+    }
+
+    l2: L2 {
+      # Source: AMD
+      # "The AMD Family 17h processor implements a unified 8-way set associative
+      # write-back L2 cache per core. This on-die L2 cache is inclusive of the
+      # L1 caches in the core. The L2 cache size is 512 Kbytes with a variable
+      # load-to-use latency of no less than 12 cycles."
+      l2dc: 512KB 8-way L2 Cache
+    }
+
+    # Source: AMD
+    # "The L2 to L1 data path is 32 bytes wide."
+    l1 -> l2: 32B/cycle
+
+    l3: L3 {
+      # Source: AMD
+      # "The AMD Family 17h processor implements a 4 MB or 8-MB L3 cache
+      # (depending on SOC configuration) that is 16-way set associative and
+      # shared by four cores inside a CPU complex."
+      l3dc: 4MB/8MB 16-way L3 Cache
+    }
+    l2 -> l3
+  }
+  frontend.l1ic -> mem.l2
+  backend.lsu -> mem.l1
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from AMD
+  |
+}
