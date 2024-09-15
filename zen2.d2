@@ -1,4 +1,4 @@
-cpu : AMD Zen2 CPU {
+cpu: AMD Zen2 CPU {
   frontend: Frontend {
     bp: Branch Predictor {
       # Source: Chips and Cheese, AMD
@@ -48,8 +48,16 @@ cpu : AMD Zen2 CPU {
     bp -> fq
     fq -> l1ic
 
-    iq: 20-entry x 16B Instruction Queue
-    l1ic -> iq
+    # Source: AMD
+    # "The fetch unit sends these bytes to the decode unit through a 20 entry
+    # Instruction Byte Queue (IBQ), each entry holding 16 instruction bytes. In
+    # SMT mode each thread has 10 dedicated IBQ entries."
+    iq: 20x 16B Instruction Queue
+    # Source: AMD
+    # "The processor fetches instructions from the instruction cache in 32-byte
+    # naturally aligned blocks. The processor can perform an instruction block
+    # fetch every cycle."
+    l1ic -> iq: 32 B/cyc
 
     # Source: Chips and Cheese
     decode: 4-way Decode
@@ -64,9 +72,13 @@ cpu : AMD Zen2 CPU {
     bp -> uopc
 
     # Source: Chips and Cheese
+    # Source: AMD
+    # "the maximum throughput from the op cache is 8 instructions per cycle
+    # whereas the maximum throughput from the traditional fetch and decode
+    # pipeline is 4 instructions per cycle."
     uop: UOP Queue
-    uopc -> uop: 8 fused instructions/cycle
-    decode -> uop: 4 instructions/cycle
+    uopc -> uop: 8 inst/cycle
+    decode -> uop: 4 inst/cycle
 
     # Source: Chips and Cheese
     rename: 5-way Rename {
@@ -77,8 +89,13 @@ cpu : AMD Zen2 CPU {
   }
 
   backend: Backend {
-    # Source: Chips and Cheese, AMD
-    rob: 224-entry ROB
+    # Source: Chips and Cheese
+    # Source: AMD
+    # "The unit can receive up to 6 macro ops dispatched per cycle and track up
+    # to 224 macro ops in-flight"
+    # "The retire unit handles in-order commit of up to eight macro ops per
+    # cycle."
+    rob: 224-entry ROB, retire 8 op/cycle
 
     # Source: Chips and Cheese, jiegec
     # Chips and Cheese: 32 taken, 128 not taken
@@ -86,7 +103,11 @@ cpu : AMD Zen2 CPU {
     bob: 32-taken-entry Branch Order Buffer
 
     rf: Register File {
-      # Source: Chips and Cheese, AMD
+      # Source: Chips and Cheese
+      # Source: AMD
+      # "The integer physical register file (PRF) consists of 180 registers,
+      # with up to 38 per thread mapped to architectural state or
+      # microarchitectural temporary state."
       # Source: jiegec, 132 speculative
       irf: 180-entry Integer Register File
 
