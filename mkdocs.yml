@@ -18,6 +18,7 @@ nav:
     - Qualcomm Oryon: oryon.md
     - Ampere One: ampere_one.md
   - AMD64:
+    - AMD Zen1: zen1.md
     - AMD Zen2: zen2.md
     - AMD Zen3: zen3.md
     - AMD Zen4: zen4.md
