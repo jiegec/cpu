@@ -16,11 +16,13 @@ Major microarchitectures of CPU vendors:
 	- M2/A15 (Avalanche + Blizzard)
 	- A16 (Everest + Sawtooth)
 	- M3
+	- A17
 	- M4
+	- A18
 4. Intel:
 	- Skylake
 	- Sunny Cove (Ice Lake) 
 	- Golden Cove + Gracemont (Alder Lake/Sapphire Rapids) -> Raptor Cove + Gracemont (Raptor Lake/Emerald Rapids)
 	- Redwood Cove + Crestmont (Meteor Lake/Granite Rapids/Sierra Forest)
-	- Lion Cove + Skymont (Lunar Lake)
+	- Lion Cove + Skymont (Lunar Lake/Arrow Lake)
 5. Qualcomm: Oryon

@@ -12,3 +12,4 @@ References:
 - [Zen 5 Dieshot](https://www.bilibili.com/opus/965843745820901377)
 - [Strix Point Dieshot](https://www.bilibili.com/opus/959217298443337751)
 - [Software Optimization Guide for the AMD Zen5 Microarchitecture](https://www.amd.com/content/dam/amd/en/documents/processor-tech-docs/software-optimization-guides/58455.zip)
+- [Discussing AMD’s Zen 5 at Hot Chips 2024](https://chipsandcheese.com/2024/09/15/discussing-amds-zen-5-at-hot-chips-2024/)
