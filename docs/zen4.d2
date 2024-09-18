@@ -43,7 +43,8 @@ cpu : AMD Zen4 CPU {
     # "The fetch unit sends these bytes to the decode unit through a 24 entry
     # Instruction Byte Queue (IBQ), each entry holding 16 instruction bytes. In
     # SMT mode each thread has 12 dedicated IBQ entries."
-    iq: 24x 16B Instruction Queue
+    iq: 24x 16B Instruction Byte Queue
+
     # Source: AMD
     # "The processor fetches instructions from the instruction cache in 32-byte
     # blocks that are 16-byte aligned and contained within a 64-byte aligned
@@ -51,8 +52,10 @@ cpu : AMD Zen4 CPU {
     l1ic -> iq: 32B/cycle
 
     # Source: Chips and Cheese, AMD
+    # AMD: "The decode unit scans two of these IBQ entries in a given cycle,
+    # decoding a maximum of four instructions."
     decode: 4-way Decode
-    iq -> decode
+    iq -> decode: 2x IBQ entry
 
     # Source: Chips and Cheese, AMD
     # "The Op Cache is organized as an associative cache with 64 sets and 12

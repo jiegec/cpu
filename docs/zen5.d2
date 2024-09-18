@@ -46,7 +46,7 @@ cpu : AMD Zen5 CPU {
     # decoupling queue between the fetch/branch-predict unit and the decode
     # unit. IBQ entries hold 16 byte-aligned fetch windows of the instruction
     # byte stream"
-    iq1: 20x 16B Instruction Queue \#1
+    iq1: 20x 16B Instruction Byte Queue \#1
 
     # Source: AMD
     # "The processor fetches instructions from the instruction cache in 32-byte
@@ -59,15 +59,17 @@ cpu : AMD Zen5 CPU {
     l1ic -> iq1: 32 B/cycle
 
     # Source: Chips and Cheese, AMD
+    # AMD: "The decode pipes each scan two IBQ entries and output up to four
+    # instructions per cycle."
     decode1: 4-way Decode
-    iq1 -> decode1: 4 instructions
+    iq1 -> decode1: 2 IBQ entry
 
-    iq2: 20x 16B Instruction Queue \#2
+    iq2: 20x 16B Instruction Byte Queue \#2
     l1ic -> iq2: 32 B/cycle
 
     # Source: Chips and Cheese, AMD
     decode2: 4-way Decode
-    iq2 -> decode2: 4 instructions
+    iq2 -> decode2: 2 IBQ entry
 
     # Source: Chips and Cheese, AMD
     # "The Op Cache is organized as an associative cache with 64 sets and 16
