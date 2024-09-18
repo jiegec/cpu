@@ -52,15 +52,18 @@ cpu: AMD Zen1 CPU {
     # "The fetch unit sends these bytes to the decode unit through a 20 entry
     # Instruction Byte Queue (IBQ), each entry holding 16 instruction bytes. In
     # SMT mode each thread has 10 dedicated IBQ entries"
-    iq: 20x 16B Instruction Queue
+    iq: 20x 16B Instruction Byte Queue
     # Source: AMD
     # "The AMD Family 17h processor fetches instructions from the instruction
     # cache in 32-byte naturally aligned blocks. The processor can perform an
     # instruction block fetch every cycle."
     l1ic -> iq: 32 B/cyc
 
-    decode: Decode
-    iq -> decode
+    # Source: AMD
+    # "The decode unit scans two of these windows in a given cycle, decoding a
+    # maximum of four instructions."
+    decode: 4-way Decode
+    iq -> decode: 2 IBQ entry
 
     # Source: AMD
     # "The op cache is organized as an associative cache with 32 sets and 8
