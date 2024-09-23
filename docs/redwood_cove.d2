@@ -1,11 +1,22 @@
 cpu: Intel Meteor Lake P-core Redwood Cove CPU {
   frontend: Frontend {
-    bp: Branch Predictor
+    bp: Branch Predictor {
+      # Source: Chips and Cheese
+      l1btb: 128-entry L1 BTB, 0 bubble
+
+      # Source: Chips and Cheese
+      # The figure says another 6K-entry BTB level, but it is not shown in
+      # testing result
+      l2btb: 12K-entry L2 BTB, 1 bubble
+    }
 
     l1ic: L1 IC {
       # Source: Intel
       # "Larger instruction cache: 32K→64K."
       l1ic: 64KB L1 IC
+
+      # Source: Chips and Cheese
+      l1itlb: 256-entry 8-way L1 ITLB
     }
 
     bp -> l1ic
@@ -17,7 +28,8 @@ cpu: Intel Meteor Lake P-core Redwood Cove CPU {
     decode: 6-way Decode
     iq -> decode
 
-    uopc: UOP Cache
+    # Source: Chips and Cheese
+    uopc: 4096-entry UOP Cache
     decode -> uopc
     bp -> uopc
 
@@ -42,15 +54,21 @@ cpu: Intel Meteor Lake P-core Redwood Cove CPU {
     # Redwood Cove vs Lion Cove comparison
     rob: 512-entry ROB, 8 wide retirement
 
+    # Source: Chips and Cheese
+    bob: 128-entry Branch Order Buffer
+
     rf: Register File {
-      irf: Integer Register File
+      # Source: Chips and Cheese
+      irf: 280-entry Integer Register File
 
       flagsrf: Flags Register File
 
-      vrf: FP/Vector Register File
+      # Source: Chips and Cheese
+      vrf: 332-entry FP/Vector Register File
     }
 
-    sched1: Unified Math Scheduler
+    # Source: Chips and Cheese
+    sched1: 97-entry Unified Math Scheduler
 
     # Source: Intel
     pipe1: Port 0 {
@@ -113,7 +131,8 @@ cpu: Intel Meteor Lake P-core Redwood Cove CPU {
     }
     rob -> sched1 -> rf -> pipe5
 
-    sched2: Load Scheduler
+    # Source: Chips and Cheese
+    sched2: 70-entry Load Scheduler
 
     # Source: Intel
     pipe6: Port 2 {
@@ -133,7 +152,8 @@ cpu: Intel Meteor Lake P-core Redwood Cove CPU {
     }
     rob -> sched2 -> rf -> pipe8
 
-    sched3: Store Scheduler
+    # Source: Chips and Cheese
+    sched3: 38-entry Store Scheduler
 
     # Source: Intel
     pipe9: Port 7 {
@@ -160,8 +180,9 @@ cpu: Intel Meteor Lake P-core Redwood Cove CPU {
     rob -> sched3 -> rf -> pipe12
 
     lsu: LSU {
-      lq: Load Queue
-      sq: Store Queue
+      # Source: Chips and Cheese
+      lq: 192-entry Load Queue
+      sq: 114-entry Store Queue
 
       # Source: Intel
       # Redwood Cove vs Lion Cove comparison
@@ -178,6 +199,7 @@ cpu: Intel Meteor Lake P-core Redwood Cove CPU {
     pipe12 -> lsu
   }
   frontend.rename -> backend.rob
+  frontend.rename -> backend.bob
 
   mem: Memory {
     l1: L1 DC {
@@ -192,6 +214,9 @@ cpu: Intel Meteor Lake P-core Redwood Cove CPU {
     }
 
     l2: L2 {
+      # Source: Chips and Cheese
+      l2tlb: 2048-entry L2 TLB
+
       # Source: Intel
       # "Mid-level-cache size increased to 2MBs for Client."
       l2dc: 2MB L2 (Mid Level) Cache
