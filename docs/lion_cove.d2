@@ -2,8 +2,8 @@ cpu: Intel Lunar Lake P-core Lion Cove CPU {
   frontend: Frontend {
     bp: Branch Predictor
 
-    l1ic: L1 IC {
-    }
+    # Source: David Huang
+    l1ic: 64KB L1 IC
 
     bp -> l1ic
 
@@ -231,7 +231,7 @@ cpu: Intel Lunar Lake P-core Lion Cove CPU {
 
     l2: L2 Cache {
       # Source: Intel
-      l2dc: 2.5MB/3Mb L2 Cache
+      l2dc: 2.5MB/3MB L2 Cache
       17 cycle load to use latency
       2x64B read per cycle
     }
@@ -244,6 +244,6 @@ cpu: Intel Lunar Lake P-core Lion Cove CPU {
   info: |md
     Drawn by Jiajie Chen @jiegec
 
-    Based on data from Chips and Cheese, Intel and Anandtech
+    Based on data from Chips and Cheese, Intel, David Huang and Anandtech
   |
 }
