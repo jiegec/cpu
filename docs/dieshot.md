@@ -18,6 +18,7 @@
 - Qualcomm 845: https://kurnal.xlog.app/SDM845
 - Qualcomm 888: https://twitter.com/Kurnalsalts/status/1727744875305832710
 - Qualcomm 8s Gen3: https://t.bilibili.com/916817677665697796 https://twitter.com/Kurnalsalts/status/1776276658426966068 https://twitter.com/Kurnalsalts/status/1776201339615514721
+- Qualcomm X Elite: https://tieba.baidu.com/p/9194576062 https://chipwise.tech/our-portfolio/snapdragon-x-elite/
 - Samsung Exynos 2100: https://twitter.com/Kurnalsalts/status/1784620815474135151
 - Samsung Exynos 2200: https://twitter.com/Kurnalsalts/status/1785040012188471347 https://www.bilibili.com/opus/942039658357850146
 - Samsung Exynos 2300: https://www.bilibili.com/opus/942039658357850146
