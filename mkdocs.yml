@@ -6,6 +6,7 @@ nav:
   - CPU Microarchitecture Diagrams: index.md
   - Comparisons across microarchitectures: comparison.md
   - AArch64:
+    - ARM Cortex-A77: cortex_a77.md
     - ARM Cortex-X1: cortex_x1.md
     - ARM Cortex-X2: cortex_x2.md
     - ARM Cortex-X3: cortex_x3.md
