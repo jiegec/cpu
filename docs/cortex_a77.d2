@@ -12,7 +12,7 @@ cpu : ARM Cortex-A77 CPU {
 
     l1ic: L1 IC {
       # Source: ARM
-      l1ic: 64KB L1 IC
+      l1ic: 64KB 4-way L1 IC
 
       # Source: ARM
       l1itlb: 48-entry fully associative L1 ITLB
@@ -42,7 +42,7 @@ cpu : ARM Cortex-A77 CPU {
     decode -> mop
 
     # Source: ARM
-    rename: Rename
+    rename: 6-way Rename
     mop -> rename
   }
 
@@ -170,7 +170,7 @@ cpu : ARM Cortex-A77 CPU {
   mem: Memory {
     l1: L1 DC {
       # Source: ARM
-      l1dc: 64KB L1 DC
+      l1dc: 64KB 4-way L1 DC
 
       # Source: ARM
       l1dtlb: 48-entry fully associative L1 DTLB
