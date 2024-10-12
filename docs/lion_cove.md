@@ -11,3 +11,5 @@ References:
 - [2024 Intel Technology Tour Keynote](https://www.intel.com/content/www/us/en/content-details/824444/2024-intel-technology-tour-keynote.html)
 - [月光下的新探索：Lunar Lake CPU (Lion Cove / Skymont) 微架构测试](https://blog.hjc.im/lunar-lake-cpu-uarch-review.html)
 - [Lion Cove: Intel’s P-Core Roars](https://chipsandcheese.com/2024/09/27/lion-cove-intels-p-core-roars/)
+- [Intel Announces Core Ultra 200S Arrow Lake CPUs](https://www.phoronix.com/review/intel-core-ultra-200-arrow-lake)
+- [Intel® Core Ultra Desktop Processors Launch Briefing](https://download.intel.com/newsroom/2024/client-computing/Intel-Core-Ultra-200S-Series-Presentation.pdf)
