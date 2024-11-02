@@ -6,36 +6,37 @@ nav:
   - CPU Microarchitecture Diagrams: index.md
   - Comparisons across microarchitectures: comparison.md
   - AArch64:
-    - ARM Cortex-A77: cortex_a77.md
-    - ARM Cortex-X1: cortex_x1.md
-    - ARM Cortex-X2: cortex_x2.md
-    - ARM Cortex-X3: cortex_x3.md
-    - ARM Cortex-X4: cortex_x4.md
-    - ARM Cortex-X925: cortex_x925.md
-    - Apple M1 P-core (Firestorm): firestorm.md
-    - Apple M2 P-core (Avalanche): avalanche.md
-    - Apple M3 P-core: m3_pcore.md
-    - Apple M4 P-core: m4_pcore.md
-    - Qualcomm Oryon: oryon.md
-    - Ampere One: ampere_one.md
+      - ARM Cortex-A77: cortex_a77.md
+      - ARM Cortex-X1: cortex_x1.md
+      - ARM Cortex-X2: cortex_x2.md
+      - ARM Neoverse-V2: neoverse_v2.md
+      - ARM Cortex-X3: cortex_x3.md
+      - ARM Cortex-X4: cortex_x4.md
+      - ARM Cortex-X925: cortex_x925.md
+      - Apple M1 P-core (Firestorm): firestorm.md
+      - Apple M2 P-core (Avalanche): avalanche.md
+      - Apple M3 P-core: m3_pcore.md
+      - Apple M4 P-core: m4_pcore.md
+      - Qualcomm Oryon: oryon.md
+      - Ampere One: ampere_one.md
   - AMD64:
-    - AMD Zen1: zen1.md
-    - AMD Zen2: zen2.md
-    - AMD Zen3: zen3.md
-    - AMD Zen4: zen4.md
-    - AMD Zen5: zen5.md
-    - Intel Skylake: skylake.md
-    - Intel Ice Lake (Sunny Cove): sunny_cove.md
-    - Intel Alder Lake P-core (Golden Cove): golden_cove.md
-    - Intel Alder Lake E-core (Gracemont): gracemont.md
-    - Intel Meteor Lake P-core (Redwood Cove): redwood_cove.md
-    - Intel Meteor Lake E-core (Crestmont): crestmont.md
-    - Intel Lunar Lake P-core (Lion Cove): lion_cove.md
-    - Intel Lunar Lake E-core (Skymont): skymont.md
+      - AMD Zen1: zen1.md
+      - AMD Zen2: zen2.md
+      - AMD Zen3: zen3.md
+      - AMD Zen4: zen4.md
+      - AMD Zen5: zen5.md
+      - Intel Skylake: skylake.md
+      - Intel Ice Lake (Sunny Cove): sunny_cove.md
+      - Intel Alder Lake P-core (Golden Cove): golden_cove.md
+      - Intel Alder Lake E-core (Gracemont): gracemont.md
+      - Intel Meteor Lake P-core (Redwood Cove): redwood_cove.md
+      - Intel Meteor Lake E-core (Crestmont): crestmont.md
+      - Intel Lunar Lake P-core (Lion Cove): lion_cove.md
+      - Intel Lunar Lake E-core (Skymont): skymont.md
   - LoongArch64:
-    - Loongson 3A6000: 3a6000.md
+      - Loongson 3A6000: 3a6000.md
   - RISC-V64:
-    - SiFive P870: p870.md
+      - SiFive P870: p870.md
   - Dieshot: dieshot.md
 theme:
   name: material

@@ -1,0 +1,231 @@
+cpu : ARM Neoverse-V2 CPU {
+  frontend: Frontend {
+    bp: Branch Predictor {
+      # Source: ARM
+      two predicted branches per cycle
+      two-level branch target buffer
+      2-way 8 table TAGE direction predictor with staged output
+    }
+
+    l1ic: L1 IC {
+      # Source: ARM
+      # "64kB, 4-way set-associative L1 instruction cache"
+      l1ic: 64KB 4-way L1 IC
+    }
+
+    # Source: ARM
+    # "Doubled from 16 to 32 entries"
+    fq: 32-entry Fetch Queue
+    bp -> fq
+    fq -> l1ic
+
+    # Source: ARM
+    # "Increased Decode Queue from 16 to 24 entries"
+    iq: 24-entry Instruction Queue
+    l1ic -> iq
+
+    # Source: ARM
+    # "Increased decoder lanes from 5 to 6"
+    decode: 6-way Decode
+    iq -> decode
+
+    # Source: ARM
+    mopc: MOP Cache
+    decode -> mopc
+    bp -> mopc
+
+    mop: MOP Queue
+
+    # Source: ARM
+    mopc -> mop: 8 MOP/cycle
+    decode -> mop: 6 MOP/cycle
+
+    # Source: ARM
+    rename: 8-way Rename {
+      Zero Idiom
+    }
+    mop -> rename
+  }
+
+  backend: Backend {
+    rob: ROB
+
+    rf: Register File {
+      irf: Integer Register File
+
+      flagsrf: Flags Register File
+
+      vrf: FP/Vector Register File
+    }
+
+    # Source: ARM
+    # "SX/MX: Increased from 20 to 22 entries"
+    sched1: 22-entry ALU Scheduler
+
+    # Source: ARM
+    pipe1: Pipe \#1 {
+      ALU
+    }
+    rob -> sched1 -> rf -> pipe1
+
+    # Source: ARM
+    pipe2: Pipe \#2 {
+      Branch
+    }
+    rob -> sched1 -> rf -> pipe2
+
+    # Source: ARM
+    # "SX/MX: Increased from 20 to 22 entries"
+    sched2: 22-entry ALU Scheduler
+
+    # Source: ARM
+    pipe3: Pipe \#3 {
+      ALU
+    }
+    rob -> sched2 -> rf -> pipe3
+
+    # Source: ARM
+    pipe4: Pipe \#4 {
+      Branch
+    }
+    rob -> sched2 -> rf -> pipe4
+
+    # Source: ARM
+    # "SX/MX: Increased from 20 to 22 entries"
+    sched3: 22-entry ALU Scheduler
+
+    # Source: ARM
+    pipe5: Pipe \#5 {
+      ALU
+      SHIFT + ALU
+      MUL/IMAC/DIV/CRC/SPR
+    }
+    rob -> sched3 -> rf -> pipe5
+
+    # Source: ARM
+    # "SX/MX: Increased from 20 to 22 entries"
+    sched4: 22-entry ALU Scheduler
+
+    # Source: ARM
+    pipe6: Pipe \#6 {
+      ALU
+      SHIFT + ALU
+      MUL/IMAC
+    }
+    rob -> sched4 -> rf -> pipe6
+
+    # Source: ARM
+    # "SX/MX: Increased from 20 to 22 entries"
+    sched5: 22-entry ALU Scheduler
+
+    # Source: ARM
+    pipe7: Pipe \#7 {
+      ALU
+    }
+    rob -> sched5 -> rf -> pipe7
+
+    # Source: ARM
+    # "SX/MX: Increased from 20 to 22 entries"
+    sched6: 22-entry ALU Scheduler
+
+    # Source: ARM
+    pipe8: Pipe \#8 {
+      ALU
+    }
+    rob -> sched6 -> rf -> pipe8
+
+    # Source: ARM
+    # "VX: Increased from 20 to 28 entries"
+    sched7: 28-entry FP/Vector Scheduler
+
+    # Source: ARM
+    pipe9: Pipe \#9 {
+      FP/Vector
+    }
+    rob -> sched7 -> rf -> pipe9
+
+    # Source: ARM
+    pipe10: Pipe \#10 {
+      FP/Vector
+    }
+    rob -> sched7 -> rf -> pipe10
+
+    # Source: ARM
+    # "VX: Increased from 20 to 28 entries"
+    sched8: 28-entry FP/Vector Scheduler
+
+    # Source: ARM
+    pipe11: Pipe \#11 {
+      FP/Vector
+    }
+    rob -> sched8 -> rf -> pipe11
+
+    # Source: ARM
+    pipe12: Pipe \#12 {
+      FP/Vector
+    }
+    rob -> sched8 -> rf -> pipe12
+
+    # Source: ARM
+    sched9: Memory Scheduler
+
+    # Source: ARM
+    pipe13: Pipe \#13 {
+      Load/Store
+    }
+    rob -> sched9 -> rf -> pipe13
+
+    # Source: ARM
+    sched10: Memory Scheduler
+
+    # Source: ARM
+    pipe14: Pipe \#14 {
+      Load/Store
+    }
+    rob -> sched10 -> rf -> pipe14
+
+    # Source: ARM
+    sched11: Memory Scheduler
+
+    # Source: ARM
+    pipe15: Pipe \#15 {
+      Load
+    }
+    rob -> sched11 -> rf -> pipe15
+
+    lsu: LSU {
+      Load Queue
+      Store Queue
+    }
+
+    pipe13 -> lsu
+    pipe14 -> lsu
+    pipe15 -> lsu
+  }
+  frontend.rename -> backend.rob
+
+  mem: Memory {
+    l1: L1 DC {
+      # Source: ARM
+      # "64kB 4-way set associative Dcache"
+      l1dc: 64KB 4-way L1 DC
+    }
+
+    l2: L2 {
+    }
+
+    l1 -> l2
+
+    l3: L3 {
+    }
+    l2 -> l3
+  }
+  frontend.l1ic -> mem.l2
+  backend.lsu -> mem.l1
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from ARM and Chips and Cheese
+  |
+}
