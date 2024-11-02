@@ -96,6 +96,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://jia.je/cpu/neoverse_v2.html</loc>
+         <lastmod>2024-11-02</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://jia.je/cpu/oryon.html</loc>
          <lastmod>2024-11-02</lastmod>
          <changefreq>daily</changefreq>
