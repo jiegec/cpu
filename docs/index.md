@@ -6,10 +6,11 @@ Major microarchitectures of CPU vendors:
 
 1. AMD: Zen 1 -> Zen 2 -> Zen 3 -> Zen 4 -> Zen 5
 2. ARM:
+  - Cortex-A76/Neoverse-N1
 	- Cortex-A77
-	- Cortex-A78/Cortex-X1
-	- Cortex-A510/Cortex-A710/Cortex-X2
-	- Cortex-A715/Cortex-X3
+	- Cortex-A78/Cortex-X1/Neoverse-V1
+	- Cortex-A510/Cortex-A710/Cortex-X2/Neoverse-N2
+	- Cortex-A715/Cortex-X3/Neoverse-V2
 	- Cortex-A520/Cortex-A720/Cortex-X4
 	- Cortex-A725/Cortex-X925
 3. Apple:
@@ -22,7 +23,7 @@ Major microarchitectures of CPU vendors:
 	- A18
 4. Intel:
 	- Skylake
-	- Sunny Cove (Ice Lake) 
+	- Sunny Cove (Ice Lake)
 	- Golden Cove + Gracemont (Alder Lake/Sapphire Rapids) -> Raptor Cove + Gracemont (Raptor Lake/Emerald Rapids)
 	- Redwood Cove + Crestmont (Meteor Lake/Granite Rapids/Sierra Forest)
 	- Lion Cove + Skymont (Lunar Lake/Arrow Lake/Clearwater Forest)
