@@ -23,3 +23,4 @@ References:
 - [AArch64SchedOryon.td in LLVM](https://github.com/llvm/llvm-project/blob/main/llvm/lib/Target/AArch64/AArch64SchedOryon.td)
 - [Hot Chips 2024: Qualcomm’s Oryon Core](https://chipsandcheese.com/2024/08/26/hot-chips-2024-qualcomms-oryon-core/)
 - [骁龙 8 Elite 首发评测：一加13能效有多好？](https://www.bilibili.com/video/BV1xvysYwEcX/)
+- [高通 X Elite 深度分析：年度最自信 CPU](https://b23.tv/iL38AXz)
