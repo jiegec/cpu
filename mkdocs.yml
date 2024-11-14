@@ -9,16 +9,17 @@ nav:
       - ARM Cortex-A77: cortex_a77.md
       - ARM Cortex-X1: cortex_x1.md
       - ARM Cortex-X2: cortex_x2.md
-      - ARM Neoverse-V2: neoverse_v2.md
       - ARM Cortex-X3: cortex_x3.md
       - ARM Cortex-X4: cortex_x4.md
       - ARM Cortex-X925: cortex_x925.md
+      - ARM Neoverse-V2: neoverse_v2.md
+      - Ampere One: ampere_one.md
       - Apple M1 P-core (Firestorm): firestorm.md
       - Apple M2 P-core (Avalanche): avalanche.md
       - Apple M3 P-core: m3_pcore.md
       - Apple M4 P-core: m4_pcore.md
+      - Phytium Xiaomi: xiaomi.md
       - Qualcomm Oryon: oryon.md
-      - Ampere One: ampere_one.md
   - AMD64:
       - AMD Zen1: zen1.md
       - AMD Zen2: zen2.md
