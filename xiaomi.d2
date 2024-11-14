@@ -1,0 +1,166 @@
+cpu : Phytium Xiaomi CPU {
+  frontend: Frontend {
+    bp: Branch Predictor {
+      # Source: Phytium
+      # "2048-entry BTB"
+      l1btb: 2048-entry BTB
+
+      # Source: Phytium
+      # "512-entry indirect predictor"
+      indir: 512-entry Indirect Predictor
+
+      # Source: Phytium
+      # "48-entry Speculative Return Stac"
+      ras: 48-entry Return Address Stack
+
+      # Source: Phytium
+      # "Direction predict with TAGE predictor"
+      tage: TAGE-based direction predictor
+    }
+
+    l1ic: L1 IC {
+      # Source: Phytium
+      # "32KB L1 instr. Cach"
+      l1ic: 32KB L1 IC
+    }
+
+    # Source: Phytium
+    # "Loop detect and Instr. Cache bypass"
+    loop: Loop Buffer
+
+    fq: Fetch Queue
+    bp -> fq
+    fq -> l1ic
+
+    # Source: Phytium
+    # "32-entry instruction buffer"
+    iq: 32-entry Instruction Buffer
+
+    loop -> iq
+    l1ic -> iq
+
+    # Source: Phytium
+    # "Up to four instructions decoded per cycle"
+    decode: 4-way Decode
+    iq -> decode
+
+    # Source: Phytium
+    # "Up to four instructions dispatched per cycle"
+    dispatch: 4-way Dispatch
+    decode -> dispatch
+  }
+
+  backend: Backend {
+    # Source: Phytium
+    # "Up to four instructions renamed per cycle"
+    rename: Rename
+
+    # Source: Phytium
+    # "Reorder buffer can hold 160 instructions"
+    rob: 160-entry ROB
+    rename -> rob
+
+    rf: Register File {
+      # Source: Phytium
+      # "192 physical registers"
+      irf: 192-entry Integer Register File
+
+      vrf: Vector Register File
+    }
+
+    # Source: Phytium
+    # "Two separated 16-entry integer and ASIMD queues shared by four integer units"
+    sched1: 16-entry Single-cycle ALU Scheduler
+
+    # Source: Phytium
+    pipe1: Pipe \#1 {
+      ALU
+      BR
+    }
+    sched1 -> rf -> pipe1
+
+    # Source: Phytium
+    pipe2: Pipe \#2 {
+      ALU
+      BR
+    }
+    sched1 -> rf -> pipe2
+
+    # Source: Phytium
+    # "Two separated 16-entry integer and ASIMD queues shared by four integer units"
+    sched2: 16-entry Multi-cycle ALU Scheduler
+
+    # Source: Phytium
+    pipe3: Pipe \#3 {
+      MUL
+      DIV
+    }
+    sched2 -> rf -> pipe3
+
+    # Source: Phytium
+    pipe4: Pipe \#4 {
+      MUL
+      DIV
+    }
+    sched2 -> rf -> pipe4
+
+    # Source: Phytium
+    # "One shared 16-entry floating point and ASIMD queue"
+    sched3: 16-entry FP/Vector Scheduler
+
+    # Source: Phytium
+    pipe5: Pipe \#5 {
+      FMAC
+      FDIV
+    }
+    sched3 -> rf -> pipe5
+
+    # Source: Phytium
+    pipe6: Pipe \#6 {
+      FMAC
+      FDIV
+    }
+    sched3 -> rf -> pipe6
+
+    # Source: Phytium
+    sched4: AGU Scheduler
+
+    lsu: LSU {
+      # Source: Phytium
+      # "One 24-entry load/store queue"
+      24-entry Load/Store Queue
+
+      # Source: Phytium
+      # "4 cycles latency from load to use"
+      4 cycle load to use latency
+    }
+
+    sched4 -> rf -> lsu
+
+    rob -> sched1
+    rob -> sched2
+    rob -> sched3
+    rob -> sched4
+  }
+  frontend.dispatch -> backend.rename
+
+  mem: Memory {
+    # Source: Phytium
+    # "32KB L1 data cache"
+    l1dc: 32KB L1DC {
+      # Source: Phytium
+      6 outstanding loads
+    }
+
+    l2: L2 Cache
+    l1dc -> l2
+  }
+  frontend.l1ic -> mem.l2
+  backend.lsu -> mem.l1dc
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from Phytium
+  |
+}
