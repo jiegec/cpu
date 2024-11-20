@@ -16,3 +16,4 @@ References:
 - [AMD EPYC 9965 "Turin Dense" Delivers Better Performance/Power Efficiency vs. AmpereOne 192-Core ARM CPU](https://www.phoronix.com/review/amd-epyc-9965-ampereone)
 - [AMD EPYC 9755 / 9575F / 9965 Benchmarks Show Dominating Performance](https://www.phoronix.com/review/amd-epyc-9965-9755-benchmarks)
 - [5TH GEN AMD EPYC™ PROCESSOR ARCHITECTURE](https://www.amd.com/content/dam/amd/en/documents/epyc-business-docs/white-papers/5th-gen-amd-epyc-processor-architecture-white-paper.pdf)
+- [The AMD Zen 5 Microarchitecture: Powering Ryzen AI 300 Series For Mobile and Ryzen 9000 for Desktop](https://www.anandtech.com/show/21469/amd-details-ryzen-ai-300-series-for-mobile-strix-point-with-rdna-35-igpu-xdna-2-npu)
