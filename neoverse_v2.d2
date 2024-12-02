@@ -3,7 +3,11 @@ cpu : ARM Neoverse-V2 CPU {
     bp: Branch Predictor {
       # Source: ARM
       two predicted branches per cycle
+      # "Compared to Neoverse V1: 10x larger nano BTB, split main BTB into two
+      # levels with 50% more entries"
       two-level branch target buffer
+      # "Compared to Neoverse V1: 2x larger table with 2-way associativity and
+      # longer history"
       2-way 8 table TAGE direction predictor with staged output
     }
 
