@@ -1184,15 +1184,17 @@
 <p><em>File</em>: <code>comparison.md</code></p>
 <p><em>ValueError</em>: invalid literal for int() with base 10: '1024 (0 bubble)'</p>
 <div class="highlight"><pre><span></span><code>Traceback (most recent call last):
-  File &quot;/home/runner/.cache/pypoetry/virtualenvs/cpu-xkbKtu5s-py3.10/lib/python3.10/site-packages/mkdocs_macros/plugin.py&quot;, line 527, in render
+  File &quot;/home/runner/.cache/pypoetry/virtualenvs/cpu-xkbKtu5s-py3.12/lib/python3.12/site-packages/mkdocs_macros/plugin.py&quot;, line 527, in render
     return md_template.render(**page_variables)
-  File &quot;/home/runner/.cache/pypoetry/virtualenvs/cpu-xkbKtu5s-py3.10/lib/python3.10/site-packages/jinja2/environment.py&quot;, line 1304, in render
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File &quot;/home/runner/.cache/pypoetry/virtualenvs/cpu-xkbKtu5s-py3.12/lib/python3.12/site-packages/jinja2/environment.py&quot;, line 1295, in render
     self.environment.handle_exception()
-  File &quot;/home/runner/.cache/pypoetry/virtualenvs/cpu-xkbKtu5s-py3.10/lib/python3.10/site-packages/jinja2/environment.py&quot;, line 939, in handle_exception
+  File &quot;/home/runner/.cache/pypoetry/virtualenvs/cpu-xkbKtu5s-py3.12/lib/python3.12/site-packages/jinja2/environment.py&quot;, line 942, in handle_exception
     raise rewrite_traceback_stack(source=source)
   File &quot;&lt;template&gt;&quot;, line 64, in top-level template code
   File &quot;/home/runner/work/cpu/cpu/main.py&quot;, line 154, in firestorm_oryon_comparison
     data.loc[index, field] = str(int(row[field]))
+                                 ^^^^^^^^^^^^^^^
 ValueError: invalid literal for int() with base 10: &#39;1024 (0 bubble)&#39;
 </code></pre></div>
 
