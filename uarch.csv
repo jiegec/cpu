@@ -5,14 +5,15 @@ AMD Zen 3,1024 (0 bubble),6656 (3 bubble),,1536,2x32,64,512,64,2048,,8-way 32KB,
 AMD Zen 4,1536 (0 bubble),7168/7680 (3 bubble),,3072,2x32,64,512,72,3072,,8-way 32KB,4,12-way 768-entry 9-mop/entry,9,6,320,224,126,192,4,7,2,4,4x 256b,16,2,1,0
 AMD Zen 5,16384 (0 bubble),8192 (8 bubble),,3072,2x52,64,2048,96,4096,,8-way 32KB,2x4,16-way 1024-entry 6-inst/entry,2x6,8,448,240,192,384,4,7,3,6,4x 512b,32,2,2,0
 Ampere One,256 (0 bubble),8192 (2 bubble),,,,64,768,64,1536,,4-way 16KB,5,,,4,208,166,,128,,,2,4,2,,0,2,2
-Apple Avalanche,1024 (0 bubble),3072 (1 bubble),192KB L1 IC (2 bubble),,,,,,,,192KB,8,N/A,N/A,8,274 Group,350,,380,,,2,6,4x 128b,,1,2,1
-Apple Firestorm,1024 (0 bubble),192KB L1 IC (2 bubble),,,50,,,256,,3072,192KB,8,N/A,N/A,8,330 Group,380,128,432,3-4,,2,6,4x 128b,16,1,2,1
+Apple Avalanche,1024 (0 bubble),3072 (1 bubble),192KB L1 IC (2 bubble),,50,192,,,,,192KB,8,N/A,N/A,8,274 Group,350,,380,3-4,,2,6,4x 128b,16,1,2,1
+Apple Firestorm,1024 (0 bubble),192KB L1 IC (2 bubble),,,50,192,,160,,3072,6-way 192KB,8,N/A,N/A,8,330 Group,380,128,432,3-4,,2,6,4x 128b,16,1,2,1
+Apple Icestorm,,,,,32,128,,128,,,128KB,4,N/A,N/A,4,,,,,3-4,,2,4,2x 128b,8,1,0,1
 ARM Cortex-A77,64 (0 bubble),8192,,,,48,,48,,1280,4-way 64KB,6,1536-entry,6,6,160 MOP,,,,4,5,2,4,2,,2,0,0
-ARM Cortex-X1,96 (0 bubble),8192 (1 bubble),,,16,48,,40,,2048,4-way 64KB,5,4-way 3072-entry,8,8,224 MOP,,,,4,6,2,4,4,,2,1,0
+ARM Cortex-X1,96 (0 bubble),8192 (1 bubble),,,16,48,,40,,2048,4-way 64KB,5,4-way 3072-entry,8,8,224 MOP,,,,4,6,2,4,4,8,2,1,0
 ARM Cortex-X2,,,,,,48,,48,,2048,4-way 64KB,5,4-way 3072-entry,8,8,288 MOP,,,,4,6,2,4,4,,2,1,0
-ARM Cortex-X3,,,,,,48,,,,,4-way 64KB,6,4-way 1536-entry,8,8,230 MOP,,,,4,6,2,6,4,,2,1,0
-ARM Cortex-X4,,,,,,48,,96,,2048,4-way 64KB,10,N/A,N/A,10,384 MOP,,,,,,3,8,4,,1,2,1
-ARM Cortex-X925,,,,,,128,,96,,2048,4-way 64KB,10,N/A,N/A,10,?,,,,4,6,3,8,6,,2,2,0
+ARM Cortex-X3,,,,,32,48,,,,,4-way 64KB,6,4-way 1536-entry,8,8,320 MOP,,,,4,6,2,6,4,,2,1,0
+ARM Cortex-X4,,,,,32,48,,96,,2048,4-way 64KB,10,N/A,N/A,10,384 MOP,,,,,,3,8,4,,1,2,1
+ARM Cortex-X925,,,,,32,128,,96,,2048,4-way 64KB,10,N/A,N/A,10,?,,,,4,6,3,8,6,,2,2,0
 Intel Crestmont,1024 (0 bubble),6144 (2 bubble),,,,64,,48,,3072,8-way 64KB,2x3,,,6,256,214,,207,3-4,,2,4,3,,0,2,2
 Intel Golden Cove,128 (0 bubble),6144 (1 bubble),12288 (2 bubble),,20,256,,96,,2048,8-way 32KB,6,4096-entry,8,6,512,288,248,332,5,,2,5,3,,0,3,2
 Intel Gracemont,1024 (0 bubble),5120 (2 bubble),,,,64,,32,,2048,8-way 64KB,2x3,,,5,256,214,,207,3-4,,2,4,3x 128b,8,0,2,2
