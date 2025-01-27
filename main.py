@@ -151,6 +151,6 @@ def define_env(env):
         for index, row in data.iterrows():
             for field in fields:
                 if row[field] != "":
-                    data.loc[index, field] = str(int(row[field]))
+                    data.loc[index, field] = str(row[field])
         data = data.transpose()
         return data.to_markdown()
