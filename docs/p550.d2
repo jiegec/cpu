@@ -1,0 +1,135 @@
+cpu : SiFive P550 CPU {
+  frontend: Frontend {
+    bp: Branch Predictor {
+      # Source: Chips and Cheese
+      ras: 16-entry RAS
+
+      # Source: Chips and Cheese
+      l1btb: 32-entry L1 BTB
+    }
+
+    l1ic: L1 IC {
+      # Source: Chips and Cheese
+      l1ic: 32KB 4-way L1 IC
+
+      # Source: Chips and Cheese
+      l1itlb: L1 ITLB
+    }
+
+    bp -> l1ic
+
+    # Source: Chips and Cheese
+    decode: 3-way Decode
+    l1ic -> decode: 12 bytes/cycle
+    decode -> bp
+
+    # Source: Chips and Cheese
+    rename: 3-way Rename
+    decode -> rename
+  }
+
+  backend: Backend {
+    # Source: Chips and Cheese
+    rob: 96-entry ROB
+
+    rf: Register File {
+      # Source: Chips and Cheese
+      irf: 128-entry Integer Register File
+
+      # Source: Chips and Cheese
+      frf: 119-entry FP Register File
+    }
+
+    # Source: Chips and Cheese
+    sched1: Scheduler \#1
+
+    # Source: Chips and Cheese
+    pipe1: Pipe \#1 {
+      ALU
+      Branch
+    }
+    rob -> sched1 -> rf -> pipe1
+
+    # Source: Chips and Cheese
+    sched2: Scheduler \#2
+
+    # Source: Chips and Cheese
+    pipe2: Pipe \#2 {
+      ALU
+    }
+    rob -> sched2 -> rf -> pipe2
+
+    # Source: Chips and Cheese
+    sched3: Scheduler \#3
+
+    # Source: Chips and Cheese
+    pipe3: Pipe \#3 {
+      ALU
+      MUL
+    }
+    rob -> sched3 -> rf -> pipe3
+
+    # Source: Chips and Cheese
+    sched4: Scheduler \#4
+
+    # Source: Chips and Cheese
+    pipe4: Pipe \#4 {
+      Load AGU
+    }
+    rob -> sched4 -> rf -> pipe4
+
+    # Source: Chips and Cheese
+    sched5: Scheduler \#5
+
+    # Source: Chips and Cheese
+    pipe5: Pipe \#5 {
+      Store AGU
+    }
+    rob -> sched5 -> rf -> pipe5
+
+    # Source: Chips and Cheese
+    sched6: Scheduler \#6
+
+    # Source: Chips and Cheese
+    pipe6: Pipe \#6 {
+      FMA
+    }
+    rob -> sched6 -> rf -> pipe6
+
+    # Source: Chips and Cheese
+    pipe7: Pipe \#7 {
+      FMA
+    }
+    rob -> sched6 -> rf -> pipe7
+
+    lsu: LSU {
+      # Source: Chips and Cheese
+      20-entry Load Queue
+      15-entry Store Queue
+    }
+
+    pipe4 -> lsu
+    pipe5 -> lsu
+  }
+  frontend.rename -> backend.rob
+
+  mem: Memory {
+    l1: L1 DC {
+      # Source: Chips and Cheese
+      l1dc: 32KB 4-way L1DC
+      l1dtlb: 32-entry L1 DTLB
+      l2tlb: L2 TLB
+    }
+
+    # Source: Chips and Cheese
+    l2: 256KB 8-way L2 DC
+    l1 -> l2
+  }
+  backend.lsu -> mem.l1
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from Chips and Cheese
+  |
+}

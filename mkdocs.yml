@@ -37,6 +37,7 @@ nav:
   - LoongArch64:
       - Loongson 3A6000: 3a6000.md
   - RISC-V64:
+      - SiFive P550: p550.md
       - SiFive P870: p870.md
   - Dieshot: dieshot.md
 theme:
