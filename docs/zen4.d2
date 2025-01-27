@@ -264,6 +264,11 @@ cpu : AMD Zen4 CPU {
 
       # Source: Chips and Cheese, AMD
       l1dc: 32KB 8-way L1DC
+
+      # Source: AMD
+      # "The AMD Zen4 microarchitecture has six hardware page table walkers to
+      # handle L2 TLB misses."
+      ptw: 6 Page Table Walkers
     }
 
     l2: L2 {

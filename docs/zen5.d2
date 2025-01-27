@@ -328,6 +328,11 @@ cpu : AMD Zen5 CPU {
         64B fill, 64B victim
         4 cycle load-to-use
       }
+
+      # Source: AMD
+      # "The AMD Zen5 microarchitecture has six hardware page table walkers to
+      # handle L2 TLB misses"
+      ptw: 6 Page Table Walkers
     }
 
     l2: L2 {
