@@ -12,20 +12,59 @@ Glossary:
 - B: the branch address; on ARM64, it is the address of the first byte of the instruction; on AMD64, it is the address of the last byte of the instruction
 - T: the target address
 - PHR: Path History Register
+- footprint: how many bits are xor-ed into PHR for each taken branch
+
+Overview:
+
+| uArch               | PHR in bits          | T bits  | B bits  | footprint bits |
+|---------------------|----------------------|---------|---------|----------------|
+| Qualcomm Oryon      | `100*1 + 32*1 = 132` | T[31:2] | B[5:2]  | 30 + 4         |
+| Apple Firestorm     | `100*1 + 28*1 = 128` | T[31:2] | B[5:2]  | 30 + 4         |
+| Apple Icestorm      | `60*1 + 16*1 = 76`   | T[47:2] | B[5:2]  | 46 + 4         |
+| ARM Neoverse V1     | `64*3 = 192`         | T[7:2]  | B[14:2] | 3              |
+| ARM Neoverse N1     | `48*3 = 144`         | T[7:2]  | B[8:2]  | 3              |
+| Intel Sunny Cove    | `194*2 = 388`        | T[5:0]  | B[15:0] | 16             |
+| Intel Golden Cove   | `194*2 = 388`        | T[5:0]  | B[15:0] | 16             |
+| Intel Raptor Cove   | `194*2 = 388`        | T[5:0]  | B[15:0] | 16             |
+| Intel Redwood Cove  | `194*2 = 388`        | T[5:0]  | B[15:0] | 16             |
+| Intel Cascade Lake  | `93*2 = 186`         | T[5:0]  | B[18:3] | 16             |
+| Intel Skylake       | `93*2 = 186`         | T[5:0]  | B[18:3] | 16             |
+| Intel Haswell       | `93*2 = 186`         | T[5:0]  | B[19:4] | 16             |
+| Intel Ivy Bridge EP | `93*2 = 186`         | T[5:0]  | B[19:4] | 16             |
 
 ## Qualcomm Oryon
 
 - PHRT: 100 bits
 - PHRB: 32 bits
-- PHRT is updated upon taken branch: `PHRTnew = (PHRTold << 2) xor T[32:2]`
+- PHRT is updated upon taken branch: `PHRTnew = (PHRTold << 2) xor T[31:2]`
 - PHRB is updated upon taken branch: `PHRBnew = (PHRBold << 2) xor B[5:2]`
 - Source: Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon for Software Optimization and Architectural Analysis
+
+## ARM Neoverse V1
+
+- PHR: `64*3=192` bits
+- PHR is updated upon taken branch: `PHRnew = (PHRold << 3) xor footprint`
+- footprint has 3 bits:
+    - footprint[0] = T[2] xor T[5] xor B[3] xor B[6] xor B[9] xor B[12]
+    - footprint[1] = T[3] xor T[6] xor B[4] xor B[7] xor B[10] xor B[13]
+    - footprint[2] = T[4] xor T[7] xor B[5] xor B[8] xor B[11] xor B[14]
+- Source: @jiegec
+
+## ARM Neoverse N1
+
+- PHR: `48*3=144` bits
+- PHR is updated upon taken branch: `PHRnew = (PHRold << 3) xor footprint`
+- footprint has 3 bits:
+    - footprint[0] = T[2] xor T[5] xor B[3] xor B[6]
+    - footprint[1] = T[3] xor T[6] xor B[4] xor B[7]
+    - footprint[2] = T[4] xor T[7] xor B[5] xor B[8]
+- Source: @jiegec
 
 ## Apple Firestorm
 
 - PHRT: 100 bits
 - PHRB: 28 bits
-- PHRT is updated upon taken branch: `PHRTnew = (PHRTold << 2) xor T[32:2]`
+- PHRT is updated upon taken branch: `PHRTnew = (PHRTold << 2) xor T[31:2]`
 - PHRB is updated upon taken branch: `PHRBnew = (PHRBold << 2) xor B[5:2]`
 - Source: Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon for Software Optimization and Architectural Analysis
 
@@ -57,7 +96,7 @@ Glossary:
     - footprint[12] = B[16]
     - footprint[13] = B[17]
     - footprint[14] = B[18]
-    - footprint[1t] = B[19]
+    - footprint[15] = B[19]
 - Source: Half&Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution
 
 ## Intel Cascade Lake/Skylake
@@ -80,7 +119,7 @@ Glossary:
     - footprint[12] = B[15]
     - footprint[13] = B[16]
     - footprint[14] = B[17]
-    - footprint[1t] = B[18]
+    - footprint[15] = B[18]
 - Source: Half&Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution
 - Reproduced by @jiegec
 
