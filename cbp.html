@@ -370,6 +370,24 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#arm-neoverse-v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ARM Neoverse V1
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arm-neoverse-n1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ARM Neoverse N1
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#apple-firestorm" class="md-nav__link">
     <span class="md-ellipsis">
       Apple Firestorm
@@ -1361,6 +1379,24 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#arm-neoverse-v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ARM Neoverse V1
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arm-neoverse-n1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ARM Neoverse N1
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#apple-firestorm" class="md-nav__link">
     <span class="md-ellipsis">
       Apple Firestorm
@@ -1441,20 +1477,150 @@
 <li>B: the branch address; on ARM64, it is the address of the first byte of the instruction; on AMD64, it is the address of the last byte of the instruction</li>
 <li>T: the target address</li>
 <li>PHR: Path History Register</li>
+<li>footprint: how many bits are xor-ed into PHR for each taken branch</li>
 </ul>
+<p>Overview:</p>
+<table>
+<thead>
+<tr>
+<th>uArch</th>
+<th>PHR in bits</th>
+<th>T bits</th>
+<th>B bits</th>
+<th>footprint bits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Qualcomm Oryon</td>
+<td><code>100*1 + 32*1 = 132</code></td>
+<td>T[31:2]</td>
+<td>B[5:2]</td>
+<td>30 + 4</td>
+</tr>
+<tr>
+<td>Apple Firestorm</td>
+<td><code>100*1 + 28*1 = 128</code></td>
+<td>T[31:2]</td>
+<td>B[5:2]</td>
+<td>30 + 4</td>
+</tr>
+<tr>
+<td>Apple Icestorm</td>
+<td><code>60*1 + 16*1 = 76</code></td>
+<td>T[47:2]</td>
+<td>B[5:2]</td>
+<td>46 + 4</td>
+</tr>
+<tr>
+<td>ARM Neoverse V1</td>
+<td><code>64*3 = 192</code></td>
+<td>T[7:2]</td>
+<td>B[14:2]</td>
+<td>3</td>
+</tr>
+<tr>
+<td>ARM Neoverse N1</td>
+<td><code>48*3 = 144</code></td>
+<td>T[7:2]</td>
+<td>B[8:2]</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Intel Sunny Cove</td>
+<td><code>194*2 = 388</code></td>
+<td>T[5:0]</td>
+<td>B[15:0]</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Intel Golden Cove</td>
+<td><code>194*2 = 388</code></td>
+<td>T[5:0]</td>
+<td>B[15:0]</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Intel Raptor Cove</td>
+<td><code>194*2 = 388</code></td>
+<td>T[5:0]</td>
+<td>B[15:0]</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Intel Redwood Cove</td>
+<td><code>194*2 = 388</code></td>
+<td>T[5:0]</td>
+<td>B[15:0]</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Intel Cascade Lake</td>
+<td><code>93*2 = 186</code></td>
+<td>T[5:0]</td>
+<td>B[18:3]</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Intel Skylake</td>
+<td><code>93*2 = 186</code></td>
+<td>T[5:0]</td>
+<td>B[18:3]</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Intel Haswell</td>
+<td><code>93*2 = 186</code></td>
+<td>T[5:0]</td>
+<td>B[19:4]</td>
+<td>16</td>
+</tr>
+<tr>
+<td>Intel Ivy Bridge EP</td>
+<td><code>93*2 = 186</code></td>
+<td>T[5:0]</td>
+<td>B[19:4]</td>
+<td>16</td>
+</tr>
+</tbody>
+</table>
 <h2 id="qualcomm-oryon">Qualcomm Oryon</h2>
 <ul>
 <li>PHRT: 100 bits</li>
 <li>PHRB: 32 bits</li>
-<li>PHRT is updated upon taken branch: <code>PHRTnew = (PHRTold &lt;&lt; 2) xor T[32:2]</code></li>
+<li>PHRT is updated upon taken branch: <code>PHRTnew = (PHRTold &lt;&lt; 2) xor T[31:2]</code></li>
 <li>PHRB is updated upon taken branch: <code>PHRBnew = (PHRBold &lt;&lt; 2) xor B[5:2]</code></li>
 <li>Source: Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon for Software Optimization and Architectural Analysis</li>
+</ul>
+<h2 id="arm-neoverse-v1">ARM Neoverse V1</h2>
+<ul>
+<li>PHR: <code>64*3=192</code> bits</li>
+<li>PHR is updated upon taken branch: <code>PHRnew = (PHRold &lt;&lt; 3) xor footprint</code></li>
+<li>footprint has 3 bits:<ul>
+<li>footprint[0] = T[2] xor T[5] xor B[3] xor B[6] xor B[9] xor B[12]</li>
+<li>footprint[1] = T[3] xor T[6] xor B[4] xor B[7] xor B[10] xor B[13]</li>
+<li>footprint[2] = T[4] xor T[7] xor B[5] xor B[8] xor B[11] xor B[14]</li>
+</ul>
+</li>
+<li>Source: @jiegec</li>
+</ul>
+<h2 id="arm-neoverse-n1">ARM Neoverse N1</h2>
+<ul>
+<li>PHR: <code>48*3=144</code> bits</li>
+<li>PHR is updated upon taken branch: <code>PHRnew = (PHRold &lt;&lt; 3) xor footprint</code></li>
+<li>footprint has 3 bits:<ul>
+<li>footprint[0] = T[2] xor T[5] xor B[3] xor B[6]</li>
+<li>footprint[1] = T[3] xor T[6] xor B[4] xor B[7]</li>
+<li>footprint[2] = T[4] xor T[7] xor B[5] xor B[8]</li>
+</ul>
+</li>
+<li>Source: @jiegec</li>
 </ul>
 <h2 id="apple-firestorm">Apple Firestorm</h2>
 <ul>
 <li>PHRT: 100 bits</li>
 <li>PHRB: 28 bits</li>
-<li>PHRT is updated upon taken branch: <code>PHRTnew = (PHRTold &lt;&lt; 2) xor T[32:2]</code></li>
+<li>PHRT is updated upon taken branch: <code>PHRTnew = (PHRTold &lt;&lt; 2) xor T[31:2]</code></li>
 <li>PHRB is updated upon taken branch: <code>PHRBnew = (PHRBold &lt;&lt; 2) xor B[5:2]</code></li>
 <li>Source: Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon for Software Optimization and Architectural Analysis</li>
 </ul>
@@ -1486,7 +1652,7 @@
 <li>footprint[12] = B[16]</li>
 <li>footprint[13] = B[17]</li>
 <li>footprint[14] = B[18]</li>
-<li>footprint[1t] = B[19]</li>
+<li>footprint[15] = B[19]</li>
 </ul>
 </li>
 <li>Source: Half&amp;Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution</li>
@@ -1511,7 +1677,7 @@
 <li>footprint[12] = B[15]</li>
 <li>footprint[13] = B[16]</li>
 <li>footprint[14] = B[17]</li>
-<li>footprint[1t] = B[18]</li>
+<li>footprint[15] = B[18]</li>
 </ul>
 </li>
 <li>Source: Half&amp;Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution</li>
@@ -1565,7 +1731,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 23, 2025 14:24:28">April 23, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 23, 2025 14:33:38">April 23, 2025</span>
   </span>
 
     
