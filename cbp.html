@@ -8,13 +8,13 @@
       
       
       
-        <link rel="canonical" href="https://jia.je/cpu/cortex_x925.html">
+        <link rel="canonical" href="https://jia.je/cpu/cbp.html">
       
       
-        <link rel="prev" href="cortex_x4.html">
+        <link rel="prev" href="comparison.html">
       
       
-        <link rel="next" href="neoverse_v2.html">
+        <link rel="next" href="cortex_a75.html">
       
       
       <link rel="icon" href="assets/images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>ARM Cortex-X925 - CPU Microarchitecture Diagrams</title>
+        <title>Conditional branch predictors - CPU Microarchitecture Diagrams</title>
       
     
     
@@ -66,11 +66,11 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="ARM Cortex-X925 - CPU Microarchitecture Diagrams" >
+        <meta  property="og:title"  content="Conditional branch predictors - CPU Microarchitecture Diagrams" >
       
         <meta  property="og:description"  content="None" >
       
-        <meta  property="og:image"  content="https://jia.je/cpu/assets/images/social/cortex_x925.png" >
+        <meta  property="og:image"  content="https://jia.je/cpu/assets/images/social/cbp.png" >
       
         <meta  property="og:image:type"  content="image/png" >
       
@@ -78,15 +78,15 @@
       
         <meta  property="og:image:height"  content="630" >
       
-        <meta  property="og:url"  content="https://jia.je/cpu/cortex_x925.html" >
+        <meta  property="og:url"  content="https://jia.je/cpu/cbp.html" >
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="ARM Cortex-X925 - CPU Microarchitecture Diagrams" >
+        <meta  name="twitter:title"  content="Conditional branch predictors - CPU Microarchitecture Diagrams" >
       
         <meta  name="twitter:description"  content="None" >
       
-        <meta  name="twitter:image"  content="https://jia.je/cpu/assets/images/social/cortex_x925.png" >
+        <meta  name="twitter:image"  content="https://jia.je/cpu/assets/images/social/cbp.png" >
       
     
     
@@ -111,7 +111,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#arm-cortex-x925" class="md-skip">
+        <a href="#conditional-branch-predictors" class="md-skip">
           Skip to content
         </a>
       
@@ -147,7 +147,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ARM Cortex-X925
+              Conditional branch predictors
             
           </span>
         </div>
@@ -310,10 +310,31 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="cbp.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Conditional branch predictors
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="cbp.html" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -323,6 +344,80 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#qualcomm-oryon" class="md-nav__link">
+    <span class="md-ellipsis">
+      Qualcomm Oryon
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apple-firestorm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Apple Firestorm
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apple-icestorm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Apple Icestorm
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intel-haswellivy-bridge-ep" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intel Haswell/Ivy Bridge EP
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intel-cascade-lakeskylake" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intel Cascade Lake/Skylake
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intel-sunny-covegolden-coveraptor-coveredwood-cove" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intel Sunny Cove/Golden Cove/Raptor Cove/Redwood Cove
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -331,8 +426,6 @@
       
   
   
-    
-  
   
   
     
@@ -344,11 +437,13 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
@@ -363,7 +458,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             AArch64
@@ -506,19 +601,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="cortex_x925.html" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="cortex_x925.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -528,7 +614,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -1260,6 +1345,68 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#qualcomm-oryon" class="md-nav__link">
+    <span class="md-ellipsis">
+      Qualcomm Oryon
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apple-firestorm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Apple Firestorm
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apple-icestorm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Apple Icestorm
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intel-haswellivy-bridge-ep" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intel Haswell/Ivy Bridge EP
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intel-cascade-lakeskylake" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intel Cascade Lake/Skylake
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intel-sunny-covegolden-coveraptor-coveredwood-cove" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intel Sunny Cove/Golden Cove/Raptor Cove/Redwood Cove
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1274,7 +1421,7 @@
 
 
   
-    <a href="https://github.com/jiegec/cpu/edit/master/docs/cortex_x925.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/jiegec/cpu/edit/master/docs/cbp.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1282,14 +1429,119 @@
   
 
 
-<h1 id="arm-cortex-x925">ARM Cortex X925</h1>
-<p><a class="glightbox" href="cortex_x925.svg" data-type="image" data-width="auto" data-height="100vh" data-desc-position="bottom"><img alt="" src="cortex_x925.svg" /></a></p>
-<p>References:</p>
+<h1 id="conditional-branch-predictors">Conditional Branch Predictors</h1>
+<p>Reverse engineered conditional branch predictors, using the methodology from the following papers:</p>
 <ul>
-<li><a href="https://www.anandtech.com/show/21399/arm-unveils-2024-cpu-core-designs-cortex-x925-a725-and-a520-arm-v9-2-redefined-for-3nm-/2">Arm Unveils 2024 CPU Core Designs, Cortex X925, A725 and A520: Arm v9.2 Redefined For 3nm</a></li>
-<li><a href="https://developer.arm.com/documentation/102807/0001">Arm® Cortex-X925 Core Technical Reference Manual</a></li>
-<li><a href="https://developer.arm.com/documentation/109842/latest/">Arm® Cortex-X925 Core Software Optimization Guide</a></li>
-<li><a href="https://zhuanlan.zhihu.com/p/945571328">Cortex X925 微架构评测：路在何方</a></li>
+<li>Half&amp;Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution</li>
+<li>Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon for Software Optimization and Architectural Analysis</li>
+</ul>
+<p>Code can be found at <a href="https://github.com/jiegec/cpu-micro-benchmarks">jiegec/cpu-micro-benchmarks</a>.</p>
+<p>Glossary:</p>
+<ul>
+<li>B: the branch address; on ARM64, it is the address of the first byte of the instruction; on AMD64, it is the address of the last byte of the instruction</li>
+<li>T: the target address</li>
+<li>PHR: Path History Register</li>
+</ul>
+<h2 id="qualcomm-oryon">Qualcomm Oryon</h2>
+<ul>
+<li>PHRT: 100 bits</li>
+<li>PHRB: 32 bits</li>
+<li>PHRT is updated upon taken branch: <code>PHRTnew = (PHRTold &lt;&lt; 2) xor T[32:2]</code></li>
+<li>PHRB is updated upon taken branch: <code>PHRBnew = (PHRBold &lt;&lt; 2) xor B[5:2]</code></li>
+<li>Source: Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon for Software Optimization and Architectural Analysis</li>
+</ul>
+<h2 id="apple-firestorm">Apple Firestorm</h2>
+<ul>
+<li>PHRT: 100 bits</li>
+<li>PHRB: 28 bits</li>
+<li>PHRT is updated upon taken branch: <code>PHRTnew = (PHRTold &lt;&lt; 2) xor T[32:2]</code></li>
+<li>PHRB is updated upon taken branch: <code>PHRBnew = (PHRBold &lt;&lt; 2) xor B[5:2]</code></li>
+<li>Source: Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon for Software Optimization and Architectural Analysis</li>
+</ul>
+<h2 id="apple-icestorm">Apple Icestorm</h2>
+<ul>
+<li>PHRT: 60 bits</li>
+<li>PHRB: 16 bits</li>
+<li>PHRT is updated upon taken branch: <code>PHRTnew = (PHRTold &lt;&lt; 2) xor T[47:2]</code></li>
+<li>PHRB is updated upon taken branch: <code>PHRBnew = (PHRBold &lt;&lt; 2) xor B[5:2]</code></li>
+<li>Source: @jiegec</li>
+</ul>
+<h2 id="intel-haswellivy-bridge-ep">Intel Haswell/Ivy Bridge EP</h2>
+<ul>
+<li>PHR: <code>93*2=186</code> bits</li>
+<li>PHR is updated upon taken branch: <code>PHRnew = (PHRold &lt;&lt; 2) xor footprint</code></li>
+<li>footprint has 16 bits:<ul>
+<li>footprint[0] = B[6] xor T[0]</li>
+<li>footprint[1] = B[7] xor T[1]</li>
+<li>footprint[2] = B[10] xor T[2]</li>
+<li>footprint[3] = B[11] xor T[3]</li>
+<li>footprint[4] = B[14] xor T[4]</li>
+<li>footprint[5] = B[13] xor T[5]</li>
+<li>footprint[6] = B[4]</li>
+<li>footprint[7] = B[5]</li>
+<li>footprint[8] = B[8]</li>
+<li>footprint[9] = B[9]</li>
+<li>footprint[10] = B[12]</li>
+<li>footprint[11] = B[13]</li>
+<li>footprint[12] = B[16]</li>
+<li>footprint[13] = B[17]</li>
+<li>footprint[14] = B[18]</li>
+<li>footprint[1t] = B[19]</li>
+</ul>
+</li>
+<li>Source: Half&amp;Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution</li>
+</ul>
+<h2 id="intel-cascade-lakeskylake">Intel Cascade Lake/Skylake</h2>
+<ul>
+<li>PHR: <code>93*2=186</code> bits</li>
+<li>PHR is updated upon taken branch: <code>PHRnew = (PHRold &lt;&lt; 2) xor footprint</code></li>
+<li>footprint has 16 bits:<ul>
+<li>footprint[0] = B[3] xor T[0]</li>
+<li>footprint[1] = B[4] xor T[1]</li>
+<li>footprint[2] = B[7] xor T[2]</li>
+<li>footprint[3] = B[8] xor T[3]</li>
+<li>footprint[4] = B[11] xor T[4]</li>
+<li>footprint[5] = B[12] xor T[5]</li>
+<li>footprint[6] = B[5]</li>
+<li>footprint[7] = B[6]</li>
+<li>footprint[8] = B[9]</li>
+<li>footprint[9] = B[10]</li>
+<li>footprint[10] = B[13]</li>
+<li>footprint[11] = B[14]</li>
+<li>footprint[12] = B[15]</li>
+<li>footprint[13] = B[16]</li>
+<li>footprint[14] = B[17]</li>
+<li>footprint[1t] = B[18]</li>
+</ul>
+</li>
+<li>Source: Half&amp;Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution</li>
+<li>Reproduced by @jiegec</li>
+</ul>
+<h2 id="intel-sunny-covegolden-coveraptor-coveredwood-cove">Intel Sunny Cove/Golden Cove/Raptor Cove/Redwood Cove</h2>
+<ul>
+<li>PHR: <code>194*2=388</code> bits</li>
+<li>PHR is updated upon taken branch: <code>PHRnew = (PHRold &lt;&lt; 2) xor footprint</code></li>
+<li>footprint has 16 bits:<ul>
+<li>footprint[0] = B[3] xor T[0]</li>
+<li>footprint[1] = B[4] xor T[1]</li>
+<li>footprint[2] = B[5]</li>
+<li>footprint[3] = B[6]</li>
+<li>footprint[4] = B[7]</li>
+<li>footprint[5] = B[8]</li>
+<li>footprint[6] = B[9]</li>
+<li>footprint[7] = B[10]</li>
+<li>footprint[8] = B[0] xor T[2]</li>
+<li>footprint[9] = B[1] xor T[3]</li>
+<li>footprint[10] = B[2] xor T[4]</li>
+<li>footprint[11] = B[11] xor T[5]</li>
+<li>footprint[12] = B[12]</li>
+<li>footprint[13] = B[13]</li>
+<li>footprint[14] = B[14]</li>
+<li>footprint[15] = B[15]</li>
+</ul>
+</li>
+<li>Source: Half&amp;Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution</li>
+<li>Reproduced by @jiegec</li>
 </ul>
 
 
@@ -1313,7 +1565,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 9, 2024 14:52:18">November 9, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 23, 2025 14:24:28">April 23, 2025</span>
   </span>
 
     
@@ -1323,7 +1575,7 @@
     <span class="md-icon" title="Created">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="August 22, 2024 15:53:12">August 22, 2024</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 23, 2025 14:24:28">April 23, 2025</span>
   </span>
 
     
