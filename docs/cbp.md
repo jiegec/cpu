@@ -89,7 +89,7 @@ Overview:
     - footprint[2] = B[10] xor T[2]
     - footprint[3] = B[11] xor T[3]
     - footprint[4] = B[14] xor T[4]
-    - footprint[5] = B[13] xor T[5]
+    - footprint[5] = B[15] xor T[5]
     - footprint[6] = B[4]
     - footprint[7] = B[5]
     - footprint[8] = B[8]
@@ -105,7 +105,8 @@ Overview:
     - each table is 4-way associative
     - each table has 9 index bits, including PC[4]
     - each table has `4*2^9=2048` entries
-- Source: Half&Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution
+- Source: Half&Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution (There is a typo in `B13 xor T5`, which should be `B15 xor T5`)
+- Reproduced by [Jiajie Chen](https://github.com/jiegec)
 
 ## Intel Cascade Lake/Skylake
 
