@@ -30,7 +30,7 @@ Overview:
 | Intel Cascade Lake  | `93*2 = 186`         | T[5:0]  | B[18:3] | 16             |
 | Intel Skylake       | `93*2 = 186`         | T[5:0]  | B[18:3] | 16             |
 | Intel Haswell       | `93*2 = 186`         | T[5:0]  | B[19:4] | 16             |
-| Intel Ivy Bridge EP | `93*2 = 186`         | T[5:0]  | B[19:4] | 16             |
+| Intel Ivy Bridge    | `93*2 = 186`         | T[5:0]  | B[19:4] | 16             |
 
 ## Qualcomm Oryon
 
@@ -76,7 +76,7 @@ Overview:
 - PHRB is updated upon taken branch: `PHRBnew = (PHRBold << 2) xor B[5:2]`
 - Source: @jiegec
 
-## Intel Haswell/Ivy Bridge EP
+## Intel Haswell/Ivy Bridge
 
 - PHR: `93*2=186` bits
 - PHR is updated upon taken branch: `PHRnew = (PHRold << 2) xor footprint`
