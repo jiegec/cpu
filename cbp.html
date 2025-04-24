@@ -22,7 +22,7 @@
     
     
       
-        <title>Conditional branch predictors - CPU Microarchitecture Diagrams</title>
+        <title>Reverse engineered conditional branch predictors - CPU Microarchitecture Diagrams</title>
       
     
     
@@ -66,7 +66,7 @@
       
         <meta  property="og:type"  content="website" >
       
-        <meta  property="og:title"  content="Conditional branch predictors - CPU Microarchitecture Diagrams" >
+        <meta  property="og:title"  content="Reverse engineered conditional branch predictors - CPU Microarchitecture Diagrams" >
       
         <meta  property="og:description"  content="None" >
       
@@ -82,7 +82,7 @@
       
         <meta  name="twitter:card"  content="summary_large_image" >
       
-        <meta  name="twitter:title"  content="Conditional branch predictors - CPU Microarchitecture Diagrams" >
+        <meta  name="twitter:title"  content="Reverse engineered conditional branch predictors - CPU Microarchitecture Diagrams" >
       
         <meta  name="twitter:description"  content="None" >
       
@@ -111,7 +111,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#conditional-branch-predictors" class="md-skip">
+        <a href="#reverse-engineered-conditional-branch-predictors" class="md-skip">
           Skip to content
         </a>
       
@@ -147,7 +147,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Conditional branch predictors
+              Reverse engineered conditional branch predictors
             
           </span>
         </div>
@@ -326,7 +326,7 @@
           
   
   <span class="md-ellipsis">
-    Conditional branch predictors
+    Reverse engineered conditional branch predictors
     
   </span>
   
@@ -338,7 +338,7 @@
         
   
   <span class="md-ellipsis">
-    Conditional branch predictors
+    Reverse engineered conditional branch predictors
     
   </span>
   
@@ -1465,7 +1465,7 @@
   
 
 
-<h1 id="conditional-branch-predictors">Conditional Branch Predictors</h1>
+<h1 id="reverse-engineered-conditional-branch-predictors">Reverse Engineered Conditional Branch Predictors</h1>
 <p>Reverse engineered conditional branch predictors, using the methodology from the following papers:</p>
 <ul>
 <li>Half&amp;Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution</li>
@@ -1477,6 +1477,7 @@
 <li>B: the branch address; on ARM64, it is the address of the first byte of the instruction; on AMD64, it is the address of the last byte of the instruction</li>
 <li>T: the target address</li>
 <li>PHR: Path History Register</li>
+<li>PHT: Pattern History Table</li>
 <li>footprint: how many bits are xor-ed into PHR for each taken branch</li>
 </ul>
 <p>Overview:</p>
@@ -1590,6 +1591,7 @@
 <li>PHRB: 32 bits</li>
 <li>PHRT is updated upon taken branch: <code>PHRTnew = (PHRTold &lt;&lt; 2) xor T[31:2]</code></li>
 <li>PHRB is updated upon taken branch: <code>PHRBnew = (PHRBold &lt;&lt; 2) xor B[5:2]</code></li>
+<li>PHT: 6 tables, see <a href="https://github.com/jiegec/cpu-micro-benchmarks/blob/master/reports/dissecting_cbp_of_apple_firestorm_and_qualcomm_oryon/README.md">the result</a></li>
 <li>Source: Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon for Software Optimization and Architectural Analysis</li>
 </ul>
 <h2 id="arm-neoverse-v1">ARM Neoverse V1</h2>
@@ -1602,7 +1604,7 @@
 <li>footprint[2] = T[4] xor T[7] xor B[5] xor B[8] xor B[11] xor B[14]</li>
 </ul>
 </li>
-<li>Source: @jiegec</li>
+<li>Source: <a href="https://github.com/jiegec">Jiajie Chen</a></li>
 </ul>
 <h2 id="arm-neoverse-n1">ARM Neoverse N1</h2>
 <ul>
@@ -1614,7 +1616,7 @@
 <li>footprint[2] = T[4] xor T[7] xor B[5] xor B[8]</li>
 </ul>
 </li>
-<li>Source: @jiegec</li>
+<li>Source: <a href="https://github.com/jiegec">Jiajie Chen</a></li>
 </ul>
 <h2 id="apple-firestorm">Apple Firestorm</h2>
 <ul>
@@ -1622,6 +1624,7 @@
 <li>PHRB: 28 bits</li>
 <li>PHRT is updated upon taken branch: <code>PHRTnew = (PHRTold &lt;&lt; 2) xor T[31:2]</code></li>
 <li>PHRB is updated upon taken branch: <code>PHRBnew = (PHRBold &lt;&lt; 2) xor B[5:2]</code></li>
+<li>PHT: 6 tables, see <a href="https://github.com/jiegec/cpu-micro-benchmarks/blob/master/reports/dissecting_cbp_of_apple_firestorm_and_qualcomm_oryon/README.md">the result</a></li>
 <li>Source: Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon for Software Optimization and Architectural Analysis</li>
 </ul>
 <h2 id="apple-icestorm">Apple Icestorm</h2>
@@ -1630,7 +1633,7 @@
 <li>PHRB: 16 bits</li>
 <li>PHRT is updated upon taken branch: <code>PHRTnew = (PHRTold &lt;&lt; 2) xor T[47:2]</code></li>
 <li>PHRB is updated upon taken branch: <code>PHRBnew = (PHRBold &lt;&lt; 2) xor B[5:2]</code></li>
-<li>Source: @jiegec</li>
+<li>Source: <a href="https://github.com/jiegec">Jiajie Chen</a></li>
 </ul>
 <h2 id="intel-haswellivy-bridge">Intel Haswell/Ivy Bridge</h2>
 <ul>
@@ -1653,6 +1656,13 @@
 <li>footprint[13] = B[17]</li>
 <li>footprint[14] = B[18]</li>
 <li>footprint[15] = B[19]</li>
+</ul>
+</li>
+<li>PHT:<ul>
+<li>3 tables</li>
+<li>each table is 4-way associative</li>
+<li>each table has 9 index bits, including PC[4]</li>
+<li>each table has <code>4*2^9=2048</code> entries</li>
 </ul>
 </li>
 <li>Source: Half&amp;Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution</li>
@@ -1680,8 +1690,16 @@
 <li>footprint[15] = B[18]</li>
 </ul>
 </li>
+<li>PHT:<ul>
+<li>3 tables</li>
+<li>history length of the 3 tables: 22, 58, 186</li>
+<li>each table is 4-way associative</li>
+<li>each table has 9 index bits, including PC[5]</li>
+<li>each table has <code>4*2^9=2048</code> entries</li>
+</ul>
+</li>
 <li>Source: Half&amp;Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution</li>
-<li>Reproduced by @jiegec</li>
+<li>Reproduced by <a href="https://github.com/jiegec">Jiajie Chen</a></li>
 </ul>
 <h2 id="intel-sunny-covegolden-coveraptor-coveredwood-cove">Intel Sunny Cove/Golden Cove/Raptor Cove/Redwood Cove</h2>
 <ul>
@@ -1706,8 +1724,16 @@
 <li>footprint[15] = B[15]</li>
 </ul>
 </li>
-<li>Source: Half&amp;Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution</li>
-<li>Reproduced by @jiegec</li>
+<li>PHT:<ul>
+<li>4 tables</li>
+<li>history length of the 4 tables: 36, 68, 132, 388</li>
+<li>each table is 4-way associative</li>
+<li>each table has 9 index bits, including PC[5]</li>
+<li>each table has <code>4*2^9=2048</code> entries</li>
+</ul>
+</li>
+<li>Source: Half&amp;Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution (<a href="https://github.com/jiegec">Jiajie Chen</a> leads to a different conclusion regarding the PHT tables from the paper)</li>
+<li>Reproduced by <a href="https://github.com/jiegec">Jiajie Chen</a></li>
 </ul>
 
 
@@ -1731,7 +1757,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 24, 2025 01:08:31">April 24, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="April 24, 2025 10:56:32">April 24, 2025</span>
   </span>
 
     
