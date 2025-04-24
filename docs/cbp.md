@@ -50,7 +50,7 @@ Overview:
     - footprint[0] = T[2] xor T[5] xor B[3] xor B[6] xor B[9] xor B[12]
     - footprint[1] = T[3] xor T[6] xor B[4] xor B[7] xor B[10] xor B[13]
     - footprint[2] = T[4] xor T[7] xor B[5] xor B[8] xor B[11] xor B[14]
-- Source: @jiegec
+- Source: [Jiajie Chen](https://github.com/jiegec)
 
 ## ARM Neoverse N1
 
@@ -60,7 +60,7 @@ Overview:
     - footprint[0] = T[2] xor T[5] xor B[3] xor B[6]
     - footprint[1] = T[3] xor T[6] xor B[4] xor B[7]
     - footprint[2] = T[4] xor T[7] xor B[5] xor B[8]
-- Source: @jiegec
+- Source: [Jiajie Chen](https://github.com/jiegec)
 
 ## Apple Firestorm
 
@@ -77,7 +77,7 @@ Overview:
 - PHRB: 16 bits
 - PHRT is updated upon taken branch: `PHRTnew = (PHRTold << 2) xor T[47:2]`
 - PHRB is updated upon taken branch: `PHRBnew = (PHRBold << 2) xor B[5:2]`
-- Source: @jiegec
+- Source: [Jiajie Chen](https://github.com/jiegec)
 
 ## Intel Haswell/Ivy Bridge
 
@@ -135,7 +135,7 @@ Overview:
     - each table has 9 index bits, including PC[5]
     - each table has `4*2^9=2048` entries
 - Source: Half&Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution
-- Reproduced by @jiegec
+- Reproduced by [Jiajie Chen](https://github.com/jiegec)
 
 ## Intel Sunny Cove/Golden Cove/Raptor Cove/Redwood Cove
 
@@ -164,5 +164,5 @@ Overview:
     - each table is 4-way associative
     - each table has 9 index bits, including PC[5]
     - each table has `4*2^9=2048` entries
-- Source: Half&Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution (@jiegec leads to a different conclusion regarding the PHT part from the paper)
-- Reproduced by @jiegec
+- Source: Half&Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution ([Jiajie Chen](https://github.com/jiegec) leads to a different conclusion regarding the PHT tables from the paper)
+- Reproduced by [Jiajie Chen](https://github.com/jiegec)
