@@ -5,7 +5,7 @@ edit_uri: edit/master/docs/
 nav:
   - CPU Microarchitecture Diagrams: index.md
   - Comparisons across microarchitectures: comparison.md
-  - Conditional branch predictors: cbp.md
+  - Reverse engineered conditional branch predictors: cbp.md
   - AArch64:
       - ARM Cortex-A75: cortex_a75.md
       - ARM Cortex-A77: cortex_a77.md

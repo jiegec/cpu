@@ -1,4 +1,4 @@
-# Conditional Branch Predictors
+# Reverse Engineered Conditional Branch Predictors
 
 Reverse engineered conditional branch predictors, using the methodology from the following papers:
 
@@ -12,6 +12,7 @@ Glossary:
 - B: the branch address; on ARM64, it is the address of the first byte of the instruction; on AMD64, it is the address of the last byte of the instruction
 - T: the target address
 - PHR: Path History Register
+- PHT: Pattern History Table
 - footprint: how many bits are xor-ed into PHR for each taken branch
 
 Overview:
@@ -38,6 +39,7 @@ Overview:
 - PHRB: 32 bits
 - PHRT is updated upon taken branch: `PHRTnew = (PHRTold << 2) xor T[31:2]`
 - PHRB is updated upon taken branch: `PHRBnew = (PHRBold << 2) xor B[5:2]`
+- PHT: 6 tables, see [the result](https://github.com/jiegec/cpu-micro-benchmarks/blob/master/reports/dissecting_cbp_of_apple_firestorm_and_qualcomm_oryon/README.md)
 - Source: Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon for Software Optimization and Architectural Analysis
 
 ## ARM Neoverse V1
@@ -66,6 +68,7 @@ Overview:
 - PHRB: 28 bits
 - PHRT is updated upon taken branch: `PHRTnew = (PHRTold << 2) xor T[31:2]`
 - PHRB is updated upon taken branch: `PHRBnew = (PHRBold << 2) xor B[5:2]`
+- PHT: 6 tables, see [the result](https://github.com/jiegec/cpu-micro-benchmarks/blob/master/reports/dissecting_cbp_of_apple_firestorm_and_qualcomm_oryon/README.md)
 - Source: Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon for Software Optimization and Architectural Analysis
 
 ## Apple Icestorm
@@ -97,6 +100,11 @@ Overview:
     - footprint[13] = B[17]
     - footprint[14] = B[18]
     - footprint[15] = B[19]
+- PHT:
+    - 3 tables
+    - each table is 4-way associative
+    - each table has 9 index bits, including PC[4]
+    - each table has `4*2^9=2048` entries
 - Source: Half&Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution
 
 ## Intel Cascade Lake/Skylake
@@ -120,6 +128,12 @@ Overview:
     - footprint[13] = B[16]
     - footprint[14] = B[17]
     - footprint[15] = B[18]
+- PHT:
+    - 3 tables
+    - history length of the 3 tables: 22, 58, 186
+    - each table is 4-way associative
+    - each table has 9 index bits, including PC[5]
+    - each table has `4*2^9=2048` entries
 - Source: Half&Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution
 - Reproduced by @jiegec
 
@@ -144,5 +158,11 @@ Overview:
     - footprint[13] = B[13]
     - footprint[14] = B[14]
     - footprint[15] = B[15]
-- Source: Half&Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution
+- PHT:
+    - 4 tables
+    - history length of the 4 tables: 36, 68, 132, 388
+    - each table is 4-way associative
+    - each table has 9 index bits, including PC[5]
+    - each table has `4*2^9=2048` entries
+- Source: Half&Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution (@jiegec leads to a different conclusion regarding the PHT part from the paper)
 - Reproduced by @jiegec
