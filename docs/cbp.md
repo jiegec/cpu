@@ -39,7 +39,7 @@ Overview:
 - PHRB: 32 bits
 - PHRT is updated upon taken branch: `PHRTnew = (PHRTold << 2) xor T[31:2]`
 - PHRB is updated upon taken branch: `PHRBnew = (PHRBold << 2) xor B[5:2]`
-- PHT: 6 tables, see [the result](https://github.com/jiegec/cpu-micro-benchmarks/blob/master/reports/dissecting_cbp_of_apple_firestorm_and_qualcomm_oryon/README.md)
+- PHT: 6 tables, see [Result of Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon](https://github.com/jiegec/cpu-micro-benchmarks/blob/master/reports/dissecting_cbp_of_apple_firestorm_and_qualcomm_oryon/README.md)
 - Source: Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon for Software Optimization and Architectural Analysis
 
 ## ARM Neoverse V1
@@ -68,7 +68,7 @@ Overview:
 - PHRB: 28 bits
 - PHRT is updated upon taken branch: `PHRTnew = (PHRTold << 2) xor T[31:2]`
 - PHRB is updated upon taken branch: `PHRBnew = (PHRBold << 2) xor B[5:2]`
-- PHT: 6 tables, see [the result](https://github.com/jiegec/cpu-micro-benchmarks/blob/master/reports/dissecting_cbp_of_apple_firestorm_and_qualcomm_oryon/README.md)
+- PHT: 6 tables, see [Result of Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon](https://github.com/jiegec/cpu-micro-benchmarks/blob/master/reports/dissecting_cbp_of_apple_firestorm_and_qualcomm_oryon/README.md)
 - Source: Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon for Software Optimization and Architectural Analysis
 
 ## Apple Icestorm
