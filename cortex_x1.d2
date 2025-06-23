@@ -3,10 +3,10 @@ cpu : ARM Cortex-X1 CPU {
     bp: Branch Predictor {
       # Source: ARM, JamesAslan
       # "50% larger L0-BTB capacity, 96 entries (zero-cycle bubble taken-branch latency)"
-      l1btb: 96-entry L1 BTB, zero bubble, two taken branches per cycle
+      l1btb: 48x2-entry L1 BTB, 1 cycle latency, two taken branches per cycle
 
       # Source: JamesAslan
-      l2btb: 8192-entry L2 BTB
+      l2btb: 4Kx2-entry L2 BTB, 2 cycle latency, two taken branches every 2 cycles
 
       # Source: JamesAslan
       ras: 16-entry RAS

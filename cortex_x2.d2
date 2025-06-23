@@ -1,6 +1,11 @@
 cpu : ARM Cortex-X2 CPU {
   frontend: Frontend {
     bp: Branch Predictor {
+      # Source: jiegec
+      l1btb: 32x2-entry L1 BTB, 1 cycle latency, two taken branches per cycle
+
+      # Source: jiegec
+      l2btb: 4Kx2-entry L2 BTB, 2 cycle latency, two taken branches every 2 cycles
     }
 
     l1ic: L1 IC {
