@@ -42,6 +42,23 @@ Overview:
 - PHT: 6 tables, see [Result of Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon](https://github.com/jiegec/cpu-micro-benchmarks/blob/master/reports/dissecting_cbp_of_apple_firestorm_and_qualcomm_oryon/README.md)
 - Source: Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon for Software Optimization and Architectural Analysis
 
+## Apple Firestorm
+
+- PHRT: 100 bits
+- PHRB: 28 bits
+- PHRT is updated upon taken branch: `PHRTnew = (PHRTold << 2) xor T[31:2]`
+- PHRB is updated upon taken branch: `PHRBnew = (PHRBold << 2) xor B[5:2]`
+- PHT: 6 tables, see [Result of Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon](https://github.com/jiegec/cpu-micro-benchmarks/blob/master/reports/dissecting_cbp_of_apple_firestorm_and_qualcomm_oryon/README.md)
+- Source: Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon for Software Optimization and Architectural Analysis
+
+## Apple Icestorm
+
+- PHRT: 60 bits
+- PHRB: 16 bits
+- PHRT is updated upon taken branch: `PHRTnew = (PHRTold << 2) xor T[47:2]`
+- PHRB is updated upon taken branch: `PHRBnew = (PHRBold << 2) xor B[5:2]`
+- Source: [Jiajie Chen](https://github.com/jiegec)
+
 ## ARM Neoverse V1
 
 - PHR: `64*3=192` bits
@@ -65,22 +82,6 @@ Overview:
 - PHT: 6 tables, 1024 entries per table, 16 bits per entry, 6K entries & 12KB in total
 - Source: [Jiajie Chen](https://github.com/jiegec)
 
-## Apple Firestorm
-
-- PHRT: 100 bits
-- PHRB: 28 bits
-- PHRT is updated upon taken branch: `PHRTnew = (PHRTold << 2) xor T[31:2]`
-- PHRB is updated upon taken branch: `PHRBnew = (PHRBold << 2) xor B[5:2]`
-- PHT: 6 tables, see [Result of Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon](https://github.com/jiegec/cpu-micro-benchmarks/blob/master/reports/dissecting_cbp_of_apple_firestorm_and_qualcomm_oryon/README.md)
-- Source: Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon for Software Optimization and Architectural Analysis
-
-## Apple Icestorm
-
-- PHRT: 60 bits
-- PHRB: 16 bits
-- PHRT is updated upon taken branch: `PHRTnew = (PHRTold << 2) xor T[47:2]`
-- PHRB is updated upon taken branch: `PHRBnew = (PHRBold << 2) xor B[5:2]`
-- Source: [Jiajie Chen](https://github.com/jiegec)
 
 ## Intel Haswell/Ivy Bridge
 
