@@ -370,24 +370,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#arm-neoverse-v1" class="md-nav__link">
-    <span class="md-ellipsis">
-      ARM Neoverse V1
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#arm-neoverse-n1" class="md-nav__link">
-    <span class="md-ellipsis">
-      ARM Neoverse N1
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#apple-firestorm" class="md-nav__link">
     <span class="md-ellipsis">
       Apple Firestorm
@@ -400,6 +382,24 @@
   <a href="#apple-icestorm" class="md-nav__link">
     <span class="md-ellipsis">
       Apple Icestorm
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arm-neoverse-n2arm-neoverse-v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ARM Neoverse N2/ARM Neoverse V1
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arm-neoverse-n1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ARM Neoverse N1
     </span>
   </a>
   
@@ -1379,24 +1379,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#arm-neoverse-v1" class="md-nav__link">
-    <span class="md-ellipsis">
-      ARM Neoverse V1
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#arm-neoverse-n1" class="md-nav__link">
-    <span class="md-ellipsis">
-      ARM Neoverse N1
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#apple-firestorm" class="md-nav__link">
     <span class="md-ellipsis">
       Apple Firestorm
@@ -1409,6 +1391,24 @@
   <a href="#apple-icestorm" class="md-nav__link">
     <span class="md-ellipsis">
       Apple Icestorm
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arm-neoverse-n2arm-neoverse-v1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ARM Neoverse N2/ARM Neoverse V1
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#arm-neoverse-n1" class="md-nav__link">
+    <span class="md-ellipsis">
+      ARM Neoverse N1
     </span>
   </a>
   
@@ -1514,6 +1514,13 @@
 <td>46 + 4</td>
 </tr>
 <tr>
+<td>ARM Neoverse N2</td>
+<td><code>64*3 = 192</code></td>
+<td>T[7:2]</td>
+<td>B[14:2]</td>
+<td>3</td>
+</tr>
+<tr>
 <td>ARM Neoverse V1</td>
 <td><code>64*3 = 192</code></td>
 <td>T[7:2]</td>
@@ -1594,8 +1601,26 @@
 <li>PHT: 6 tables, see <a href="https://github.com/jiegec/cpu-micro-benchmarks/blob/master/reports/dissecting_cbp_of_apple_firestorm_and_qualcomm_oryon/README.md">Result of Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon</a></li>
 <li>Source: Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon for Software Optimization and Architectural Analysis</li>
 </ul>
-<h2 id="arm-neoverse-v1">ARM Neoverse V1</h2>
+<h2 id="apple-firestorm">Apple Firestorm</h2>
 <ul>
+<li>PHRT: 100 bits</li>
+<li>PHRB: 28 bits</li>
+<li>PHRT is updated upon taken branch: <code>PHRTnew = (PHRTold &lt;&lt; 2) xor T[31:2]</code></li>
+<li>PHRB is updated upon taken branch: <code>PHRBnew = (PHRBold &lt;&lt; 2) xor B[5:2]</code></li>
+<li>PHT: 6 tables, see <a href="https://github.com/jiegec/cpu-micro-benchmarks/blob/master/reports/dissecting_cbp_of_apple_firestorm_and_qualcomm_oryon/README.md">Result of Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon</a></li>
+<li>Source: Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon for Software Optimization and Architectural Analysis</li>
+</ul>
+<h2 id="apple-icestorm">Apple Icestorm</h2>
+<ul>
+<li>PHRT: 60 bits</li>
+<li>PHRB: 16 bits</li>
+<li>PHRT is updated upon taken branch: <code>PHRTnew = (PHRTold &lt;&lt; 2) xor T[47:2]</code></li>
+<li>PHRB is updated upon taken branch: <code>PHRBnew = (PHRBold &lt;&lt; 2) xor B[5:2]</code></li>
+<li>Source: <a href="https://github.com/jiegec">Jiajie Chen</a></li>
+</ul>
+<h2 id="arm-neoverse-n2arm-neoverse-v1">ARM Neoverse N2/ARM Neoverse V1</h2>
+<ul>
+<li>ARM Neoverse N2 and ARM Neoverse V1 shares the (almost) same design</li>
 <li>PHR: <code>64*3=192</code> bits</li>
 <li>PHR is updated upon taken branch: <code>PHRnew = (PHRold &lt;&lt; 3) xor footprint</code></li>
 <li>footprint has 3 bits:<ul>
@@ -1619,23 +1644,6 @@
 </ul>
 </li>
 <li>PHT: 6 tables, 1024 entries per table, 16 bits per entry, 6K entries &amp; 12KB in total</li>
-<li>Source: <a href="https://github.com/jiegec">Jiajie Chen</a></li>
-</ul>
-<h2 id="apple-firestorm">Apple Firestorm</h2>
-<ul>
-<li>PHRT: 100 bits</li>
-<li>PHRB: 28 bits</li>
-<li>PHRT is updated upon taken branch: <code>PHRTnew = (PHRTold &lt;&lt; 2) xor T[31:2]</code></li>
-<li>PHRB is updated upon taken branch: <code>PHRBnew = (PHRBold &lt;&lt; 2) xor B[5:2]</code></li>
-<li>PHT: 6 tables, see <a href="https://github.com/jiegec/cpu-micro-benchmarks/blob/master/reports/dissecting_cbp_of_apple_firestorm_and_qualcomm_oryon/README.md">Result of Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon</a></li>
-<li>Source: Dissecting Conditional Branch Predictors of Apple Firestorm and Qualcomm Oryon for Software Optimization and Architectural Analysis</li>
-</ul>
-<h2 id="apple-icestorm">Apple Icestorm</h2>
-<ul>
-<li>PHRT: 60 bits</li>
-<li>PHRB: 16 bits</li>
-<li>PHRT is updated upon taken branch: <code>PHRTnew = (PHRTold &lt;&lt; 2) xor T[47:2]</code></li>
-<li>PHRB is updated upon taken branch: <code>PHRBnew = (PHRBold &lt;&lt; 2) xor B[5:2]</code></li>
 <li>Source: <a href="https://github.com/jiegec">Jiajie Chen</a></li>
 </ul>
 <h2 id="intel-haswellivy-bridge">Intel Haswell/Ivy Bridge</h2>
@@ -1761,7 +1769,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 1, 2025 15:49:59">July 1, 2025</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="July 1, 2025 15:56:35">July 1, 2025</span>
   </span>
 
     
