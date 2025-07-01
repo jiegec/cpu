@@ -22,6 +22,7 @@ Overview:
 | Qualcomm Oryon      | `100*1 + 32*1 = 132` | T[31:2] | B[5:2]  | 30 + 4         |
 | Apple Firestorm     | `100*1 + 28*1 = 128` | T[31:2] | B[5:2]  | 30 + 4         |
 | Apple Icestorm      | `60*1 + 16*1 = 76`   | T[47:2] | B[5:2]  | 46 + 4         |
+| ARM Neoverse N2     | `64*3 = 192`         | T[7:2]  | B[14:2] | 3              |
 | ARM Neoverse V1     | `64*3 = 192`         | T[7:2]  | B[14:2] | 3              |
 | ARM Neoverse N1     | `48*3 = 144`         | T[7:2]  | B[8:2]  | 3              |
 | Intel Sunny Cove    | `194*2 = 388`        | T[5:0]  | B[15:0] | 16             |
@@ -59,8 +60,9 @@ Overview:
 - PHRB is updated upon taken branch: `PHRBnew = (PHRBold << 2) xor B[5:2]`
 - Source: [Jiajie Chen](https://github.com/jiegec)
 
-## ARM Neoverse V1
+## ARM Neoverse N2/ARM Neoverse V1
 
+- ARM Neoverse N2 and ARM Neoverse V1 shares the (almost) same design
 - PHR: `64*3=192` bits
 - PHR is updated upon taken branch: `PHRnew = (PHRold << 3) xor footprint`
 - footprint has 3 bits:
