@@ -50,6 +50,8 @@ Overview:
     - footprint[0] = T[2] xor T[5] xor B[3] xor B[6] xor B[9] xor B[12]
     - footprint[1] = T[3] xor T[6] xor B[4] xor B[7] xor B[10] xor B[13]
     - footprint[2] = T[4] xor T[7] xor B[5] xor B[8] xor B[11] xor B[14]
+- BIM: 1024 entries, 16 bits per entry, 2KB in total
+- PHT: 8 tables, 1024 entries per table, 16 bits per entry, 8K entries & 16KB in total
 - Source: [Jiajie Chen](https://github.com/jiegec)
 
 ## ARM Neoverse N1
@@ -60,6 +62,7 @@ Overview:
     - footprint[0] = T[2] xor T[5] xor B[3] xor B[6]
     - footprint[1] = T[3] xor T[6] xor B[4] xor B[7]
     - footprint[2] = T[4] xor T[7] xor B[5] xor B[8]
+- PHT: 6 tables, 1024 entries per table, 16 bits per entry, 6K entries & 12KB in total
 - Source: [Jiajie Chen](https://github.com/jiegec)
 
 ## Apple Firestorm
