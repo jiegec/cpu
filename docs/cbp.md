@@ -70,12 +70,12 @@ Overview:
     - footprint[1] = B[3] xor T[8]
     - footprint[2] = B[4] xor T[9]
     - footprint[3] = B[5] xor T[10]
-    - footprint[4] = B[6] xor B[12] xor T[2]
-    - footprint[5] = B[7] xor B[13] xor T[3]
-    - footprint[6] = B[8] xor B[14] xor T[4]
-    - footprint[7] = B[9] xor B[15] xor T[5]
-    - footprint[8] = B[10] xor B[16] xor T[6]
-    - footprint[9] = B[11] xor B[17] xor T[7]
+    - footprint[4] = B[6] xor B[12] xor T[11]
+    - footprint[5] = B[7] xor B[13] xor T[2]
+    - footprint[6] = B[8] xor B[14] xor T[3]
+    - footprint[7] = B[9] xor B[15] xor T[4]
+    - footprint[8] = B[10] xor B[16] xor T[5]
+    - footprint[9] = B[11] xor B[17] xor T[6]
 - PHT: 8 tables, 2 way associative, 1024 entries per table, 16K entries
 - Source: [Jiajie Chen](https://github.com/jiegec)
 
