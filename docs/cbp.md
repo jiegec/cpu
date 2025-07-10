@@ -76,7 +76,7 @@ Overview:
     - footprint[7] = B[9] xor B[15] xor T[4]
     - footprint[8] = B[10] xor B[16] xor T[5]
     - footprint[9] = B[11] xor B[17] xor T[6]
-- PHT: 8 tables, 2 way associative, 1024 entries per table, 16K entries
+- PHT: 8 tables, 2 way set associative, 1024 entries per table, 16K entries in total
 - Source: [Jiajie Chen](https://github.com/jiegec)
 
 ## ARM Neoverse N2/ARM Neoverse V1
@@ -127,7 +127,7 @@ Overview:
     - footprint[15] = B[19]
 - PHT:
     - 3 tables
-    - each table is 4-way associative
+    - each table is 4-way set associative
     - each table has 9 index bits, including PC[4]
     - each table has `4*2^9=2048` entries
 - Source: Half&Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution (There is a typo in `B13 xor T5`, which should be `B15 xor T5`)
@@ -157,7 +157,7 @@ Overview:
 - PHT:
     - 3 tables
     - history length of the 3 tables: 22, 58, 186
-    - each table is 4-way associative
+    - each table is 4-way set associative
     - each table has 9 index bits, including PC[5]
     - each table has `4*2^9=2048` entries
 - Source: Half&Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution
@@ -187,7 +187,7 @@ Overview:
 - PHT:
     - 4 tables
     - history length of the 4 tables: 36, 68, 132, 388
-    - each table is 4-way associative
+    - each table is 4-way set associative
     - each table has 9 index bits, including PC[5]
     - each table has `4*2^9=2048` entries
 - Source: Half&Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution ([Jiajie Chen](https://github.com/jiegec) leads to a different conclusion regarding the PHT tables from the paper)

@@ -43,6 +43,7 @@ nav:
       - SiFive P870: p870.md
   - Dieshot: dieshot.md
 theme:
+  custom_dir: overrides
   name: material
   icon:
     repo: fontawesome/brands/github
