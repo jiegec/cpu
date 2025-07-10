@@ -73,6 +73,5 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
 extra:
   analytics:
-    provider: google
-    property: G-3109FRSVTT
+    provider: custom
 copyright: Copyright &copy; 2024 Jiajie Chen
