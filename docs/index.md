@@ -7,7 +7,7 @@ Major microarchitectures of CPU vendors:
 1. AMD: Zen 1 -> Zen 2 -> Zen 3 -> Zen 4 -> Zen 5
 2. ARM:
 	- Cortex-A73
-	- Cortex-A75
+	- Cortex-A55/Cortex-A75
 	- Cortex-A76/Neoverse-N1
 	- Cortex-A77
 	- Cortex-A78/Cortex-X1/Neoverse-V1
