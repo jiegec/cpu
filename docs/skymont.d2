@@ -5,10 +5,14 @@ cpu : Intel Lunar Lake E-core Skymont CPU {
 
     l1ic: L1 IC {
       # Source: Intel
+      # "64kB Instruction Cache"
+      # "with on-demand instruction length decoder"
       l1ic: 64K L1 IC
     }
 
     # Source: Intel
+    # "Nine instructions decoded per cycle"
+    # "Three 3-wide instruction decoders"
     fq: 3x Fetch Queue
     bp -> fq
     fq -> l1ic
@@ -50,6 +54,7 @@ cpu : Intel Lunar Lake E-core Skymont CPU {
 
     # Source: Intel
     # "allocation (from 6)"
+    # "Eight-wide allocation (1.6x)"
     rename: 8-way Rename {
       Move Elimination
       Zero Idiom
@@ -63,6 +68,8 @@ cpu : Intel Lunar Lake E-core Skymont CPU {
     # Source: Intel
     # "Larger out of order window (ROB 256 -> 416 entry)"
     # "16-wide retire (from 8)"
+    # "with sixteen-wide retire (2x)"
+    # "416 entry out of order window (1.6x)"
     rob: 416-entry ROB, 16-wide retirement
 
     rf: Register File {
@@ -70,6 +77,13 @@ cpu : Intel Lunar Lake E-core Skymont CPU {
 
       vrf: Vector Register File
     }
+
+    # Source: Intel
+    # "Twenty-six execution ports (1.5x)"
+    # "Integer Execution (2x)"
+    # "Vector Execution (2x)"
+    # "Load Address Generation (1.5x)"
+    # "Store Address Generation (2x)"
 
     sched1: Scheduler \#1
 
@@ -181,6 +195,7 @@ cpu : Intel Lunar Lake E-core Skymont CPU {
     sched12: Scheduler \#12
 
     # Source: Intel
+    # "Three Load (1.5x) + Two Store (1.0x)"
     pipe12: Port 8 {
       grid-columns: 1
       STD
@@ -362,7 +377,12 @@ cpu : Intel Lunar Lake E-core Skymont CPU {
 
     l2: L2 {
       # Source: Intel
-      l2dc: 4MB L2 Cache shared among 4 cores
+      # "Supporting 128 outstanding L2 misses (2x)"
+      # "4MB Unified L2"
+      # "Shared among four cores with 17 cycles of latency
+      # "Twice the L2 Cache Bandwidth"
+      # "400 GB/s"
+      l2dc: 4MB L2 Cache shared among 4 cores, 17 cycle latency
     }
 
     l1 -> l2

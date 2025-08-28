@@ -8,3 +8,4 @@ References:
 - [Thoughts on Skymont Slides](https://chipsandcheese.com/2024/05/30/thoughts-on-skymont-slides/)
 - [月光下的新探索：Lunar Lake CPU (Lion Cove / Skymont) 微架构测试](https://blog.hjc.im/lunar-lake-cpu-uarch-review.html)
 - [Skymont: Intel’s E-Cores reach for the Sky](https://chipsandcheese.com/2024/10/03/skymont-intels-e-cores-reach-for-the-sky/)
+- [Intel's Clearwater Forest E-Core Server Chip at Hot Chips 2025](https://chipsandcheese.com/p/intels-clearwater-forest-e-core-server)
