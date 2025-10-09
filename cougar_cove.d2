@@ -1,0 +1,238 @@
+cpu: Intel Panther Lake P-core Cougar Cove CPU {
+  frontend: Frontend {
+    bp: Branch Predictor
+
+    l1ic: L1 IC
+
+    bp -> l1ic
+
+    iq: Instruction Queue
+    l1ic -> iq
+
+    # Source: Intel
+    # "DECODE (8-WIDE)"
+    decode: 8-way Decode
+    iq -> decode
+
+    uopc: UOP Cache
+    decode -> uopc
+    bp -> uopc
+
+    # Source: Intel
+    # "uOP CACHE (12-WIDE)"
+    uop: UOP Queue
+    uopc -> uop: 12 UOP/cycle
+    decode -> uop: 8 UOP/cycle
+
+    # Source: Intel
+    # "ALLOCATE / RENAME / MOVE ELIMINATION / ZERO IDIOM 8-WIDE"
+    rename: 8-way Rename {
+      Move Elimination
+      Zero Idiom
+    }
+    uop -> rename
+  }
+
+  backend: Backend {
+    rob: ROB
+
+    rf: Register File {
+      irf: Integer Register File
+
+      flagsrf: Flags Register File
+
+      vrf: FP/Vector Register File
+    }
+
+    sched1: Integer Scheduler
+
+    # Source: Intel
+    pipe1: Port 0 {
+      grid-columns: 1
+      ALU
+      JMP
+    }
+    rob -> sched1 -> rf -> pipe1
+
+    # Source: Intel
+    pipe2: Port 1 {
+      grid-columns: 1
+      ALU
+      SHIFT
+      MUL
+    }
+    rob -> sched1 -> rf -> pipe2
+
+    # Source: Intel
+    pipe3: Port 2 {
+      grid-columns: 1
+      ALU
+      JMP
+    }
+    rob -> sched1 -> rf -> pipe3
+
+    # Source: Intel
+    pipe4: Port 3 {
+      grid-columns: 1
+      ALU
+      SHIFT
+      MUL
+    }
+    rob -> sched1 -> rf -> pipe4
+
+    # Source: Intel
+    pipe5: Port 4 {
+      grid-columns: 1
+      ALU
+      JMP
+    }
+    rob -> sched1 -> rf -> pipe5
+
+    # Source: Intel
+    pipe6: Port 5 {
+      grid-columns: 1
+      ALU
+      SHIFT
+      MUL
+    }
+    rob -> sched1 -> rf -> pipe6
+
+    sched2: Memory Scheduler
+
+    # Source: Intel
+    pipe7: Port 20 {
+      Load AGU
+    }
+    rob -> sched2 -> rf -> pipe7
+
+    # Source: Intel
+    pipe8: Port 25 {
+      Store AGU
+    }
+    rob -> sched2 -> rf -> pipe8
+
+    # Source: Intel
+    pipe9: Port 21 {
+      Load AGU
+    }
+    rob -> sched2 -> rf -> pipe9
+
+    # Source: Intel
+    pipe10: Port 26 {
+      Store AGU
+    }
+    rob -> sched2 -> rf -> pipe10
+
+    # Source: Intel
+    pipe11: Port 22 {
+      Load AGU
+    }
+    rob -> sched2 -> rf -> pipe11
+
+    # Source: Intel
+    pipe12: Port 27 {
+      Store AGU
+    }
+    rob -> sched3 -> rf -> pipe12
+
+    sched3: Store Data Scheduler
+
+    # Source: Intel
+    pipe13: Port 10 {
+      Store Data
+    }
+    rob -> sched3 -> rf -> pipe13
+
+    # Source: Intel
+    pipe14: Port 11 {
+      Store Data
+    }
+    rob -> sched3 -> rf -> pipe14
+
+    lsu: LSU {
+      lq: Load Queue
+      sq: Store Queue
+    }
+
+    pipe7 -> lsu
+    pipe8 -> lsu
+    pipe9 -> lsu
+    pipe10 -> lsu
+    pipe11 -> lsu
+    pipe12 -> lsu
+    pipe13 -> lsu
+    pipe14 -> lsu
+
+    sched4: Vector Scheduler
+
+    # Source: Intel
+    pipe15: Port V0 {
+      grid-columns: 1
+      FMA
+      ALU
+      SHIFT
+    }
+    rob -> sched4 -> rf -> pipe15
+
+    # Source: Intel
+    pipe16: Port V2 {
+      grid-columns: 1
+      FADD
+      ALU
+      SHUF
+      FPDIV
+    }
+    rob -> sched4 -> rf -> pipe16
+
+    # Source: Intel
+    pipe17: Port V1 {
+      grid-columns: 1
+      FMA
+      ALU
+      SHIFT
+    }
+    rob -> sched4 -> rf -> pipe17
+
+    # Source: Intel
+    pipe18: Port V3 {
+      grid-columns: 1
+      FADD
+      ALU
+      SHUF
+      FPDIV
+    }
+    rob -> sched4 -> rf -> pipe18
+  }
+  frontend.rename -> backend.rob
+
+  mem: Memory {
+    l0: L0 DC {
+      l1dtlb: L1 DTLB
+
+      # Source: Intel
+      l0dc: 48KB L0 DC
+    }
+
+    l1: L1 DC {
+      # Source: Intel
+      192KB L1 DC
+    }
+
+    l0 -> l1
+
+    l2: L2 Cache {
+      # Source: Intel
+      l2dc: up to 3MB L2 Cache
+    }
+
+    l1 -> l2
+  }
+  frontend.l1ic -> mem.l2
+  backend.lsu -> mem.l0
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from Intel
+  |
+}
