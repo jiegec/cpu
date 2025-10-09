@@ -36,6 +36,7 @@ nav:
       - Intel Meteor Lake E-core (Crestmont): crestmont.md
       - Intel Lunar Lake P-core (Lion Cove): lion_cove.md
       - Intel Lunar Lake E-core (Skymont): skymont.md
+      - Intel Panther Lake E-core (Darkmont): darkmont.md
   - LoongArch64:
       - Loongson 3A6000: 3a6000.md
   - RISC-V64:

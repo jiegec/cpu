@@ -1,0 +1,376 @@
+cpu : Intel Panther Lake E-core Darkmont CPU {
+  frontend: Frontend {
+    bp: Branch Predictor {
+    }
+
+    l1ic: L1 IC {
+      # Source: Intel
+      l1ic: 64K L1 IC
+    }
+
+    # Source: Intel
+    fq: 3x Fetch Queue
+    bp -> fq
+    fq -> l1ic
+
+    iq1: Instruction Queue \#1
+    l1ic -> iq1
+
+    # Source: Intel
+    decode1: 3-way Decode \#1
+    iq1 -> decode1
+
+    # Source: Intel
+    # "96 entries uOp queue in total"
+    uop1: 32-entry UOP Queue \#1
+    decode1 -> uop1
+
+    iq2: Instruction Queue \#2
+    l1ic -> iq2
+
+    # Source: Intel
+    decode2: 3-way Decode \#2
+    iq2 -> decode2
+
+    # Source: Intel
+    uop2: 32-entry UOP Queue \#2
+    decode2 -> uop2
+
+    # Source: Intel
+    iq3: Instruction Queue \#3
+    l1ic -> iq3
+
+    # Source: Intel
+    decode3: 3-way Decode \#3
+    iq3 -> decode3
+
+    # Source: Intel
+    uop3: 32-entry UOP Queue \#3
+    decode3 -> uop3
+
+    # Source: Intel
+    rename: 8-way Rename {
+    }
+    uop1 -> rename
+    uop2 -> rename
+    uop3 -> rename
+  }
+
+  backend: Backend  {
+    # Source: Intel
+    # "ROB window: 416 entries"
+    rob: 416-entry ROB
+
+    rf: Register File {
+      irf: Integer Register File
+
+      vrf: Vector Register File
+    }
+
+    sched1: Scheduler \#1
+
+    # Source: Intel
+    pipe1: Port 1 {
+      grid-columns: 1
+      ALU
+      SHIFT
+      MUL
+      DIV
+    }
+    rob -> sched1 -> rf -> pipe1
+
+    sched2: Scheduler \#2
+
+    # Source: Intel
+    pipe2: Port 5 {
+      grid-columns: 1
+      ALU
+    }
+    rob -> sched2 -> rf -> pipe2
+
+    sched3: Scheduler \#3
+
+    # Source: Intel
+    pipe3: Port 2 {
+      grid-columns: 1
+      ALU
+      SHIFT
+      MUL
+      DIV
+    }
+    rob -> sched3 -> rf -> pipe3
+
+    sched4: Scheduler \#4
+
+    # Source: Intel
+    pipe4: Port 6 {
+      grid-columns: 1
+      ALU
+    }
+    rob -> sched4 -> rf -> pipe4
+
+    sched5: Scheduler \#5
+
+    # Source: Intel
+    pipe5: Port 0 {
+      grid-columns: 1
+      ALU
+      SHIFT
+    }
+    rob -> sched5 -> rf -> pipe5
+
+    sched6: Scheduler \#6
+
+    # Source: Intel
+    pipe6: Port 4 {
+      grid-columns: 1
+      ALU
+    }
+    rob -> sched6 -> rf -> pipe6
+
+    sched7: Scheduler \#7
+
+    # Source: Intel
+    pipe7: Port 3 {
+      grid-columns: 1
+      ALU
+      SHIFT
+    }
+    rob -> sched7 -> rf -> pipe7
+
+    sched8: Scheduler \#8
+
+    # Source: Intel
+    pipe8: Port 7 {
+      grid-columns: 1
+      ALU
+    }
+    rob -> sched8 -> rf -> pipe8
+
+    sched9: Scheduler \#9
+
+    # Source: Intel
+    pipe9: Port 30 {
+      grid-columns: 1
+      JMP
+    }
+    rob -> sched9 -> rf -> pipe9
+
+    sched10: Scheduler \#10
+
+    # Source: Intel
+    pipe10: Port 31 {
+      grid-columns: 1
+      JMP
+    }
+    rob -> sched10 -> rf -> pipe10
+
+    sched11: Scheduler \#11
+
+    # Source: Intel
+    pipe11: Port 32 {
+      grid-columns: 1
+      JMP
+    }
+    rob -> sched11 -> rf -> pipe11
+
+    sched12: Scheduler \#12
+
+    # Source: Intel
+    pipe12: Port 8 {
+      grid-columns: 1
+      STD
+    }
+    rob -> sched12 -> rf -> pipe12
+
+    sched13: Scheduler \#13
+
+    # Source: Intel
+    pipe13: Port 9 {
+      grid-columns: 1
+      STD
+    }
+    rob -> sched13 -> rf -> pipe13
+
+    sched14: Scheduler \#14
+
+    # Source: Intel
+    pipe14: Port 10 {
+      grid-columns: 1
+      LD AGU
+    }
+    rob -> sched14 -> rf -> pipe14
+
+    sched15: Scheduler \#15
+
+    # Source: Intel
+    pipe15: Port 11 {
+      grid-columns: 1
+      LD AGU
+    }
+    rob -> sched15 -> rf -> pipe15
+
+    sched16: Scheduler \#16
+
+    # Source: Intel
+    pipe16: Port 12 {
+      grid-columns: 1
+      LD AGU
+    }
+    rob -> sched16 -> rf -> pipe16
+
+    sched17: Scheduler \#17
+
+    # Source: Intel
+    pipe17: Port 13 {
+      grid-columns: 1
+      ST AGU
+    }
+    rob -> sched17 -> rf -> pipe17
+
+    sched18: Scheduler \#18
+
+    # Source: Intel
+    pipe18: Port 14 {
+      grid-columns: 1
+      ST AGU
+    }
+    rob -> sched18 -> rf -> pipe18
+
+    sched19: Scheduler \#19
+
+    # Source: Intel
+    pipe19: Port 15 {
+      grid-columns: 1
+      ST AGU
+    }
+    rob -> sched19 -> rf -> pipe19
+
+    sched20: Scheduler \#20
+
+    # Source: Intel
+    pipe20: Port 16 {
+      grid-columns: 1
+      ST AGU
+    }
+    rob -> sched20 -> rf -> pipe20
+
+    sched21: Scheduler \#21
+
+    # Source: Intel
+    pipe21: Port 28 {
+      grid-columns: 1
+      VEC STD
+    }
+    rob -> sched21 -> rf -> pipe21
+
+    sched22: Scheduler \#22
+
+    # Source: Intel
+    pipe22: Port 29 {
+      grid-columns: 1
+      VEC STD
+    }
+    rob -> sched22 -> rf -> pipe22
+
+    lsu: LSU {
+      Load Queue
+      Store Queue
+    }
+
+    pipe12 -> lsu
+    pipe13 -> lsu
+    pipe14 -> lsu
+    pipe15 -> lsu
+    pipe16 -> lsu
+    pipe17 -> lsu
+    pipe18 -> lsu
+    pipe19 -> lsu
+    pipe20 -> lsu
+    pipe21 -> lsu
+    pipe22 -> lsu
+
+    sched23: Scheduler \#23
+
+    # Source: Intel
+    pipe23: Port 21 {
+      grid-columns: 1
+      SALU
+      SHUF
+      SIMUL
+      FADD
+      FMA
+      CLMUL
+    }
+    rob -> sched23 -> rf -> pipe23
+
+    sched24: Scheduler \#24
+
+    # Source: Intel
+    pipe24: Port 20 {
+      grid-columns: 1
+      SALU
+      SIMUL
+      SHUF
+      FADD
+      FDIV
+      AES
+      SHA
+      FMA
+    }
+    rob -> sched24 -> rf -> pipe24
+
+    sched25: Scheduler \#25
+
+    # Source: Intel
+    pipe25: Port 22 {
+      grid-columns: 1
+      SALU
+      SIMUL
+      SHUF
+      FADD
+      FDIV
+      AES
+      FMA
+    }
+    rob -> sched25 -> rf -> pipe25
+
+    sched26: Scheduler \#26
+
+    # Source: Intel
+    pipe26: Port 23 {
+      grid-columns: 1
+      SALU
+      SHUF
+      SIMUL
+      FADD
+      FMA
+      CLMUL
+    }
+    rob -> sched26 -> rf -> pipe26
+  }
+
+  frontend.rename -> backend.rob
+
+  mem: Memory {
+    l1: L1 DC {
+      # Source: Intel
+      l1dc: 32KB L1 DC
+    }
+
+    l2: L2 {
+      # Source: Intel
+      l2dc: 4MB L2 Cache, 128B/cycle
+    }
+
+    l1 -> l2
+  }
+  frontend.l1ic -> mem.l2
+  backend.lsu -> mem.l1
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from Intel
+  |
+}
