@@ -30,5 +30,5 @@ Major microarchitectures of CPU vendors:
 	- Golden Cove + Gracemont (Alder Lake/Sapphire Rapids) -> Raptor Cove + Gracemont (Raptor Lake/Emerald Rapids)
 	- Redwood Cove + Crestmont (Meteor Lake/Granite Rapids/Sierra Forest)
 	- Lion Cove + Skymont (Lunar Lake/Arrow Lake/Clearwater Forest)
-	- Cougar Cove + Darkmont
+	- Cougar Cove + Darkmont (Panther Lake/Clearwater Forest)
 5. Qualcomm: Oryon
