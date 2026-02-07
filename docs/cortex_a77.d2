@@ -3,7 +3,7 @@ cpu : ARM Cortex-A77 CPU {
     bp: Branch Predictor {
       # Source: ARM
       # "4x larger L1-BTB (64-entry, 1-cycle latency)"
-      l1btb: 64-entry L2 BTB, 0 bubble
+      l1btb: 64-entry L1 BTB, 0 bubble
 
       # Source: ARM
       # "33% larger main BTB (8K entry, better performance for real workloads)"
