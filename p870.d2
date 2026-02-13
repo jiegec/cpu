@@ -222,8 +222,9 @@ cpu : SiFive P870 CPU {
       # Source: SiFive
       l1dc: 64KB L1DC
       l1dtlb: 64-entry L1 DTLB
-      l2tlb: 1024-entry L2 TLB
     }
+
+    l2tlb: 1024-entry L2 TLB
   }
   backend.lsu -> mem.l1
 

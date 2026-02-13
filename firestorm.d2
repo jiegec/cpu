@@ -259,9 +259,10 @@ cpu : Apple M1 Firestorm CPU {
       l1dc: 128KB 8-way L1DC
     }
 
+    # Source: Anandtech
+    l2tlb: 3072-entry L2 TLB
+
     l2: L2 {
-      # Source: Anandtech
-      l2tlb: 3072-entry L2 TLB
 
       # Source: Dougall Johnson
       l2dc: 12MB L2 Cache per 4-Core cluster

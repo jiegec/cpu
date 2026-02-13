@@ -280,13 +280,13 @@ cpu : Intel Alder Lake E-core Gracemont CPU {
       l1dc: 32KB 8-way L1DC, 4 cycle load-to-use latency
     }
 
-    l2: L2 {
-      # Source: Chips and Cheese, Intel
-      # Intel: "The main STLB is 2048 entries 4-way set associative and caches
-      # 4KB and 2MB translations. Additionally, Gracemont microarchitecture has
-      # an 8-entry fully associative structure for GB translations"
-      l2tlb: 2048-entry 4-way 4K/2M/4M page, 8-entry fully associative 1G page L2 TLB
+    # Source: Chips and Cheese, Intel
+    # Intel: "The main STLB is 2048 entries 4-way set associative and caches
+    # 4KB and 2MB translations. Additionally, Gracemont microarchitecture has
+    # an 8-entry fully associative structure for GB translations"
+    l2tlb: 2048-entry 4-way 4K/2M/4M page, 8-entry fully associative 1G page L2 TLB
 
+    l2: L2 {
       # Source: Chips and Cheese, Intel
       # Intel: "The L2 cache delivers 64 bytes of data per cycle at a latency of
       # 17 cycles, and that bandwidth is shared among four cores."
