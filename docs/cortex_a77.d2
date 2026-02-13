@@ -7,7 +7,7 @@ cpu : ARM Cortex-A77 CPU {
 
       # Source: ARM
       # "33% larger main BTB (8K entry, better performance for real workloads)"
-      l2btb: 8K-entry L2 BTB
+      l2btb: 8K-entry L2 BTB, 3 cycle latency with 2 cycle fast path
     }
 
     l1ic: L1 IC {

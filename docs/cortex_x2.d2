@@ -10,9 +10,11 @@ cpu : ARM Cortex-X2 CPU {
 
     l1ic: L1 IC {
       # Source: ARM
+      # "L1 instruction TLB Fully associative 48 entries"
       l1itlb: 48-entry fully associative L1 ITLB
 
       # Source: ARM
+      # "L1 instruction cache 64KB 4-way set associative"
       l1ic: 64KB 4-way L1 IC
     }
 
@@ -27,6 +29,8 @@ cpu : ARM Cortex-X2 CPU {
     iq -> decode
 
     # Source: ARM
+    # "Macro-operation (MOP) cache 3072 Macro-operations 4-way skewed
+    # associative"
     mopc: 3072-entry 4-way MOP Cache
     decode -> mopc
     bp -> mopc
@@ -189,17 +193,21 @@ cpu : ARM Cortex-X2 CPU {
   mem: Memory {
     l1: L1 DC {
       # Source: ARM
+      # "L1 data TLB Fully associative 48 entries"
       l1dtlb: 48-entry fully associative L1 DTLB
 
       # Source: ARM
+      # "L1 data cache 64KB 4-way set associative"
       l1dc: 64KB 4-way L1 DC
     }
 
     # Source: ARM
+    # "8-way set associative 2048 entries"
     l2tlb: 2048-entry 8-way L2 TLB
 
     l2: L2 {
       # Source: ARM
+      # "L2 cache 512KB or 1MB 8-way set associative, 4 banks"
       l2dc: 512KB/1MB 8-way 4 bank L2 Cache
     }
 
@@ -210,7 +218,12 @@ cpu : ARM Cortex-X2 CPU {
     l2 -> l3
   }
   frontend.l1ic -> mem.l2
-  backend.lsu -> mem.l1
+
+  # Source: ARM
+  # "3×64-bit read paths and 4×64-bit write paths for the integer execute
+  # pipeline 3×128-bit read paths and 2×128-bit write paths for the vector
+  # execute pipeline"
+  backend.lsu -> mem.l1: 3x16B/Cycle Read, 32B/Cycle Write
 
   info: |md
     Drawn by Jiajie Chen @jiegec
