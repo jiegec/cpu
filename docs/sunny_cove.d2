@@ -234,9 +234,10 @@ cpu : Intel Ice Lake Sunny Cove CPU {
       mshr: 12-entry MSHR
     }
 
+    # Source: Chips and Cheese, Intel
+    l2tlb: 2048-entry L2 TLB
+
     l2: L2 {
-      # Source: Chips and Cheese, Intel
-      l2tlb: 2048-entry L2 TLB
 
       # Source: Chips and Cheese
       l2dc: 512 KB 8-way/1280 KB 20-way L2 DC, 13 cycle latency

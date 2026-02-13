@@ -141,12 +141,15 @@ cpu : ARM Cortex-A75 CPU {
       # "The data micro TLB is a 48-entry fully associative TLB that is used by
       # load and store operations"
       l1dtlb: 48-entry L1 DTLB
+    }
 
-      # Source: ARM
-      # "4-way, set associative, 1024-entry cache: Stores VA to PA mappings for
-      # 4KB, 16KB, and 64KB page sizes."
-      # "2-way, set associative, 256-entry cache"
-      l2tlb: 1024-entry 4-way L2 TLB (plus 256-entry 2-way L2 TLB for 1MB+ pages)
+    # Source: ARM
+    # "4-way, set associative, 1024-entry cache: Stores VA to PA mappings for
+    # 4KB, 16KB, and 64KB page sizes."
+    # "2-way, set associative, 256-entry cache"
+    l2tlb: L2 TLB {
+      1024-entry 4-way L2 TLB for 4KB/16KB/64KB pages
+      256-entry 2-way L2 TLB for 1MB+ pages
     }
 
     # Source: Chips and Cheese
