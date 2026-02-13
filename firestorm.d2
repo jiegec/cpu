@@ -70,12 +70,14 @@ cpu : Apple M1 Firestorm CPU {
     sched1: 24-entry Scheduler \#1
 
     # Source: Dougall Johnson
+    # Source: Apple
     pipe1: Pipe \#1 {
       ALU
       FLAGS
       B/BL/ADR
       MOV NZCV
       MRS
+      ALU/f + BRc in Apple's notation
     }
     dispatch1 -> sched1 -> rf.irf -> pipe1
 
@@ -83,6 +85,7 @@ cpu : Apple M1 Firestorm CPU {
     sched2: 26-entry Scheduler \#2
 
     # Source: Dougall Johnson
+    # Source: Apple
     pipe2: Pipe \#2 {
       ALU
       FLAGS
@@ -90,6 +93,7 @@ cpu : Apple M1 Firestorm CPU {
       MOV NZCV
       PTRAUTH
       BR/BLR
+      ALU/f + BRc/i in Apple's notation
     }
     dispatch1 -> sched2 -> rf.irf -> pipe2
 
@@ -101,6 +105,7 @@ cpu : Apple M1 Firestorm CPU {
       ALU
       FLAGS
       FROM FP
+      ALU/f in Apple's notation
     }
     dispatch1 -> sched3 -> rf.irf -> pipe3
 
@@ -114,6 +119,7 @@ cpu : Apple M1 Firestorm CPU {
     pipe4: Pipe \#4 {
       ALU
       FROM FP
+      ALU in Apple's notation
     }
     dispatch2 -> sched4 -> rf.irf -> pipe4
 
@@ -125,6 +131,7 @@ cpu : Apple M1 Firestorm CPU {
       ALU
       MUL
       DIV
+      ALU + MUL + DIV in Apple's notation
     }
     dispatch2 -> sched5 -> rf.irf -> pipe5
 
@@ -138,6 +145,7 @@ cpu : Apple M1 Firestorm CPU {
       MADD
       BFM
       CRC
+      ALU + MUL + MAC + MISC in Apple's notation
     }
     dispatch2 -> sched6 -> rf.irf -> pipe6
 

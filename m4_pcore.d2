@@ -51,6 +51,7 @@ cpu : Apple M4 P-core CPU {
       BR
       FLAGS
       ADR
+      ALU/f + BRc/i in Apple's notation
     }
     dispatch1 -> sched1 -> rf.irf -> pipe1
 
@@ -60,6 +61,7 @@ cpu : Apple M4 P-core CPU {
       BR
       FLAGS
       ADR
+      ALU/f + BRc in Apple's notation
     }
     dispatch1 -> sched1 -> rf.irf -> pipe2
 
@@ -68,6 +70,7 @@ cpu : Apple M4 P-core CPU {
       ALU
       FLAGS
       ADR
+      ALU/f in Apple's notation
     }
     dispatch1 -> sched1 -> rf.irf -> pipe3
 
@@ -76,6 +79,7 @@ cpu : Apple M4 P-core CPU {
       ALU
       FLAGS
       ADR
+      ALU/f + PRED/f in Apple's notation
     }
     dispatch1 -> sched1 -> rf.irf -> pipe4
 
@@ -89,6 +93,8 @@ cpu : Apple M4 P-core CPU {
     pipe5: Pipe \#5 {
       ALU
       ADR
+      MUL
+      ALU + MUL in Apple's notation
     }
     dispatch2 -> sched2 -> rf.irf -> pipe5
 
@@ -98,6 +104,8 @@ cpu : Apple M4 P-core CPU {
     # Source: Geekerwan
     pipe6: Pipe \#6 {
       ALU
+      MUL
+      ALU + MUL in Apple's notation
     }
     dispatch2 -> sched3 -> rf.irf -> pipe6
 
@@ -107,8 +115,8 @@ cpu : Apple M4 P-core CPU {
     # Source: Geekerwan
     pipe7: Pipe \#7 {
       ALU
-      MUL
       DIV
+      ALU + DIV in Apple's notation
     }
     dispatch2 -> sched4 -> rf.irf -> pipe7
 
@@ -120,7 +128,7 @@ cpu : Apple M4 P-core CPU {
       ALU
       MUL
       BFM
-      MADD
+      ALU + MUL + MISC in Apple's notation
     }
     dispatch2 -> sched5 -> rf.irf -> pipe8
 
