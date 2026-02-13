@@ -1,0 +1,165 @@
+cpu : ARM Cortex-A73 CPU {
+  frontend: Frontend {
+    bp: Branch Predictor {
+      # Source: Chips and Cheese
+      l0btb: ~48-entry L0 BTB
+
+      # Source: Chips and Cheese
+      l1btb: 3072-entry L1 BTB
+
+      # Source: Chips and Cheese
+      ita: 256-entry Indirect Target Array
+
+      # Source: Chips and Cheese
+      l1ras: 16-entry L1 Return Stack
+
+      # Source: Chips and Cheese
+      l2ras: 47-entry L2 Return Stack
+    }
+
+    l1ic: L1 IC {
+      # Source: Chips and Cheese
+      l1ic: 64KB 4-way L1 IC
+
+      # Source: Chips and Cheese
+      mshrs: 4-entry MSHRs
+
+      # Source: Chips and Cheese
+      l1itlb: 32-entry Micro TLB
+    }
+
+    bp -> l1ic
+
+    # Source: Chips and Cheese
+    decode: 2-way Decode
+    l1ic -> decode: 8 Bytes/Cycle
+  }
+
+  backend: Backend {
+    # Source: Chips and Cheese
+    icu: 8 "Slots" Instruction Control
+
+    rf: Register File {
+      # Source: Chips and Cheese
+      irf: Integer Register File
+
+      # Source: Chips and Cheese
+      frf: FP/NEON Register File
+    }
+
+    # Source: Chips and Cheese
+    sched1: Scheduler \#1 {
+      6-entry
+    }
+
+    # Source: Chips and Cheese
+    pipe1: Pipe \#1 {
+      ALU
+    }
+    icu -> sched1 -> rf -> pipe1
+
+    # Source: Chips and Cheese
+    sched2: Scheduler \#2 {
+      6-entry
+    }
+
+    # Source: Chips and Cheese
+    pipe2: Pipe \#2 {
+      ALU
+      INT MUL
+    }
+    icu -> sched2 -> rf -> pipe2
+
+    # Source: Chips and Cheese
+    sched3: Scheduler \#3 {
+      14-entry
+    }
+
+    # Source: Chips and Cheese
+    pipe3: Pipe \#3 {
+      Branch
+    }
+    icu -> sched3 -> rf -> pipe3
+
+    # Source: Chips and Cheese
+    sched4: Scheduler \#4 {
+      14-entry
+    }
+
+    # Source: Chips and Cheese
+    pipe4: Pipe \#4 {
+      AGU
+    }
+    icu -> sched4 -> rf -> pipe4
+
+    # Source: Chips and Cheese
+    pipe5: Pipe \#5 {
+      AGU
+    }
+    icu -> sched4 -> rf -> pipe5
+
+    # Source: Chips and Cheese
+    sched5: Scheduler \#5 {
+      13-entry
+    }
+
+    # Source: Chips and Cheese
+    pipe6: Pipe \#6 {
+      FMA
+      128b ALU
+      AES
+    }
+    icu -> sched5 -> rf -> pipe6
+
+    # Source: Chips and Cheese
+    sched6: Scheduler \#6 {
+      9-entry
+    }
+
+    # Source: Chips and Cheese
+    pipe7: Pipe \#7 {
+      FMA
+      128b ALU
+      128-bit Vec FP
+    }
+    icu -> sched6 -> rf -> pipe7
+
+    lsu: LSU {
+      # Source: Chips and Cheese
+      Store Buffer
+    }
+
+    pipe4 -> lsu
+    pipe5 -> lsu
+  }
+  frontend.decode -> backend.icu
+
+  mem: Memory {
+    l1: L1 DC {
+      # Source: Chips and Cheese
+      l1dc: 32KB 4-way L1DC
+      l1dtlb: 48-entry Micro TLB
+      mshrs: 8-entry MSHRs
+    }
+
+    l2tlb: L2 TLB {
+      # Source: Chips and Cheese
+      l2tlb: 1024-entry 4-way L2 TLB
+
+      # Source: Chips and Cheese
+      walkcache: 128-entry Walk Cache
+    }
+
+    # Source: Chips and Cheese
+    l2: L2 DC
+    l2: Shared L2 Cache 1MB 16-way
+    l1 -> l2: 16 Bytes/Cycle Read, 32 Bytes/Cycle Write
+  }
+  backend.lsu -> mem.l1: 2x8B/Cycle Read, 8B/Cycle Write
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from Chips and Cheese
+  |
+}
