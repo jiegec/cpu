@@ -15,10 +15,15 @@ cpu : ARM Cortex-X1 CPU {
     l1ic: L1 IC {
       # Source: JamesAslan
       # Source: ARM
+      # "The instruction L1 TLB is implemented as a 48-entry fully associative
+      # structure."
       l1itlb: 48-entry fully-associative L1 ITLB
 
       # Source: ARM
-      l1ic: 4-way 64KB L1 IC
+      # "The L1 memory system consists of separate instruction and data caches.
+      # Both have a fixed size of 64KB."
+      # "4-way set-associative L1 instruction cache"
+      l1ic: 64KB 4-way L1 IC
     }
 
     fq: Fetch Queue
@@ -211,28 +216,46 @@ cpu : ARM Cortex-X1 CPU {
   mem: Memory {
     l1: L1 DC {
       # Source: ARM
+      # "The data L1 TLB is a 40-entry fully associative TLB that is used by
+      # load and store operations."
       l1dtlb: 40-entry fully associative L1 DTLB
 
       # Source: ARM
-      l1dc: 64KB L1 DC
+      # "The L1 memory system consists of separate instruction and data caches.
+      # Both have a fixed size of 64KB."
+      # "4-way set-associative L1 data cache"
+      l1dc: 64KB 4-way L1 DC
     }
 
     # Source: ARM
+    # "8-way, set associative, 2048-entry cache"
     l2tlb: 2048-entry 8-way associative 4-bank L2 TLB
 
     l2: L2 {
       # Source: ARM
+      # "An 8-way set associative L2 cache with a configurable size of 512KB or
+      # 1MB."
       512KB/1MB 8-way L2 Cache
     }
 
-    l1 -> l2
+    # Source: ARM
+    # "512-bit write interface from the L2 memory system 512-bit read interface
+    # from the L2 memory system"
+    l1 -> l2: 64B/Cycle Read, 64B/Cycle Write
 
     l3: L3 {
     }
     l2 -> l3
   }
-  frontend.l1ic -> mem.l2
-  backend.lsu -> mem.l1
+
+  # Source: ARM
+  # "256-bit read interface from the L2 memory system"
+  frontend.l1ic -> mem.l2: 32B/Cycle Read
+
+  # Source: ARM
+  # "Three 128-bit read paths from the data L1 memory system to the datapath
+  # 256-bit write path from the datapath to the L1 memory system"
+  backend.lsu -> mem.l1: 3x16B/Cycle Read, 32B/Cycle Write
 
   info: |md
     Drawn by Jiajie Chen @jiegec
