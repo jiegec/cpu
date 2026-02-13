@@ -6,7 +6,13 @@ cpu : Apple M4 P-core CPU {
     # Coupled Frontend
     l1ic: L1 IC {
       # Source: Geekerwan
-      l1ic: 192KB L1 IC
+      # Source: Apple
+      # "192KiB, 6-way, 64B lines"
+      l1ic: 192KB 6-way L1 IC
+
+      # Source: Apple
+      # "192 entries (3MiB)"
+      l1itlb: 192-entry L1 ITLB
     }
 
     bp -> l1ic
