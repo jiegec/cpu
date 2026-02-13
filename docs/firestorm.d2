@@ -273,9 +273,10 @@ cpu : Apple M1 Firestorm CPU {
     l2tlb: 3072-entry L2 TLB
 
     l2: L2 {
-
       # Source: Dougall Johnson
-      l2dc: 12MB L2 Cache per 4-Core cluster
+      # Source: Apple
+      # "12MiB, 12-way, 128B lines"
+      l2dc: 12MB 12-way L2 Cache per 4-Core cluster
     }
     l1 -> l2
   }

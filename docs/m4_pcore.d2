@@ -233,6 +233,13 @@ cpu : Apple M4 P-core CPU {
       # "160 entries (2.5MiB)"
       l1dtlb: 160-entry L1 DTLB
     }
+
+    l2: L2 {
+      # Source: Apple
+      # "16MiB, 16-way, 128B lines"
+      l2dc: 16MB 16-way L2 Cache
+    }
+    l1 -> l2
   }
   backend.lsu -> mem.l1
 
