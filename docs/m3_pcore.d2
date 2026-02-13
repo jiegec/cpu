@@ -220,7 +220,13 @@ cpu : Apple M3 P-core CPU {
   mem: Memory {
     l1: L1 DC {
       # Source: Geekerwan
-      l1dc: 128KB L1DC
+      # Source: Apple
+      # "128KiB, 8-way, 64B lines"
+      l1dc: 128KB 8-way L1DC
+
+      # Source: Apple
+      # "160 entries (2.5MiB)"
+      l1dtlb: 160-entry L1 DTLB
     }
   }
   backend.lsu -> mem.l1
