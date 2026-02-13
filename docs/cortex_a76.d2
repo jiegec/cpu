@@ -1,0 +1,127 @@
+cpu : ARM Cortex-A76 CPU {
+  frontend: Frontend {
+    bp: Branch Predictor {
+      # Source: Jiajie CHen
+      nbtb: 16-entry Nano BTB, 1 cycle latency
+      ubtb: 64-entry Micro BTB, 2 cycle latency
+      mbtb: 6K-entry Main BTB, 3 cycle latency with 2 cycle fast path
+    }
+
+    l1ic: L1 IC {
+      # Source: ARM
+      l1ic: 64KB L1 IC
+    }
+
+    bp -> l1ic
+
+    # Source: ARM
+    decode: 4-way Decode
+    l1ic -> decode
+  }
+
+  backend: Backend {
+    rob: ROB
+
+    rf: Register File {
+      irf: Integer Register File
+
+      frf: FP/ASIMD Register File
+    }
+
+    # Source: ARM
+    sched1: Scheduler \#1
+
+    # Source: ARM
+    pipe1: Pipe \#1 {
+      Branch
+    }
+    rob -> sched1 -> rf -> pipe1
+
+    # Source: ARM
+    sched2: Scheduler \#2
+
+    # Source: ARM
+    pipe2: Pipe \#2 {
+      ALU
+    }
+    rob -> sched2 -> rf -> pipe2
+
+    # Source: ARM
+    pipe3: Pipe \#3 {
+      ALU
+    }
+    rob -> sched2 -> rf -> pipe3
+
+    # Source: ARM
+    pipe4: Pipe \#4 {
+      ALU
+      MAC
+      DIV
+    }
+    rob -> sched2 -> rf -> pipe4
+
+    # Source: ARM
+    sched3: Scheduler \#3
+
+    # Source: ARM
+    pipe5: Pipe \#5 {
+      FMUL
+      FADD
+      FDIV
+      ALU
+      IMAC
+    }
+    rob -> sched3 -> rf -> pipe5
+
+    # Source: ARM
+    pipe6: Pipe \#6 {
+      FMUL
+      FADD
+      ALU
+    }
+    rob -> sched3 -> rf -> pipe6
+
+    # Source: ARM
+    sched4: Scheduler \#4
+
+    # Source: ARM
+    pipe7: Pipe \#7 {
+      AGU
+    }
+    rob -> sched4 -> rf -> pipe7
+
+    # Source: ARM
+    pipe8: Pipe \#8 {
+      AGU
+    }
+    rob -> sched4 -> rf -> pipe8
+
+    lsu: LSU {
+      # Source: ARM
+      loadq: Load Queue
+      storeq: Store Queue
+    }
+
+    pipe7 -> lsu
+    pipe8 -> lsu
+  }
+  frontend.decode -> backend.rob
+
+  mem: Memory {
+    l1: L1 DC {
+      # Source: ARM
+      l1dc: 64KB L1DC
+    }
+
+    # Source: ARM
+    l2: 256KB/512KB L2 Cache
+    l1 -> l2
+  }
+  backend.lsu -> mem.l1
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from ARM
+  |
+}

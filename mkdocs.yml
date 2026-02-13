@@ -9,6 +9,7 @@ nav:
   - AArch64:
       - ARM Cortex-A73: cortex_a73.md
       - ARM Cortex-A75: cortex_a75.md
+      - ARM Cortex-A76: cortex_a76.md
       - ARM Cortex-A77: cortex_a77.md
       - ARM Cortex-X1: cortex_x1.md
       - ARM Cortex-X2: cortex_x2.md
