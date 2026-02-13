@@ -9,7 +9,15 @@ cpu : ARM Cortex-A76 CPU {
 
     l1ic: L1 IC {
       # Source: ARM
-      l1ic: 64KB L1 IC
+      # "The L1 memory system consists of separate instruction and data caches.
+      # Both have a fixed size of 64KB."
+      # "4-way set-associative L1 instruction cache"
+      l1ic: 64KB 4-way L1 IC
+
+      # Source: ARM
+      # "The instruction L1 TLB is implemented as a 48-entry fully associative
+      # structure."
+      l1itlb: 48-entry L1 ITLB
     }
 
     bp -> l1ic
@@ -110,14 +118,39 @@ cpu : ARM Cortex-A76 CPU {
   mem: Memory {
     l1: L1 DC {
       # Source: ARM
-      l1dc: 64KB L1DC
+      # "The L1 memory system consists of separate instruction and data caches.
+      # Both have a fixed size of 64KB."
+      # "4-way set-associative L1 data cache"
+      l1dc: 64KB 4-way L1DC
+
+      # Source: ARM
+      # "The data L1 TLB is a 48-entry fully associative TLB"
+      l1dtlb: 48-entry L1 DTLB
     }
 
     # Source: ARM
-    l2: 256KB/512KB L2 Cache
-    l1 -> l2
+    # "5-way, set associative, 1280-entry cache"
+    l2tlb: 128-entry 5-way L2 TLB
+
+    # Source: ARM
+    # "An 8-way set associative L2 cache with a configurable size of 128KB,
+    # 256KB or 512KB."
+    l2: 128KB/256KB/512KB 8-way L2 Cache
+
+    # Source: ARM
+    # "256-bit write interface from the L2 memory system. 256-bit read interface
+    # from the L2 memory system."
+    l1 -> l2: 32B/Cycle Read, 32B/Cycle Write
   }
-  backend.lsu -> mem.l1
+
+  # Source: ARM
+  # "Two 128-bit read paths from the data L1 memory system to the datapath.
+  # 256-bit write path from the datapath to the L1 memory system."
+  backend.lsu -> mem.l1: 2x16B/Cycle Read, 32B/Cycle Write
+
+  # Source: ARM
+  # "256-bit read interface from the L2 memory system."
+  frontend.l1ic -> mem.l2: 32B/Cycle Read
 
   info: |md
     Drawn by Jiajie Chen @jiegec
