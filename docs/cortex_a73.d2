@@ -19,12 +19,18 @@ cpu : ARM Cortex-A73 CPU {
 
     l1ic: L1 IC {
       # Source: Chips and Cheese
+      # Source: ARM
+      # "The size of the instruction cache is 64KB."
+      # "Virtually Indexed, Physically Tagged (VIPT), four-way set-associative
+      # instruction cache."
       l1ic: 64KB 4-way L1 IC
 
       # Source: Chips and Cheese
       mshrs: 4-entry MSHRs
 
       # Source: Chips and Cheese
+      # Source: ARM
+      # "32 entries fully-associative instruction micro TLB."
       l1itlb: 32-entry Micro TLB
     }
 
@@ -137,25 +143,47 @@ cpu : ARM Cortex-A73 CPU {
   mem: Memory {
     l1: L1 DC {
       # Source: Chips and Cheese
-      l1dc: 32KB 4-way L1DC
+      # Source: ARM
+      # "The size of the data cache is configurable to either 32KB or 64KB."
+      # "VIPT, four-way set associative L1 data cache."
+      l1dc: 32KB/64KB 4-way L1DC
+
+      # Source: ARM
+      # "48 entries fully-associative data micro TLB."
       l1dtlb: 48-entry Micro TLB
       mshrs: 8-entry MSHRs
     }
 
     l2tlb: L2 TLB {
       # Source: Chips and Cheese
-      l2tlb: 1024-entry 4-way L2 TLB
+      # Source: ARM
+      # "A main TLB consisting of two cache RAMs, one with 1024 entries and the
+      # other with 128 entries."
+      l2tlb: 1024-entry 4-way L2 TLB (plus 128-entry 2-way L2 TLB for 1MB+ pages)
 
       # Source: Chips and Cheese
       walkcache: 128-entry Walk Cache
     }
 
     # Source: Chips and Cheese
-    l2: L2 DC
-    l2: Shared L2 Cache 1MB 16-way
-    l1 -> l2: 16 Bytes/Cycle Read, 32 Bytes/Cycle Write
+    # Source: ARM
+    # "A configurable size of 256KB, 512KB, 1MB, 2MB, 4MB, or 8MB. A 16-way,
+    # set-associative structure."
+    l2: L2 Cache 256KB-8MB 16-way
+
+    # Source: ARM
+    # "256-bit write interface to the L2 memory system. 128-bit read interface
+    # from the L2 memory system."
+    l1 -> l2: 16B/Cycle Read, 32B/Cycle Write
   }
+  # Source: ARM
+  # "Two 64-bit read paths from the data L1 memory system to the datapath.
+  # 64-bit write path from the datapath to the L1 memory system."
   backend.lsu -> mem.l1: 2x8B/Cycle Read, 8B/Cycle Write
+
+  # Source: ARM
+  # "128-bit read interface from the L2 memory system."
+  frontend.l1ic -> mem.l2: 16B/Cycle Read
 
   info: |md
     Drawn by Jiajie Chen @jiegec

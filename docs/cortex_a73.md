@@ -8,3 +8,4 @@ References:
 - [Arm's Cortex A73: Resource Limits, What are Those?](https://chipsandcheese.com/p/arms-cortex-a73-resource-limits-what-are-those)
 - [Cortex A73's Not-So-Infinite Reordering Capacity](https://chipsandcheese.com/p/cortex-a73s-not-so-infinite-reordering-capacity)
 - [The Cortex-A73, a CPU that won't overheat - Gary explains](https://www.androidauthority.com/arm-cortex-a73-gary-explains-694455/)
+- [Arm Cortex-A73 MPCore Processor Technical Reference Manual](https://developer.arm.com/documentation/100048/0100)
