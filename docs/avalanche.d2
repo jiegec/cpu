@@ -59,6 +59,7 @@ cpu : Apple M2 Avalanche CPU {
       BR
       FLAGS
       ADR
+      ALU/f + BRc in Apple's notation
     }
     dispatch1 -> sched1 -> rf.irf -> pipe1
 
@@ -71,6 +72,7 @@ cpu : Apple M2 Avalanche CPU {
       BR
       FLAGS
       ADR
+      ALU/f + BRc/i in Apple's notation
     }
     dispatch1 -> sched2 -> rf.irf -> pipe2
 
@@ -81,6 +83,7 @@ cpu : Apple M2 Avalanche CPU {
     pipe3: Pipe \#3 {
       ALU
       FLAGS
+      ALU/f in Apple's notation
     }
     dispatch1 -> sched3 -> rf.irf -> pipe3
 
@@ -93,6 +96,7 @@ cpu : Apple M2 Avalanche CPU {
     # Source: Geekerwan
     pipe4: Pipe \#4 {
       ALU
+      ALU in Apple's notation
     }
     dispatch2 -> sched4 -> rf.irf -> pipe4
 
@@ -104,6 +108,7 @@ cpu : Apple M2 Avalanche CPU {
       ALU
       MUL
       DIV
+      ALU + MUL + DIV in Apple's notation
     }
     dispatch2 -> sched5 -> rf.irf -> pipe5
 
@@ -116,6 +121,7 @@ cpu : Apple M2 Avalanche CPU {
       MUL
       BFM
       MADD
+      ALU + MUL + MAC + MISC in Apple's notation
     }
     dispatch2 -> sched6 -> rf.irf -> pipe6
 
