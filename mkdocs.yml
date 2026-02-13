@@ -7,6 +7,7 @@ nav:
   - Comparisons across microarchitectures: comparison.md
   - Reverse engineered conditional branch predictors: cbp.md
   - AArch64:
+      - ARM Cortex-A73: cortex_a73.md
       - ARM Cortex-A75: cortex_a75.md
       - ARM Cortex-A77: cortex_a77.md
       - ARM Cortex-X1: cortex_x1.md
