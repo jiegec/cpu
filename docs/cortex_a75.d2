@@ -13,6 +13,10 @@ cpu : ARM Cortex-A75 CPU {
 
     l1ic: L1 IC {
       # Source: Chips and Cheese
+      # Source: ARM
+      # "The L1 memory system consists of separate instruction and data caches.
+      # Both have a fixed size of 64KB."
+      # "four-way set-associative instruction cache."
       l1ic: 64KB 4-way L1 IC
 
       # Source: Chips and Cheese
@@ -124,20 +128,39 @@ cpu : ARM Cortex-A75 CPU {
   mem: Memory {
     l1: L1 DC {
       # Source: Chips and Cheese
-      l1dc: 64KB 4-way L1DC
+      # Source: ARM
+      # "The L1 memory system consists of separate instruction and data caches.
+      # Both have a fixed size of 64KB."
+      # "16-way set-associative L1 data cache."
+      l1dc: 64KB 16-way L1DC
+
       l1dtlb: 48-entry L1 DTLB
       l2tlb: 1024-entry 4-way L2 TLB
     }
 
     # Source: Chips and Cheese
-    l2: L2 DC
-    l1 -> l2
+    # Source: ARM
+    # "An 8-way set associative L2 cache with a configurable size of 256KB or
+    # 512KB. Cache lines have a fixed length of 64 bytes."
+    l2: 256KB/512KB 8-way L2 DC
+    
+    # Source: ARM
+    # "256-bit write interface to the L2 memory system. 128-bit read interface
+    # from the L2 memory system."
+    l1 -> l2: 16B/Cycle Read, 32B/Cycle Write
   }
-  backend.lsu -> mem.l1
+  # Source: ARM
+  # "Two 64-bit read paths from the data L1 memory system to the datapath.
+  # 128-bit write path from the datapath to the L1 memory system."
+  backend.lsu -> mem.l1: 2x8B/Cycle Read, 16B/Cycle Write
+
+  # Source: ARM
+  # "128-bit read interface from the L2 memory system."
+  frontend.l1ic -> mem.l2: 16B/Cycle Read
 
   info: |md
     Drawn by Jiajie Chen @jiegec
 
-    Based on data from Chips and Cheese
+    Based on data from ARM, Chips and Cheese
   |
 }
