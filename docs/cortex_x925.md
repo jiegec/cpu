@@ -8,3 +8,4 @@ References:
 - [Arm® Cortex-X925 Core Technical Reference Manual](https://developer.arm.com/documentation/102807/0002)
 - [Arm® Cortex-X925 Core Software Optimization Guide](https://developer.arm.com/documentation/109842/latest/)
 - [Cortex X925 微架构评测：路在何方](https://zhuanlan.zhihu.com/p/945571328)
+- [Arm's Cortex X925: Reaching Desktop Performance](https://chipsandcheese.com/p/arms-cortex-x925-reaching-desktop)
