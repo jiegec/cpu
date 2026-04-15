@@ -70,6 +70,11 @@ plugins:
       cards_layout_options:
         font_family: Noto Sans SC
   - macros
+  - llmstxt:
+      sections:
+        CPU:
+        - "*.md"
+
 markdown_extensions:
   - pymdownx.superfences:
       custom_fences:
