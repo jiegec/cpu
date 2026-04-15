@@ -82,6 +82,9 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
 extra:
+  social:
+    - icon: fontawesome/solid/robot
+      link: /cpu/llms.txt
   analytics:
     provider: custom
 copyright: Copyright &copy; 2024 Jiajie Chen
