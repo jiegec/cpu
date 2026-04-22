@@ -27,6 +27,7 @@
 - [Intel Lunar Lake P-core (Lion Cove)](https://jia.je/cpu/lion_cove.md)
 - [Apple M3 P-core](https://jia.je/cpu/m3_pcore.md)
 - [Apple M4 P-core](https://jia.je/cpu/m4_pcore.md)
+- [ARM Neoverse-N2](https://jia.je/cpu/neoverse_n2.md)
 - [ARM Neoverse-V2](https://jia.je/cpu/neoverse_v2.md)
 - [Qualcomm Oryon](https://jia.je/cpu/oryon.md)
 - [SiFive P550](https://jia.je/cpu/p550.md)

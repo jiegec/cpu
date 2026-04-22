@@ -12,7 +12,7 @@ Major microarchitectures of CPU vendors:
    - [Cortex-A76](https://jia.je/cpu/cortex_a76.html)/Neoverse-N1
    - [Cortex-A77](https://jia.je/cpu/cortex_a77.html)
    - Cortex-A78/[Cortex-X1](https://jia.je/cpu/cortex_x1.html)/Neoverse-V1(based on Cortex-X1)
-   - Cortex-A510/Cortex-A710/[Cortex-X2](https://jia.je/cpu/cortex_x2.html)/Neoverse-N2(based on Cortex-A710)
+   - Cortex-A510/Cortex-A710/[Cortex-X2](https://jia.je/cpu/cortex_x2.html)/[Neoverse-N2](https://jia.je/cpu/neoverse_n2.html)(based on Cortex-A710)
    - Cortex-A715/[Cortex-X3](https://jia.je/cpu/cortex_x3.html)/[Neoverse-V2](https://jia.je/cpu/neoverse_v2.html)(based on Cortex-X3)
    - Cortex-A520/Cortex-A720/[Cortex-X4](https://jia.je/cpu/cortex_x4.html)/Neoverse-V3(based on Cortex-X4)/Neoverse-N3(based on Cortex-A720)
    - Cortex-A725/[Cortex-X925](https://jia.je/cpu/cortex_x925.html)

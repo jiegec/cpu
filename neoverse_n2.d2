@@ -1,0 +1,214 @@
+cpu : ARM Neoverse-N2 CPU {
+  frontend: Frontend {
+    bp: Branch Predictor {
+    }
+
+    l1ic: L1 IC {
+      # Source: ARM
+      # "64kB, 4-way set-associative L1 instruction cache"
+      l1ic: 64KB 4-way L1 IC
+
+      # Source: ARM
+      # "Fully associative 48 entries"
+      l1itlb: 48-entry L1 ITLB
+    }
+
+    fq: Fetch Queue
+    bp -> fq
+    fq -> l1ic
+
+    iq: Instruction Queue
+    l1ic -> iq
+
+    decode: Decode
+    iq -> decode
+
+    # Source: ARM
+    # "Macro-operation (MOP) cache 1536 macro-operations 4-way skewed associative"
+    mopc: 1536-entry 4-way skewed-associative MOP Cache
+    decode -> mopc
+    bp -> mopc
+
+    mop: MOP Queue
+
+    mopc -> mop
+    decode -> mop
+
+    rename: Rename {
+      Zero Idiom
+    }
+    mop -> rename
+  }
+
+  backend: Backend {
+    rob: ROB
+
+    rf: Register File {
+      irf: Integer Register File
+
+      flagsrf: Flags Register File
+
+      vrf: FP/Vector Register File
+    }
+
+    # Source: Chips and Cheese
+    sched1: 20-entry ALU Scheduler
+
+    # Source: Chips and Cheese
+    pipe1: Pipe \#1 {
+      Branch
+    }
+    rob -> sched1 -> rf -> pipe1
+
+    # Source: Chips and Cheese
+    pipe2: Pipe \#2 {
+      ALU
+    }
+    rob -> sched1 -> rf -> pipe2
+
+    # Source: Chips and Cheese
+    sched2: 20-entry ALU Scheduler
+
+    # Source: Chips and Cheese
+    pipe3: Pipe \#3 {
+      ALU
+    }
+    rob -> sched2 -> rf -> pipe3
+
+    # Source: Chips and Cheese
+    pipe4: Pipe \#4 {
+      Branch
+    }
+    rob -> sched2 -> rf -> pipe4
+
+    # Source: Chips and Cheese
+    sched3: 22-entry ALU Scheduler
+
+    # Source: Chips and Cheese
+    pipe5: Pipe \#5 {
+      ALU
+      MUL
+    }
+    rob -> sched3 -> rf -> pipe5
+
+    # Source: Chips and Cheese
+    sched4: 18-entry ALU Scheduler
+
+    # Source: Chips and Cheese
+    pipe6: Pipe \#6 {
+      INT MADD
+    }
+    rob -> sched4 -> rf -> pipe6
+
+    # Source: Chips and Cheese
+    sched5: 20-entry FP/Vector Scheduler
+
+    # Source: Chips and Cheese
+    pipe7: Pipe \#7 {
+      128b FP
+      128b ALU
+    }
+    rob -> sched5 -> rf -> pipe7
+
+    # Source: Chips and Cheese
+    sched6: 20-entry FP/Vector Scheduler
+
+    # Source: Chips and Cheese
+    pipe8: Pipe \#8 {
+      128b FP
+      128b ALU
+      128b MUL
+      CVT
+    }
+    rob -> sched6 -> rf -> pipe8
+
+    # Source: Chips and Cheese
+    sched7: 9-entry Load Memory Scheduler
+
+    # Source: Chips and Cheese
+    pipe9: Pipe \#9 {
+      Load AGU
+    }
+    rob -> sched7 -> rf -> pipe9
+
+    # Source: Chips and Cheese
+    sched7: 28-entry Load Memory Scheduler
+
+    # Source: Chips and Cheese
+    pipe10: Pipe \#10 {
+      AGU
+    }
+    rob -> sched7 -> rf -> pipe10
+
+    # Source: Chips and Cheese
+    pipe11: Pipe \#11 {
+      AGU
+    }
+    rob -> sched7 -> rf -> pipe11
+
+    # Source: ARM
+    pipe12: Pipe \#12 {
+      Store Data
+    }
+    rob -> sched7 -> rf -> pipe12
+
+    # Source: ARM
+    pipe13: Pipe \#13 {
+      Store Data
+    }
+    rob -> sched7 -> rf -> pipe13
+
+    lsu: LSU {
+      Load Queue
+      Store Queue
+    }
+
+    pipe9 -> lsu
+    pipe10 -> lsu
+    pipe11 -> lsu
+    pipe12 -> lsu
+    pipe13 -> lsu
+  }
+  frontend.rename -> backend.rob
+
+  mem: Memory {
+    l1: L1 DC {
+      # Source: ARM
+      # "64kB 4-way set associative Dcache"
+      l1dc: 64KB 4-way L1 DC
+
+      # Source: ARM
+      # "Fully associative 44 entries"
+      l1dtlb: 44-entry L1 DTLB
+    }
+
+    # Source: ARM
+    # "5-way set associative 1280 entries"
+    l2tlb: 1280-entry 5-way L2 TLB
+
+    l2: L2 {
+      # Source: ARM
+      # "L2 cache 512KB or 1024KB 8-way set associative, 2 banks"
+      512KB/1024KB 8-way 2 bank L2 Cache
+    }
+
+    l1 -> l2
+
+    l3: L3 {
+    }
+    l2 -> l3
+  }
+  frontend.l1ic -> mem.l2
+  
+  # Source: ARM
+  # "3×64-bit read paths and 4×64-bit write paths for the integer execute
+  # pipeline 3×128-bit read paths and 2×128-bit write paths for the vector
+  # execute pipeline"
+  backend.lsu -> mem.l1: 3x16B/Cycle Read, 32B/Cycle Write
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from ARM and Chips and Cheese
+  |
+}
