@@ -1,6 +1,12 @@
 cpu : ARM Neoverse-N2 CPU {
   frontend: Frontend {
     bp: Branch Predictor {
+      # Source: ARM
+      up to 2 taken per cycle
+      2x8 instrs per cycle
+      64-entry 0-bubble Nano BTB
+      8K-entry Main BTB
+      Alt-Path Branch Prediction
     }
 
     l1ic: L1 IC {
@@ -13,14 +19,16 @@ cpu : ARM Neoverse-N2 CPU {
       l1itlb: 48-entry L1 ITLB
     }
 
-    fq: Fetch Queue
+    # Source: ARM
+    fq: 16-entry Fetch Queue
     bp -> fq
     fq -> l1ic
 
     iq: Instruction Queue
     l1ic -> iq
 
-    decode: Decode
+    # Source: ARM
+    decode: 4-way Decode
     iq -> decode
 
     # Source: ARM
@@ -31,17 +39,21 @@ cpu : ARM Neoverse-N2 CPU {
 
     mop: MOP Queue
 
-    mopc -> mop
-    decode -> mop
+    # Source: ARM
+    mopc -> mop: 5 inst/cycle
+    # Source: ARM
+    decode -> mop: 4 inst/cycle
 
-    rename: Rename {
+    # Source: ARM
+    rename: 5-way Rename {
       Zero Idiom
     }
     mop -> rename
   }
 
   backend: Backend {
-    rob: ROB
+    # Source: ARM
+    rob: 160-entry ROB
 
     rf: Register File {
       irf: Integer Register File
@@ -198,7 +210,8 @@ cpu : ARM Neoverse-N2 CPU {
     }
     l2 -> l3
   }
-  frontend.l1ic -> mem.l2
+  # Source: ARM
+  frontend.l1ic -> mem.l2: 64B read + 64B write
   
   # Source: ARM
   # "3×64-bit read paths and 4×64-bit write paths for the integer execute
