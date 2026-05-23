@@ -35,7 +35,7 @@
 </style>
 <script>
 const BIBTEX_TITLE = {{ page.title | tojson }};
-const BIBTEX_DATE = "{{ page.meta.date if page.meta.date else '' }}";
+const BIBTEX_DATE = "{{ page.meta.date if page.meta.date else page.meta.git_revision_date_localized_raw_iso_date }}";
 const BIBTEX_URL = {{ page.canonical_url | tojson }};
 
 function generateBibtex() {
