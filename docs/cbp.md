@@ -62,6 +62,23 @@ Overview:
 - PHRB is updated upon taken branch: `PHRBnew = (PHRBold << 2) xor B[5:2]`
 - Source: [Jiajie Chen](https://github.com/jiegec)
 
+## ARM Neoverse V3
+
+- PHR: `264*2=528` bits
+- PHR is updated upon taken branch: `PHRnew = (PHRold << 2) xor footprint`
+- footprint has 10 bits:
+    - footprint[0] = B[2] xor T[7]
+    - footprint[1] = B[3] xor T[8]
+    - footprint[2] = B[4] xor T[9]
+    - footprint[3] = B[5] xor T[10]
+    - footprint[4] = B[6] xor B[12] xor T[11]
+    - footprint[5] = B[7] xor B[13] xor T[2]
+    - footprint[6] = B[8] xor B[14] xor T[3]
+    - footprint[7] = B[9] xor B[15] xor T[4]
+    - footprint[8] = B[10] xor B[16] xor T[5]
+    - footprint[9] = B[11] xor B[17] xor T[6]
+- Source: [Jiajie Chen](https://github.com/jiegec)
+
 ## ARM Neoverse V2
 
 - PHR: `264*2=528` bits
