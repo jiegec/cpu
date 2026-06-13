@@ -22,6 +22,7 @@ Overview:
 | Qualcomm Oryon     | `100*1 + 32*1 = 132` | T[31:2] | B[5:2]  | 30 + 4         |
 | Apple Firestorm    | `100*1 + 28*1 = 128` | T[31:2] | B[5:2]  | 30 + 4         |
 | Apple Icestorm     | `60*1 + 16*1 = 76`   | T[47:2] | B[5:2]  | 46 + 4         |
+| ARM Neoverse V3    | `264*2 = 528`        | T[11:2] | B[17:2] | 10             |
 | ARM Neoverse V2    | `264*2 = 528`        | T[11:2] | B[17:2] | 10             |
 | ARM Neoverse N2    | `64*3 = 192`         | T[7:2]  | B[14:2] | 3              |
 | ARM Neoverse V1    | `64*3 = 192`         | T[7:2]  | B[14:2] | 3              |
