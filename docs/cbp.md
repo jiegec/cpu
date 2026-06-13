@@ -75,8 +75,9 @@ Overview:
     - footprint[5] = B[7] xor B[13] xor T[2]
     - footprint[6] = B[8] xor B[14] xor T[3]
     - footprint[7] = B[9] xor B[15] xor T[4]
-    - footprint[8] = B[10] xor B[16] xor T[5]
+    - footprint[8] = B[10] xor B[16]
     - footprint[9] = B[11] xor B[17] xor T[6]
+    - Remaining question: where is T[5]?
 - Source: [Jiajie Chen](https://github.com/jiegec)
 
 ## ARM Neoverse V2
