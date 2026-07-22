@@ -4,7 +4,7 @@ Microarchitecture diagrams of several CPUs.
 
 Major microarchitectures of CPU vendors:
 
-1. AMD: [Zen 1](./zen1.md) -> [Zen 2](./zen2.md) -> [Zen 3](./zen3.md) -> [Zen 4](./zen4.md) -> [Zen 5](./zen5.md)
+1. AMD: [Zen 1](./zen1.md) -> [Zen 2](./zen2.md) -> [Zen 3](./zen3.md) -> [Zen 4](./zen4.md) -> [Zen 5](./zen5.md) -> Zen 6
 2. ARM:
 	- Cortex-A72
 	- [Cortex-A73](./cortex_a73.md)
@@ -31,5 +31,6 @@ Major microarchitectures of CPU vendors:
 	- [Golden Cove](./golden_cove.md) + [Gracemont](./gracemont.md) (Alder Lake/Sapphire Rapids) -> Raptor Cove + [Gracemont](./gracemont.md) (Raptor Lake/Emerald Rapids)
 	- [Redwood Cove](./redwood_cove.md) + [Crestmont](./crestmont.md) (Meteor Lake/Granite Rapids/Sierra Forest)
 	- [Lion Cove](./lion_cove.md) + [Skymont](./skymont.md) (Lunar Lake/Arrow Lake/Clearwater Forest) -> [Cougar Cove](./cougar_cove.md) + [Darkmont](./darkmont.md) (Panther Lake/Clearwater Forest)
+	- Coyote Cove + Artic Wolf (Nova Lake)
 5. Qualcomm: [Oryon](./oryon.md)
 6. NVIDIA: [Olympus](./nvidia_olympus.md)
