@@ -4,7 +4,7 @@ Microarchitecture diagrams of several CPUs.
 
 Major microarchitectures of CPU vendors:
 
-1. AMD: [Zen 1](https://jia.je/cpu/zen1.html) -> [Zen 2](https://jia.je/cpu/zen2.html) -> [Zen 3](https://jia.je/cpu/zen3.html) -> [Zen 4](https://jia.je/cpu/zen4.html) -> [Zen 5](https://jia.je/cpu/zen5.html)
+1. AMD: [Zen 1](https://jia.je/cpu/zen1.html) -> [Zen 2](https://jia.je/cpu/zen2.html) -> [Zen 3](https://jia.je/cpu/zen3.html) -> [Zen 4](https://jia.je/cpu/zen4.html) -> [Zen 5](https://jia.je/cpu/zen5.html) -> Zen 6
 1. ARM:
    - Cortex-A72
    - [Cortex-A73](https://jia.je/cpu/cortex_a73.html)
@@ -31,5 +31,6 @@ Major microarchitectures of CPU vendors:
    - [Golden Cove](https://jia.je/cpu/golden_cove.html) + [Gracemont](https://jia.je/cpu/gracemont.html) (Alder Lake/Sapphire Rapids) -> Raptor Cove + [Gracemont](https://jia.je/cpu/gracemont.html) (Raptor Lake/Emerald Rapids)
    - [Redwood Cove](https://jia.je/cpu/redwood_cove.html) + [Crestmont](https://jia.je/cpu/crestmont.html) (Meteor Lake/Granite Rapids/Sierra Forest)
    - [Lion Cove](https://jia.je/cpu/lion_cove.html) + [Skymont](https://jia.je/cpu/skymont.html) (Lunar Lake/Arrow Lake/Clearwater Forest) -> [Cougar Cove](https://jia.je/cpu/cougar_cove.html) + [Darkmont](https://jia.je/cpu/darkmont.html) (Panther Lake/Clearwater Forest)
+   - Coyote Cove + Artic Wolf (Nova Lake)
 1. Qualcomm: [Oryon](https://jia.je/cpu/oryon.html)
 1. NVIDIA: [Olympus](https://jia.je/cpu/nvidia_olympus.html)
