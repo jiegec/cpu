@@ -32,3 +32,4 @@ Major microarchitectures of CPU vendors:
 	- [Redwood Cove](./redwood_cove.md) + [Crestmont](./crestmont.md) (Meteor Lake/Granite Rapids/Sierra Forest)
 	- [Lion Cove](./lion_cove.md) + [Skymont](./skymont.md) (Lunar Lake/Arrow Lake/Clearwater Forest) -> [Cougar Cove](./cougar_cove.md) + [Darkmont](./darkmont.md) (Panther Lake/Clearwater Forest)
 5. Qualcomm: [Oryon](./oryon.md)
+6. NVIDIA: [Olympus](./nvidia_olympus.md)
