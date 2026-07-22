@@ -32,3 +32,4 @@ Major microarchitectures of CPU vendors:
    - [Redwood Cove](https://jia.je/cpu/redwood_cove.html) + [Crestmont](https://jia.je/cpu/crestmont.html) (Meteor Lake/Granite Rapids/Sierra Forest)
    - [Lion Cove](https://jia.je/cpu/lion_cove.html) + [Skymont](https://jia.je/cpu/skymont.html) (Lunar Lake/Arrow Lake/Clearwater Forest) -> [Cougar Cove](https://jia.je/cpu/cougar_cove.html) + [Darkmont](https://jia.je/cpu/darkmont.html) (Panther Lake/Clearwater Forest)
 1. Qualcomm: [Oryon](https://jia.je/cpu/oryon.html)
+1. NVIDIA: [Olympus](https://jia.je/cpu/nvidia_olympus.html)

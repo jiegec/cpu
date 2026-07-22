@@ -1,0 +1,185 @@
+cpu : NVIDIA Olympus CPU {
+  frontend: Frontend {
+    bp: Branch Predictor {
+      # Source: NVIDIA
+      Neural branch predictor
+      Two taken branches per cycle
+    }
+
+    l1ic: L1 IC {
+      # Source: NVIDIA
+      l1itlb: 64-entry fully associative L1 ITLB
+
+      # Source: NVIDIA
+      l1ic: 64KB 4-way L1 IC
+    }
+
+    # Source: NVIDIA
+    bp -> l1ic
+    l1ic -> if: 128 B/cycle
+    if: Instruction Fetch
+
+    # Source: NVIDIA
+    iq: 48-entry Decode Queue
+    if -> iq: 16 inst/cycle
+
+    # Source: NVIDIA
+    decode: 10-way Decode
+    iq -> decode
+
+    # Source: NVIDIA
+    rename: 10-way Rename {
+      Move Elimination
+      Memory Renaming
+      Value Prediction
+    }
+    decode -> rename: 10 MOP/cycle
+  }
+
+  backend: Backend {
+    # Source: NVIDIA
+    rob: ROB
+
+    rf: Register File {
+      # Source: NVIDIA
+      irf: Integer Register File
+
+      # Source: NVIDIA
+      vrf: Vector Register File
+    }
+
+    # Source: NVIDIA
+    sched1: Unified Scheduler
+
+    # Source: NVIDIA
+    pipe1: Pipe \#1 {
+      2x ALU
+      BR
+    }
+    rob -> sched1 -> rf -> pipe1
+    rob -> sched1 -> rf -> pipe1
+
+    # Source: NVIDIA
+    pipe2: Pipe \#2 {
+      2x ALU
+      BR
+    }
+    rob -> sched1 -> rf -> pipe2
+    rob -> sched1 -> rf -> pipe2
+
+    # Source: NVIDIA
+    pipe3: Pipe \#3 {
+      2x ALU
+      BR
+    }
+    rob -> sched1 -> rf -> pipe3
+    rob -> sched1 -> rf -> pipe3
+
+    # Source: NVIDIA
+    pipe4: Pipe \#4 {
+      2x ALU
+      2x MUL
+      2x SHIFT
+      2x IDEV
+      2x CRC
+      BR
+      Complex shift
+    }
+    rob -> sched1 -> rf -> pipe4
+    rob -> sched1 -> rf -> pipe4
+
+    # Source: NVIDIA
+    pipe5: Pipe \#5 {
+      2x 128b VEC
+    }
+    rob -> sched1 -> rf -> pipe5
+    rob -> sched1 -> rf -> pipe5
+
+    # Source: NVIDIA
+    pipe6: Pipe \#6 {
+      2x 128b VEC
+    }
+    rob -> sched1 -> rf -> pipe6
+    rob -> sched1 -> rf -> pipe6
+
+    # Source: NVIDIA
+    pipe7: Pipe \#7 {
+      2x 128b VEC
+    }
+    rob -> sched1 -> rf -> pipe7
+    rob -> sched1 -> rf -> pipe7
+
+    # Source: NVIDIA
+    pipe8: Pipe \#8 {
+      ST
+      LD/ST
+    }
+    rob -> sched1 -> rf -> pipe8
+
+    # Source: NVIDIA
+    pipe9: Pipe \#9 {
+      ST
+      LD/ST
+    }
+    rob -> sched1 -> rf -> pipe9
+
+    # Source: NVIDIA
+    pipe10: Pipe \#10 {
+      LD
+    }
+    rob -> sched1 -> rf -> pipe10
+
+    # Source: NVIDIA
+    pipe11: Pipe \#11 {
+      LD
+    }
+    rob -> sched1 -> rf -> pipe11
+    
+    lsu: LSU {
+      Load Queue
+      Store Queue
+    }
+
+    pipe8 -> lsu
+    pipe9 -> lsu
+    pipe10 -> lsu
+    pipe11 -> lsu
+  }
+  frontend.rename -> backend.rob
+
+  mem: Memory {
+    l1: L1 DC {
+      # Source: NVIDIA
+      l1dtlb: 112-entry fully-associative L1 DTLB
+
+      # Source: NVIDIA
+      l1dc: 96KB 6-way L1 DC
+
+      # Source: NVIDIA
+      l2tlb: 3k-entry Unified STLB
+
+      # Source: NVIDIA
+      Stream, indirect, correlated-miss, spatial, graph prefetcher
+    }
+
+    l2: L2 {
+      # Source: NVIDIA
+      2MB 8-way L2 Cache
+    }
+
+    l1 -> l2
+
+    l3: L3 {
+      164MB L3 Cache
+    }
+    l2 -> l3
+  }
+  frontend.l1ic -> mem.l2
+  backend.lsu -> mem.l1
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from Nvidia
+  |
+}
