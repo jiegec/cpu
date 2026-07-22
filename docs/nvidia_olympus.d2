@@ -156,9 +156,6 @@ cpu : NVIDIA Olympus CPU {
       l1dc: 96KB 6-way L1 DC
 
       # Source: NVIDIA
-      l2tlb: 3k-entry Unified STLB
-
-      # Source: NVIDIA
       Stream, indirect, correlated-miss, spatial, graph prefetcher
     }
 
@@ -166,6 +163,9 @@ cpu : NVIDIA Olympus CPU {
       # Source: NVIDIA
       2MB 8-way L2 Cache
     }
+    
+    # Source: NVIDIA
+    l2tlb: 3k-entry Unified STLB
 
     l1 -> l2
 
