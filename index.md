@@ -17,6 +17,7 @@ Major microarchitectures of CPU vendors:
    - Cortex-A520/Cortex-A720/[Cortex-X4](https://jia.je/cpu/cortex_x4.html)/Neoverse-V3(based on Cortex-X4)/Neoverse-N3(based on Cortex-A720)
    - Cortex-A725/[Cortex-X925](https://jia.je/cpu/cortex_x925.html)
    - C1-Nano/C1-Pro/C1-Premium/C1-Ultra
+   - C2-Ultra
 1. Apple:
    - M1/A14 ([Firestorm](https://jia.je/cpu/firestorm.html) + Icestorm)
    - M2/A15 ([Avalanche](https://jia.je/cpu/avalanche.html) + Blizzard)
