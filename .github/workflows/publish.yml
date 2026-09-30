@@ -20,4 +20,10 @@ jobs:
       - run: curl -fsSL https://d2lang.com/install.sh | sh -s --
       - run: poetry install
       - run: cd docs && make
-      - run: poetry run mkdocs gh-deploy --force
+      - run: poetry run zensical build
+      - run: touch site/.nojekyll
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          force_orphan: true
