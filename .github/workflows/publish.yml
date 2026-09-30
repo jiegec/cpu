@@ -4,10 +4,18 @@ on:
     branches:
       - master
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -21,9 +29,9 @@ jobs:
       - run: poetry install
       - run: cd docs && make
       - run: poetry run zensical build
-      - run: touch site/.nojekyll
-      - uses: peaceiris/actions-gh-pages@v4
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site
-          force_orphan: true
+          path: ./site
+      - id: deployment
+        uses: actions/deploy-pages@v4
