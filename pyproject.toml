@@ -10,6 +10,7 @@ package-mode = false
 python = "^3.12"
 pandas = "^3.0.0"
 zensical = "^0.0.67"
+tabulate = "^0.10.0"
 
 
 [build-system]
