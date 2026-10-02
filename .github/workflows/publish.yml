@@ -24,11 +24,11 @@ jobs:
         with:
           key: ${{ github.ref }}
           path: .cache
-      - uses: Gr1N/setup-poetry@v9
+      - uses: astral-sh/setup-uv@v6
       - run: curl -fsSL https://d2lang.com/install.sh | sh -s --
-      - run: poetry install
+      - run: uv sync --frozen
       - run: cd docs && make
-      - run: poetry run zensical build
+      - run: uv run zensical build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

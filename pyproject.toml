@@ -1,18 +1,12 @@
-[tool.poetry]
+[project]
 name = "cpu"
 version = "0.1.0"
 description = ""
-authors = ["Jiajie Chen <c@jia.je>"]
+authors = [{ name = "Jiajie Chen", email = "c@jia.je" }]
 readme = "README.md"
-package-mode = false
-
-[tool.poetry.dependencies]
-python = "^3.12"
-pandas = "^3.0.0"
-zensical = "^0.0.67"
-tabulate = "^0.10.0"
-
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires-python = ">=3.12,<4.0"
+dependencies = [
+    "pandas>=3.0.0,<4.0.0",
+    "zensical>=0.0.67,<0.0.68",
+    "tabulate>=0.10.0,<0.11.0",
+]
