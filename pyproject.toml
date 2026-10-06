@@ -7,6 +7,6 @@ readme = "README.md"
 requires-python = ">=3.12,<4.0"
 dependencies = [
     "pandas>=3.0.0,<4.0.0",
-    "zensical>=0.0.67,<0.0.68",
+    "zensical>=0.0.67",
     "tabulate>=0.10.0,<0.11.0",
 ]
