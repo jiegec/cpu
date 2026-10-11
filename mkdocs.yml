@@ -50,6 +50,7 @@ nav:
   - Dieshot: dieshot.md
 theme:
   custom_dir: overrides
+  font: false
   name: material
   icon:
     repo: fontawesome/brands/github
