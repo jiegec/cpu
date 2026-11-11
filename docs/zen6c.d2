@@ -10,7 +10,7 @@ cpu: AMD Zen6c CPU {
       l2btb: 8K-entry L2 BTB
 
       # Source: AMD
-      indir: 3072-entry Indirect Target Array
+      indir: Indirect Target Array
 
       # Source: AMD
       ras: 64-entry Return Address Stack
@@ -45,14 +45,14 @@ cpu: AMD Zen6c CPU {
 
     # Source: AMD
     # A single thread can use both decode clusters on Zen 6/6c.
-    iq1: 20x 16B Instruction Byte Queue \#1
+    iq1: Instruction Byte Queue \#1
     l1ic -> iq1: 32 B/cycle
 
     # Source: AMD
     decode1: 4-way Decode
     iq1 -> decode1: 2 IBQ entry
 
-    iq2: 20x 16B Instruction Byte Queue \#2
+    iq2: Instruction Byte Queue \#2
     l1ic -> iq2: 32 B/cycle
 
     # Source: AMD
@@ -87,14 +87,15 @@ cpu: AMD Zen6c CPU {
 
     # Source: AMD
     # Zen 6c keeps a 640-entry reorder buffer, larger than Zen 6's 576.
-    rob: 640-entry ROB
+    rob: 640-entry ROB, 8-wide retire
     rename.irename -> rob
 
     # Source: AMD
     bob: Taken Branch Buffer
     rename.irename -> bob
 
-    rf: Register File {
+    # Integer and vector register files are drawn as one block for readability.
+    rf: Register Files {
       # Source: AMD
       irf: 352-entry 64b Integer Register File
 
@@ -188,19 +189,18 @@ cpu: AMD Zen6c CPU {
 
     # Source: AMD
     # 80-entry load queue and 128-entry store queue are architectural queue
-    # sizes. Chips and Cheese measured 330 in-flight loads on Zen 6c, versus
-    # 280 on Zen 6; the larger PRF/ROB allows more loads to remain in flight.
+    # sizes. Chips and Cheese's diagrams count 330 in-flight loads on Zen 6c,
+    # versus 288 on Zen 6; this is larger than the 80-entry architectural
+    # load queue and reflects the larger PRF/ROB window.
     lsu: LSU {
       80-entry Load Queue
       128-entry Store Queue
       Scalable Load Ordering Queue
-      4x Load Pipe
-      2x Store Pipe
-      4x 256-bit loads/cycle (2x 512-bit)
-      2x 256-bit stores/cycle (1x 512-bit)
-      64B fill/victim
+      4x Load/Store Pipes (up to 4 loads or 2 stores/cycle)
+      4x 256-bit or 2x 512-bit loads/cycle
+      2x 256-bit or 1x 512-bit stores/cycle
+      64B fill/victim to/from L2
       4-cycle integer load-to-use
-      7-cycle fp load-to-use
     }
 
     pipe7 -> lsu
@@ -231,24 +231,28 @@ cpu: AMD Zen6c CPU {
     # Source: AMD
     pipe13: Pipe \#13 {
       512b FMA
+      VNNI INT8
     }
     rf -> pipe13
 
     # Source: AMD
     pipe14: Pipe \#14 {
       512b FADD
+      VNNI INT8
     }
     rf -> pipe14
 
     # Source: AMD
     pipe15: Pipe \#15 {
       512b FMA
+      VNNI INT8
     }
     rf -> pipe15
 
     # Source: AMD
     pipe16: Pipe \#16 {
       512b FADD
+      VNNI INT8
     }
     rf -> pipe16
 
@@ -293,8 +297,9 @@ cpu: AMD Zen6c CPU {
     }
 
     # Source: AMD, Chips and Cheese
-    l1 -> l2: 64B/cycle
+    l1 -> l2: 64B/cycle each direction
 
+    # Source: Chips and Cheese
     l3: L3 {
       # Source: AMD
       # Zen 6c doubles the CCX core count and quadruples its L3.
@@ -310,10 +315,12 @@ cpu: AMD Zen6c CPU {
       66-cycle L3 latency
       1280-entry L3 Miss Address Buffer
     }
-    l2 -> l3
+    # Source: Chips and Cheese
+    l2 -> l3: 32B/cycle
   }
 
-  frontend.l1ic -> mem.l2
+  # Source: Chips and Cheese
+  frontend.l1ic -> mem.l2: 64B/cycle
   backend.lsu -> mem.l1
 
   info: |md
