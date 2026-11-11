@@ -32,6 +32,8 @@ nav:
       - AMD Zen3: zen3.md
       - AMD Zen4: zen4.md
       - AMD Zen5: zen5.md
+      - AMD Zen6: zen6.md
+      - AMD Zen6c: zen6c.md
       - Intel Skylake: skylake.md
       - Intel Ice Lake (Sunny Cove): sunny_cove.md
       - Intel Alder Lake P-core (Golden Cove): golden_cove.md

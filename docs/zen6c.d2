@@ -1,0 +1,324 @@
+cpu: AMD Zen6c CPU {
+  frontend: Frontend {
+    bp: Branch Predictor {
+      # Source: AMD, Chips and Cheese
+      # Same branch prediction family as Zen 6, with lower BTB access latency
+      # than Zen 5. Capacity is not increased.
+      l1btb: 16K-entry L1 BTB
+
+      # Source: AMD, Chips and Cheese
+      l2btb: 8K-entry L2 BTB
+
+      # Source: AMD
+      indir: 3072-entry Indirect Target Array
+
+      # Source: AMD
+      ras: 64-entry Return Address Stack
+
+      # Source: AMD
+      2 taken predictions per cycle
+
+      # Source: AMD
+      2-ahead
+
+      # Source: AMD
+      TAGE
+
+      # Source: AMD
+      up to 3 prediction windows per cycle
+    }
+
+    l1ic: L1 IC {
+      # Source: AMD
+      l1itlb: 64-entry L1 ITLB
+
+      # Source: AMD
+      l2itlb: 2048-entry L2 ITLB
+
+      # Source: AMD
+      l1ic: 32KB 8-way L1 IC, 2x 32B fetch/cycle
+    }
+
+    fq: Fetch Queue
+    bp -> fq
+    fq -> l1ic
+
+    # Source: AMD
+    # A single thread can use both decode clusters on Zen 6/6c.
+    iq1: 20x 16B Instruction Byte Queue \#1
+    l1ic -> iq1: 32 B/cycle
+
+    # Source: AMD
+    decode1: 4-way Decode
+    iq1 -> decode1: 2 IBQ entry
+
+    iq2: 20x 16B Instruction Byte Queue \#2
+    l1ic -> iq2: 32 B/cycle
+
+    # Source: AMD
+    decode2: 4-way Decode
+    iq2 -> decode2: 2 IBQ entry
+
+    # Source: AMD
+    uopc: 6.75K Ops, 9-wide x2 Op Cache
+    decode1 -> uopc
+    decode2 -> uopc
+    bp -> uopc
+
+    # Source: AMD
+    uop: UOP Queue
+    uopc -> uop: 2x9 uops
+    decode1 -> uop: 4 uops
+    decode2 -> uop: 4 uops
+
+    # Source: AMD
+    dispatch: 8-way Dispatch
+    uop -> dispatch
+  }
+
+  backend: Backend {
+    rename: {
+      # Source: AMD
+      irename: 8-way Integer Rename
+
+      # Source: AMD
+      vrename: 6-way Vector Rename
+    }
+
+    # Source: AMD
+    # Zen 6c keeps a 640-entry reorder buffer, larger than Zen 6's 576.
+    rob: 640-entry ROB
+    rename.irename -> rob
+
+    # Source: AMD
+    bob: Taken Branch Buffer
+    rename.irename -> bob
+
+    rf: Register File {
+      # Source: AMD
+      irf: 352-entry 64b Integer Register File
+
+      # Source: AMD
+      flagsrf: Flags Register File
+
+      # Source: AMD
+      vrf: 384-entry 512b Vector Register File
+    }
+
+    # Source: AMD
+    # 96 shared ALU/AGU entries + 48 dedicated ALU entries.
+    isched: "6x24-entry Integer Schedulers (96 shared ALU/AGU + 48 dedicated ALU)"
+    isched -> rf
+
+    # Source: AMD
+    pipe1: Pipe \#1 {
+      ALU
+    }
+    rf -> pipe1
+
+    # Source: AMD
+    pipe2: Pipe \#2 {
+      ALU
+      MUL
+    }
+    rf -> pipe2
+
+    # Source: AMD
+    pipe3: Pipe \#3 {
+      ALU
+      MUL
+    }
+    rf -> pipe3
+
+    # Source: AMD
+    pipe4: Pipe \#4 {
+      ALU
+      BR
+    }
+    rf -> pipe4
+
+    # Source: AMD
+    pipe5: Pipe \#5 {
+      ALU
+      DIV
+    }
+    rf -> pipe5
+
+    # Source: AMD
+    pipe6: Pipe \#6 {
+      ALU
+    }
+    rf -> pipe6
+
+    # Source: AMD
+    pipe7: Pipe \#7 {
+      AGU
+    }
+    rf -> pipe7
+
+    # Source: AMD
+    pipe8: Pipe \#8 {
+      AGU
+    }
+    rf -> pipe8
+
+    # Source: AMD
+    pipe9: Pipe \#9 {
+      AGU
+    }
+    rf -> pipe9
+
+    # Source: AMD
+    pipe10: Pipe \#10 {
+      AGU
+    }
+    rf -> pipe10
+
+    # Source: AMD
+    pipe11: Pipe \#11 {
+      BR
+    }
+    rf -> pipe11
+
+    # Source: AMD
+    pipe12: Pipe \#12 {
+      BR
+    }
+    rf -> pipe12
+
+    # Source: AMD
+    # 80-entry load queue and 128-entry store queue are architectural queue
+    # sizes. Chips and Cheese measured 330 in-flight loads on Zen 6c, versus
+    # 280 on Zen 6; the larger PRF/ROB allows more loads to remain in flight.
+    lsu: LSU {
+      80-entry Load Queue
+      128-entry Store Queue
+      Scalable Load Ordering Queue
+      4x Load Pipe
+      2x Store Pipe
+      4x 256-bit loads/cycle (2x 512-bit)
+      2x 256-bit stores/cycle (1x 512-bit)
+      64B fill/victim
+      4-cycle integer load-to-use
+      7-cycle fp load-to-use
+    }
+
+    pipe7 -> lsu
+    pipe8 -> lsu
+    pipe9 -> lsu
+    pipe10 -> lsu
+
+    rob -> isched
+
+    # Source: AMD
+    nsq: 96-entry Non/Pre-Scheduling Queue
+    nsq -> rename.vrename: 6 MOP/cycle
+    rename.vrename -> rob
+
+    # Source: AMD
+    # Zen 6c uses 3x60 FP schedulers, up from Zen 6's 3x46.
+    fsched1: 60-entry FP Scheduler \#1
+    fsched2: 60-entry FP Scheduler \#2
+    fsched3: 60-entry FP Scheduler \#3
+
+    rob -> fsched1
+    rob -> fsched2
+    rob -> fsched3
+    fsched1 -> rf
+    fsched2 -> rf
+    fsched3 -> rf
+
+    # Source: AMD
+    pipe13: Pipe \#13 {
+      512b FMA
+    }
+    rf -> pipe13
+
+    # Source: AMD
+    pipe14: Pipe \#14 {
+      512b FADD
+    }
+    rf -> pipe14
+
+    # Source: AMD
+    pipe15: Pipe \#15 {
+      512b FMA
+    }
+    rf -> pipe15
+
+    # Source: AMD
+    pipe16: Pipe \#16 {
+      512b FADD
+    }
+    rf -> pipe16
+
+    # Source: AMD
+    pipe17: Pipe \#17 {
+      Store Data
+      Integer Data
+    }
+    rf -> pipe17 -> lsu
+
+    # Source: AMD
+    pipe18: Pipe \#18 {
+      Store Data
+      Integer Data
+    }
+    rf -> pipe18 -> lsu
+  }
+
+  frontend.dispatch -> backend.nsq: 8 MOP/cycle
+  frontend.dispatch -> backend.rename.irename: 8 MOP/cycle
+
+  mem: Memory {
+    l1: L1 DC {
+      # Source: AMD
+      l1dtlb: 96-entry Fully Associative L1 DTLB
+
+      # Source: AMD
+      l2dtlb: 4096-entry L2 DTLB
+
+      # Source: AMD
+      l1dc: 48KB 12-way L1 DC {
+        4 read, 2 write
+        64B fill, 64B victim
+        4-cycle load-to-use
+      }
+    }
+
+    l2: L2 {
+      # Source: AMD
+      l2dc: 1MB 16-way Private L2 Cache
+      127-entry L2 Miss Address Buffer
+    }
+
+    # Source: AMD, Chips and Cheese
+    l1 -> l2: 64B/cycle
+
+    l3: L3 {
+      # Source: AMD
+      # Zen 6c doubles the CCX core count and quadruples its L3.
+      l3dc: 128MB 16-way Shared L3 (32-core CCX)
+
+      # Source: AMD
+      4MB L3 per core
+
+      # Source: AMD
+      Mostly exclusive, L2 tags duplicated in L3
+
+      # Source: Chips and Cheese
+      66-cycle L3 latency
+      1280-entry L3 Miss Address Buffer
+    }
+    l2 -> l3
+  }
+
+  frontend.l1ic -> mem.l2
+  backend.lsu -> mem.l1
+
+  info: |md
+    Drawn by Jiajie Chen @jiegec
+
+    Based on data from Chips and Cheese, and AMD
+  |
+}
