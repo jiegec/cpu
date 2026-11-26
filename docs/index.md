@@ -33,5 +33,5 @@ Major microarchitectures of CPU vendors:
 	- [Redwood Cove](./redwood_cove.md) + [Crestmont](./crestmont.md) (Meteor Lake/Granite Rapids/Sierra Forest)
 	- [Lion Cove](./lion_cove.md) + [Skymont](./skymont.md) (Lunar Lake/Arrow Lake/Clearwater Forest) -> [Cougar Cove](./cougar_cove.md) + [Darkmont](./darkmont.md) (Panther Lake/Clearwater Forest/Wildcat Lake)
 	- Coyote Cove + Artic Wolf (Nova Lake) -> Panther Cove (Diamond Rapids)
-5. Qualcomm: [Oryon](./oryon.md)
+5. Qualcomm: [Oryon (1st Gen in X Elite)](./oryon.md) -> Oryon (2nd Gen in 8 Elite) -> Oryon (3rd Gen in X2 Elite)
 6. NVIDIA: [Olympus](./nvidia_olympus.md)

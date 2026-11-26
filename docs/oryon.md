@@ -1,13 +1,6 @@
-# Qualcomm Oryon
+# Qualcomm Oryon (1st Gen in X Elite)
 
 ![](./oryon.svg)
-
-Oryon-M in Qualcomm 8 Elite:
-
-1. 4-wide decode instead of 8
-2. 4 integer pipelines instead of 6
-3. 2 load store pipelines instead of 4
-4. 2 fp/simd pipelines instead of 4
 
 References:
 
