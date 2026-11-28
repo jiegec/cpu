@@ -35,6 +35,7 @@ Overview:
 | Intel Skylake      | `93*2 = 186`         | T[5:0]  | B[18:3] | 16             |
 | Intel Haswell      | `93*2 = 186`         | T[5:0]  | B[19:4] | 16             |
 | Intel Ivy Bridge   | `93*2 = 186`         | T[5:0]  | B[19:4] | 16             |
+| Loongson LA664     | `96*2 = 192`         | T[2:9]  | B[2:9]  | 4              |
 
 ## Qualcomm Oryon
 
@@ -211,3 +212,14 @@ Overview:
     - each table has `4*2^9=2048` entries
 - Source: Half&Half: Demystifying Intel’s Directional Branch Predictors for Fast, Secure Partitioned Execution ([Jiajie Chen](https://github.com/jiegec) leads to a different conclusion regarding the PHT tables from the paper)
 - Reproduced by [Jiajie Chen](https://github.com/jiegec)
+
+## Loongson LA664
+
+- PHR: `96*2=192` bits
+- PHR is updated upon taken branch: `PHRnew = (PHRold << 2) xor footprint`
+- footprint has 4 bits:
+    - footprint[0]: T[3] xor T[7] xor B[2] xor B[6]
+    - footprint[1]: T[4] xor T[8] xor B[3] xor B[7]
+    - footprint[2]: T[5] xor T[9] xor B[4] xor B[8]
+    - footprint[3]: T[2] xor T[6] xor T[5] xor T[9]
+- Source: [Blog post](https://jia.je/hardware/2026/11/25/loongson-la664/) by [Jiajie Chen](https://github.com/jiegec)
