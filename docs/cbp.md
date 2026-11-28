@@ -221,5 +221,5 @@ Overview:
     - footprint[0]: T[3] xor T[7] xor B[2] xor B[6]
     - footprint[1]: T[4] xor T[8] xor B[3] xor B[7]
     - footprint[2]: T[5] xor T[9] xor B[4] xor B[8]
-    - footprint[3]: T[2] xor T[6] xor T[5] xor T[9]
+    - footprint[3]: T[2] xor T[6] xor B[5] xor B[9]
 - Source: [Blog post](https://jia.je/hardware/2026/11/25/loongson-la664/) by [Jiajie Chen](https://github.com/jiegec)
